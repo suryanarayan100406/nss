@@ -369,7 +369,7 @@
       var t = e.target.closest ? e.target.closest('[data-cursor]') : null;
       if (t) { label.textContent = t.getAttribute('data-cursor'); ring.classList.add('label'); ring.classList.remove('hover'); return; }
       ring.classList.remove('label');
-      ring.classList.toggle('hover', !!(e.target.closest && e.target.closest('a, button, .event-card, .team-card, .quote-card')));
+      ring.classList.toggle('hover', !!(e.target.closest && e.target.closest('a, button, .event-card, .team-featured-card, .team-member-card, .team-leader-card, .quote-card')));
     });
     document.addEventListener('mouseleave', function () { ring.classList.remove('label', 'hover'); });
 
@@ -637,32 +637,52 @@
      TEAM
   --------------------------------------------------------------------- */
   function initTeam(mm) {
-    var cards = $$('.team-card');
-    gsap.set(cards, { y: 80, opacity: 0, rotate: 2.5 });
-    ScrollTrigger.batch(cards, {
-      start: 'top 92%', once: true,
-      onEnter: function (b) { gsap.to(b, { y: 0, opacity: 1, rotate: 0, duration: 1.2, ease: 'power4.out', stagger: 0.09 }); }
-    });
+    /* --- Main page: featured team marquee --- */
+    var marqueeTrack = $('#teamMarqueeTrack');
+    if (marqueeTrack) {
+      // Duplicate the cards for seamless infinite scroll
+      var original = marqueeTrack.innerHTML;
+      marqueeTrack.innerHTML = original + original;
 
-    mm.add('(min-width: 981px)', function () {
-      var speeds = [34, -8, 52, 12];
-      $$('.team-item').forEach(function (it, i) {
-        var s = speeds[i % 4];
-        gsap.fromTo(it, { y: s }, { y: -s, ease: 'none',
-          scrollTrigger: { trigger: '#teamGrid', start: 'top bottom', end: 'bottom top', scrub: true } });
+      // Reveal animation
+      var featuredCards = $$('.team-featured-card');
+      gsap.set(featuredCards, { y: 60, opacity: 0 });
+      ScrollTrigger.batch(featuredCards, {
+        start: 'top 92%', once: true,
+        onEnter: function (b) { gsap.to(b, { y: 0, opacity: 1, duration: 1, ease: 'power4.out', stagger: 0.12 }); }
       });
-    });
+    }
 
-    if (fine) {
-      cards.forEach(function (card) {
-        card.addEventListener('mousemove', function (e) {
-          var r = card.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-          gsap.to(card, { rotationX: -y * 9, rotationY: x * 9, transformPerspective: 700, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+    /* --- Team page: member cards batch reveal --- */
+    var memberCards = $$('.team-member-card');
+    if (memberCards.length) {
+      gsap.set(memberCards, { y: 80, opacity: 0, rotate: 2.5 });
+      ScrollTrigger.batch(memberCards, {
+        start: 'top 92%', once: true,
+        onEnter: function (b) { gsap.to(b, { y: 0, opacity: 1, rotate: 0, duration: 1.2, ease: 'power4.out', stagger: 0.09 }); }
+      });
+
+      if (fine) {
+        memberCards.forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var r = card.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+            gsap.to(card, { rotationX: -y * 9, rotationY: x * 9, transformPerspective: 700, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+          });
+          card.addEventListener('mouseleave', function () {
+            gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.9, ease: 'elastic.out(1,0.6)', overwrite: 'auto' });
+          });
         });
-        card.addEventListener('mouseleave', function () {
-          gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.9, ease: 'elastic.out(1,0.6)', overwrite: 'auto' });
-        });
+      }
+    }
+
+    /* --- Team page: leader cards reveal --- */
+    var leaderCards = $$('.team-leader-card');
+    if (leaderCards.length) {
+      gsap.set(leaderCards, { y: 60, opacity: 0 });
+      ScrollTrigger.batch(leaderCards, {
+        start: 'top 92%', once: true,
+        onEnter: function (b) { gsap.to(b, { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out', stagger: 0.15 }); }
       });
     }
   }
@@ -842,7 +862,7 @@
     doc.classList.add('no-gsap');
     doc.classList.remove('is-loading');
     var pre = $('#preloader'); if (pre) pre.style.display = 'none';
-    $$('.line > span, .hero-sub, .hero-actions, .team-card, .impact-item, .step, .event-card, .quote-rail, [data-fade], #heroMedia, #heroWheel, #siteNav, #aboutDuo, #footerBig .ch')
+    $$('.line > span, .hero-sub, .hero-actions, .team-featured-card, .team-member-card, .team-leader-card, .impact-item, .step, .event-card, .quote-rail, [data-fade], #heroMedia, #heroWheel, #siteNav, #aboutDuo, #footerBig .ch')
       .forEach(function (el) { gsap.set(el, { clearProps: 'all' }); });
     $$('.hl[data-hl]').forEach(function (h) { h.classList.add('on'); });
     $$('[data-eyebrow]').forEach(function (e) { e.classList.add('in'); });

@@ -1,0 +1,14 @@
+Place team member photos here.
+
+Recommended naming:
+  head.jpg        — Head
+  vice-head.jpg   — Vice Head
+  designer.jpg    — Media & Design Head
+  secretary.jpg   — General Secretary
+  events-head.jpg — Events Head
+  outreach-head.jpg — Outreach Head
+  treasurer.jpg   — Treasurer
+  member-1.jpg through member-7.jpg — Core members
+
+Recommended size: 400×400 px or larger, square crop.
+Supported formats: .jpg, .png, .webp
