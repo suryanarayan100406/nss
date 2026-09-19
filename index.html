@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSS — IIIT Naya Raipur</title>
+<meta name="description" content="The National Service Scheme unit at IIIT Naya Raipur — plantation drives, blood donation, literacy and outreach, run by students.">
+<meta name="theme-color" content="#0F1712">
+<script>
+  /* Marks the page as JS-enabled and adds a failsafe so the loader can never get stuck. */
+  document.documentElement.className = 'js is-loading';
+  window.__plFailsafe = setTimeout(function () {
+    var p = document.getElementById('preloader');
+    if (p) p.style.display = 'none';
+    document.documentElement.classList.remove('is-loading');
+  }, 12000);
+</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#about">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<!-- ============ PRELOADER: NSS wheel drawn in SVG + HTML (no image) ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-flood"></div>
+  <div class="pl-stage">
+    <svg class="pl-wheel" viewBox="0 0 240 240" fill="none">
+      <g class="pl-letters"></g>   <!-- letters around the ring are generated in js/main.js -->
+      <g class="pl-ticks"></g>     <!-- 24 ticks (one per hour) are generated in js/main.js -->
+      <circle class="pl-rim"  cx="120" cy="120" r="76"/>
+      <circle class="pl-rim2" cx="120" cy="120" r="62"/>
+      <g class="pl-spokes"></g>    <!-- 8 spokes are generated in js/main.js -->
+      <circle class="pl-hubring" cx="120" cy="120" r="15"/>
+      <circle class="pl-hub" cx="120" cy="120" r="8"/>
+    </svg>
+    <div class="pl-lockup">
+      <span class="l1"><span>Dr. SPM IIIT Naya Raipur</span></span>
+      <span class="l2"><span>NATIONAL SERVICE SCHEME</span></span>
+    </div>
+  </div>
+  <div class="pl-meta"><span class="pl-count" id="plCount">0</span><span class="pl-pct">%</span></div>
+</div>
+
+<div id="grain"></div>
+<div id="spotlight"></div>
+<div id="cursorDot"></div>
+<div id="cursorRing"><span class="cl"></span></div>
+
+<!-- Sapling that grows as you scroll (built in js/main.js) -->
+<div class="grow" id="grow" aria-hidden="true"></div>
+
+<header class="site-nav" id="siteNav">
+  <a href="#top" class="brand" data-scroll>
+    <span class="emblem" id="emblem">
+      <!-- Fallback wheel shows if the emblem photo is missing -->
+      <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
+        <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
+        <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
+        <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
+          <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
+          <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
+          <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
+          <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
+        </g>
+      </svg>
+      <img class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+    </span>
+    <span class="name">NSS<small>IIIT Naya Raipur</small></span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  <nav class="links" id="navLinks">
+    <a href="#about" data-nav>About</a>
+    <a href="#events" data-nav>Events</a>
+    <a href="#team" data-nav>Team</a>
+    <a href="#impact" data-nav>Impact</a>
+    <a href="#testimonials" data-nav>Voices</a>
+    <a href="#join" class="nav-cta magnetic" data-nav>Join us</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="top">
+  <div class="hero-media duo" id="heroMedia">
+    <div class="hero-parallax" id="heroParallax">
+      <!-- Fallback landscape: visible only when the photo is missing -->
+      <svg class="hero-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0F1712"/><stop offset=".5" stop-color="#20342A"/><stop offset="1" stop-color="#8a5a2b"/>
+          </linearGradient>
+          <radialGradient id="sunG" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#E8A63C" stop-opacity=".95"/><stop offset=".55" stop-color="#E8A63C" stop-opacity=".25"/><stop offset="1" stop-color="#E8A63C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#skyG)"/>
+        <circle cx="1180" cy="560" r="260" fill="url(#sunG)"/>
+        <circle cx="1180" cy="560" r="86" fill="#E8A63C" opacity=".92"/>
+        <path d="M0 640 C 260 560 520 610 820 580 S 1340 540 1600 600 V900 H0Z" fill="#2A4A38"/>
+        <path d="M0 720 C 300 650 560 700 860 680 S 1360 640 1600 700 V900 H0Z" fill="#20342A"/>
+        <path d="M0 800 C 280 760 620 790 900 780 S 1380 760 1600 790 V900 H0Z" fill="#182620"/>
+      </svg>
+      <img id="heroImg" src="assets/images/_DSC0704.JPG" alt="NSS IIIT Naya Raipur volunteers at a tree plantation drive" onerror="this.remove()">
+    </div>
+  </div>
+  <div class="hero-scrim"></div>
+  <canvas id="fireflies" aria-hidden="true"></canvas>
+  <svg class="hero-wheel" id="heroWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <g id="heroWheelSpin">
+      <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="#E8A63C"/>
+      <g stroke="#F5F1E4" stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </g>
+  </svg>
+  <div class="hero-content" id="heroContent">
+    <div class="hero-inner">
+      <p class="motto" id="heroMotto">"Not Me, But You"</p>
+      <h1 class="hero-title" id="heroTitle">
+        <span class="line"><span><span class="hl" data-hl>Service, built into</span></span></span>
+        <span class="line"><span><span class="hl" data-hl>student life at IIIT NR.</span></span></span>
+      </h1>
+      <p class="hero-sub" id="heroSub">The National Service Scheme unit at IIIT Naya Raipur — where students plant, teach, donate and organise for the communities around campus, one drive at a time.</p>
+      <div class="hero-actions" id="heroActions">
+        <a href="#events" class="btn-primary magnetic" data-scroll>See recent drives</a>
+        <a href="#join" class="btn-ghost" data-scroll>Join the unit</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" id="heroScrollHint"><span class="line"></span> Scroll</div>
+  <div class="hero-dim" id="heroDim"></div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <!-- one group is enough: js/main.js clones it until it fills any screen width -->
+  <div class="marquee-track" id="marqueeTrack">
+    <span>
+      <b>Not Me But You</b>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Plant
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Teach
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Donate
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Serve
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+    </span>
+  </div>
+</div>
+
+<!-- ============================== ABOUT ============================== -->
+<section class="about" id="about" data-section>
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <p class="eyebrow" data-eyebrow>About the unit</p>
+      <h2 class="section-title">
+        <span class="line"><span>Rooted in the campus,</span></span>
+        <span class="line"><span>working beyond it.</span></span>
+      </h2>
+      <p class="lead fill-words" data-fill>NSS IIIT Naya Raipur is the student volunteer wing that turns the scheme's national motto into weekly, on-ground work — from plantation drives on campus to outreach in the villages around Naya Raipur.</p>
+      <p data-fade>Every volunteer signs up for the same reason: to spend a few hours a week on something bigger than a syllabus. Programme officers guide the unit, but events, outreach and design — this website included — are run by students.</p>
+    </div>
+    <div class="about-media">
+      <div class="frame-back"></div>
+      <div class="frame" id="tiltFrame">
+        <div class="duo" id="aboutDuo">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg></div>
+          <img src="assets/images/_DSC0704.JPG" alt="Volunteers planting a sapling together" onerror="this.remove()">
+        </div>
+      </div>
+      <div class="tag" id="aboutTag">Plantation Drive, Aug 2025</div>
+      <div class="float-chip" id="aboutChip">
+        <div class="float-in">
+          <svg class="chip-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg>
+          <div><strong>120+</strong><span class="cap">saplings planted</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== IMPACT ============================== -->
+<section class="impact dark" id="impact" data-section>
+  <div class="ambient-wheel spin-slow" style="left:-70px;top:-10px;width:280px;height:280px;">
+    <svg viewBox="0 0 120 120" fill="none" class="ambient-inner">
+      <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="#F5F1E4"/>
+      <g stroke="#F5F1E4" stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="impact-head">
+      <div>
+        <p class="eyebrow" data-eyebrow>Impact, so far</p>
+        <h2 class="section-title">
+          <span class="line"><span>Numbers we're</span></span>
+          <span class="line"><span>still adding to.</span></span>
+        </h2>
+      </div>
+      <p class="section-lead" data-fade>Placeholder figures below — swap in your unit's real totals before this goes live.</p>
+    </div>
+    <div class="impact-row">
+      <div class="impact-item">
+        <div class="impact-num"><span data-count="480">0</span><span class="suffix">+</span></div>
+        <p class="impact-label">Registered volunteers</p>
+        <div class="impact-bar"><span data-fill-bar="0.88"></span></div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num"><span data-count="120">0</span><span class="suffix">+</span></div>
+        <p class="impact-label">Saplings planted on and around campus</p>
+        <div class="impact-bar"><span data-fill-bar="0.65"></span></div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num"><span data-count="32">0</span></div>
+        <p class="impact-label">Drives and camps organised this year</p>
+        <div class="impact-bar"><span data-fill-bar="0.72"></span></div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num"><span data-count="2600">0</span><span class="suffix">+</span></div>
+        <p class="impact-label">Volunteering hours logged</p>
+        <div class="impact-bar"><span data-fill-bar="0.94"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EVENTS ============================== -->
+<!--
+  EDIT YOUR EVENTS HERE.
+  • Each <article class="event-card"> is one card in the horizontal scroll.
+  • Instagram cards: change data-ig="POST_CODE" (the bit after /p/ in the post link),
+    drop the photo in assets/events/ with the file name used below, and edit the text.
+  • Delete a card you don't need — the scroll distance recalculates itself.
+-->
+<section class="events" id="events" data-section>
+  <div class="events-pin" id="eventsPin">
+    <div class="events-head">
+      <div>
+        <p class="eyebrow" data-eyebrow>Recent events</p>
+        <h2 class="section-title" style="margin-bottom:0;">
+          <span class="line"><span>What the unit's</span></span>
+          <span class="line"><span>been up to.</span></span>
+        </h2>
+      </div>
+      <p class="rail-hint" id="railHint"><span id="railHintText">Keep scrolling</span><span class="arrow"></span></p>
+    </div>
+    <div class="events-rail" id="eventsRail">
+
+      <article class="event-card feature" style="--accent:var(--marigold)">
+        <div class="ec-inner">
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg></div>
+            <img src="assets/images/_DSC0704.JPG" alt="Plantation drive with the whole unit" loading="lazy" onerror="this.remove()">
+          </div>
+          <div class="body">
+            <p class="event-date">Plantation Drive · Aug 2025</p>
+            <h3>Welcome saplings for the incoming batch</h3>
+            <p>Freshers and seniors planted saplings beside the sports complex as part of orientation week — replace with this year's date and count.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Instagram event 1 -->
+      <article class="event-card ig" data-ig="DRIMupfDM8F" style="--accent:var(--rust)">
+        <div class="ec-inner">
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
+            <img src="assets/events/event-1.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
+            <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
+          </div>
+          <div class="body">
+            <p class="event-date">Add date · Instagram post</p>
+            <h3>Add this event's title</h3>
+            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <div class="ev-actions">
+              <button type="button" class="ev-preview">Preview post</button>
+              <a href="https://www.instagram.com/p/DRIMupfDM8F/" target="_blank" rel="noopener">Open on Instagram</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Instagram event 2 -->
+      <article class="event-card ig" data-ig="DPOR_EHjGGK" style="--accent:var(--moss)">
+        <div class="ec-inner">
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
+            <img src="assets/events/event-2.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
+            <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
+          </div>
+          <div class="body">
+            <p class="event-date">Add date · Instagram post</p>
+            <h3>Add this event's title</h3>
+            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <div class="ev-actions">
+              <button type="button" class="ev-preview">Preview post</button>
+              <a href="https://www.instagram.com/p/DPOR_EHjGGK/" target="_blank" rel="noopener">Open on Instagram</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Instagram event 3 -->
+      <article class="event-card ig" data-ig="DOG0l8kk_TN" style="--accent:var(--marigold-dim)">
+        <div class="ec-inner">
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
+            <img src="assets/events/event-3.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
+            <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
+          </div>
+          <div class="body">
+            <p class="event-date">Add date · Instagram post</p>
+            <h3>Add this event's title</h3>
+            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <div class="ev-actions">
+              <button type="button" class="ev-preview">Preview post</button>
+              <a href="https://www.instagram.com/p/DOG0l8kk_TN/" target="_blank" rel="noopener">Open on Instagram</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="event-card" style="--accent:var(--rust)">
+        <div class="ec-inner">
+          <div class="media duo"><div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-3-7-6.5-7-10a7 7 0 0 1 14 0c0 3.5-3 7-7 10Z"/><path d="M12 12v3"/></svg></div></div>
+          <div class="body">
+            <p class="event-date">Blood Donation Camp · Sample</p>
+            <h3>Blood donation camp with the local blood bank</h3>
+            <p>Add details of your unit's donation drive — partner hospital, units collected, and donor count.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="event-card" style="--accent:var(--moss)">
+        <div class="ec-inner">
+          <div class="media duo"><div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div></div>
+          <div class="body">
+            <p class="event-date">Literacy Programme · Sample</p>
+            <h3>Weekend tutoring at the nearby government school</h3>
+            <p>Add the school's name, subjects covered, and how many children were reached.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="rail-meter" id="railMeter" aria-hidden="true">
+      <div class="rail-progress"><span id="railBar"></span></div>
+      <span class="rail-count" id="railCount">1 / 6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TEAM ============================== -->
+<section class="team" id="team" data-section>
+  <div class="wrap">
+    <p class="eyebrow" data-eyebrow>The unit</p>
+    <h2 class="section-title">
+      <span class="line"><span>Run by students,</span></span>
+      <span class="line"><span>for students.</span></span>
+    </h2>
+    <div class="team-grid" id="teamGrid">
+      <div class="team-item"><div class="team-card" style="--fold:var(--marigold)"><div class="avatar" style="background:var(--marigold)">PO</div><h4>Add name</h4><p class="role">Programme Officer</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--rust)"><div class="avatar" style="background:var(--rust);color:var(--bone)">PR</div><h4>Add name</h4><p class="role">Student President</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--moss)"><div class="avatar" style="background:var(--moss);color:var(--bone)">VP</div><h4>Add name</h4><p class="role">Vice President</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--marigold-dim)"><div class="avatar" style="background:var(--marigold-dim)">GS</div><h4>Add name</h4><p class="role">General Secretary</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--moss)"><div class="avatar" style="background:var(--moss);color:var(--bone)">EH</div><h4>Add name</h4><p class="role">Events Head</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--rust)"><div class="avatar" style="background:var(--rust);color:var(--bone)">MH</div><h4>Add name</h4><p class="role">Media &amp; Design Head</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--marigold)"><div class="avatar" style="background:var(--marigold)">OH</div><h4>Add name</h4><p class="role">Outreach Head</p><div class="role-line"></div></div></div>
+      <div class="team-item"><div class="team-card" style="--fold:var(--moss)"><div class="avatar" style="background:var(--moss);color:var(--bone)">TR</div><h4>Add name</h4><p class="role">Treasurer</p><div class="role-line"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIALS ============================== -->
+<section class="testimonials" id="testimonials" data-section>
+  <div class="wrap q-head">
+    <div>
+      <p class="eyebrow" data-eyebrow>Voices from the unit</p>
+      <h2 class="section-title">
+        <span class="line"><span>Sample testimonials —</span></span>
+        <span class="line"><span>replace with real ones.</span></span>
+      </h2>
+    </div>
+    <div class="q-controls">
+      <button class="q-btn" id="qPrev" type="button" aria-label="Previous testimonial"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="q-btn" id="qNext" type="button" aria-label="Next testimonial"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="quote-rail" id="quoteRail" data-cursor="Drag">
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">The plantation drive was the first time I felt like campus was more than classes and deadlines. Small hours, real difference.</p>
+      <div class="quote-attr"><div class="dot">V1</div><div class="who"><strong>Add name</strong>Volunteer, sample quote</div></div>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">NSS is the one commitment on my calendar I never want to skip — the donation camp taught me more about organising people than any project did.</p>
+      <div class="quote-attr"><div class="dot">V2</div><div class="who"><strong>Add name</strong>Volunteer, sample quote</div></div>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">Coordinating the school visits pushed me to actually plan, delegate and follow up — skills the classroom doesn't really teach.</p>
+      <div class="quote-attr"><div class="dot">V3</div><div class="who"><strong>Add name</strong>Event lead, sample quote</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== JOIN ============================== -->
+<section class="join" id="join" data-section>
+  <div class="join-wheel" id="joinWheel" aria-hidden="true">
+    <svg class="spin-slow-rev" viewBox="0 0 120 120" fill="none">
+      <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="#F5F1E4"/>
+      <g stroke="#F5F1E4" stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap join-grid">
+    <div>
+      <span class="live-badge" data-fade><span class="live-dot"></span>Recruitment open for this semester</span>
+      <p class="eyebrow" data-eyebrow>Get involved</p>
+      <h2 class="join-title">
+        <span class="line"><span>Bring <span class="hl" data-hl>an hour a week</span>.</span></span>
+        <span class="line"><span>We'll find the rest.</span></span>
+      </h2>
+      <p class="join-copy" data-fade>Registrations for the unit open at the start of every semester — follow along or write in any time, and a coordinator will get back to you.</p>
+      <div class="join-steps" id="joinSteps">
+        <div class="steps-line"><span id="stepsLine"></span></div>
+        <div class="step"><span class="step-num">01</span><div><h5>Register</h5><p>Fill the unit's sign-up form when registrations open each semester.</p></div></div>
+        <div class="step"><span class="step-num">02</span><div><h5>Pick a drive</h5><p>Plantation, blood donation, cleanliness or literacy — choose what fits your week.</p></div></div>
+        <div class="step"><span class="step-num">03</span><div><h5>Show up</h5><p>Turn up, log your hours with your coordinator, and keep the streak going.</p></div></div>
+      </div>
+      <div class="social-row" id="socialRow">
+        <a href="https://instagram.com/" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+        </a>
+        <a href="https://x.com/" aria-label="X (Twitter)" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" stroke-width="1.6"><path d="M4 4l16 16M20 4L4 20"/></svg>
+        </a>
+        <a href="mailto:nss@iiitnr.edu.in" aria-label="Email">
+          <svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="contact-box" data-fade>
+      <p class="label">Write to the unit</p>
+      <a class="email" href="mailto:nss@iiitnr.edu.in">nss@iiitnr.edu.in</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Empty scroll space: as it passes, the page lifts away and the footer underneath is revealed -->
+<div id="footerReveal" aria-hidden="true"></div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer id="footer">
+  <svg class="footer-wheel" id="footerWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="2"/>
+    <circle cx="60" cy="60" r="8" fill="currentColor"/>
+    <g stroke="currentColor" stroke-width="2">
+      <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+      <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+      <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+      <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+    </g>
+  </svg>
+  <div class="footer-top">
+    <p class="footer-note">NSS unit of Dr. SPM IIIT Naya Raipur — students serving the communities around campus.</p>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#about" data-scroll>About</a>
+      <a href="#events" data-scroll>Events</a>
+      <a href="#team" data-scroll>Team</a>
+      <a href="#impact" data-scroll>Impact</a>
+      <a href="#join" data-scroll>Join</a>
+    </nav>
+  </div>
+  <p class="footer-big" id="footerBig" aria-label="Not me, but you.">
+    <span class="fl" aria-hidden="true">Not me,</span>
+    <span class="fl" aria-hidden="true">but you.</span>
+  </p>
+  <div class="footer-bar">
+    <span>© 2026 NSS, IIIT Naya Raipur. Not Me, But You.</span>
+    <a href="#top" class="to-top" data-scroll>Back to top ↑</a>
+  </div>
+</footer>
+
+<!-- Instagram preview (loads only when a card is opened) -->
+<dialog class="ig-modal" id="igModal" aria-label="Instagram post preview">
+  <div class="ig-wrap" id="igWrap">
+    <div class="ig-shell" id="igShell">
+      <button class="ig-close" id="igClose" type="button" aria-label="Close preview"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      <div class="ig-frame" data-lenis-prevent><iframe id="igFrame" title="Instagram post preview" src="about:blank" allow="encrypted-media" scrolling="no"></iframe></div>
+      <div class="ig-bar"><span>Loaded from Instagram</span><a id="igOpen" href="https://www.instagram.com/" target="_blank" rel="noopener">Open on Instagram</a></div>
+    </div>
+  </div>
+</dialog>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/DrawSVGPlugin.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

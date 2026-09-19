@@ -1,0 +1,7 @@
+Copy your two original files into this folder (keep the exact names):
+
+  _DSC0704.JPG                                            plantation photo (hero, about, first event card)
+  160316696_138253924877330_5046791964535237467_n.jpg     NSS emblem (nav logo)
+
+Tip: resize the plantation photo to ~2000px wide, JPG quality ~80.
+If a file is missing, the site shows a designed fallback instead.
