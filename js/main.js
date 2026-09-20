@@ -637,9 +637,61 @@
      TEAM
   --------------------------------------------------------------------- */
   function initTeam(mm) {
+    /* --- Helper to shuffle core team cards while keeping Mansi & Surya adjacent --- */
+    function shuffleCoreCards(container, selector) {
+      if (!container) return;
+      var cards = Array.from(container.querySelectorAll(selector));
+      if (!cards.length) return;
+      var mansi = cards.find(function (c) { return (c.textContent || '').includes('Mansi Yadav'); });
+      var surya = cards.find(function (c) { return (c.textContent || '').includes('Surya Narayan'); });
+      var pair = (mansi && surya) ? [mansi, surya] : (mansi ? [mansi] : (surya ? [surya] : []));
+      var others = cards.filter(function (c) { return c !== mansi && c !== surya; });
+
+      for (var i = others.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = others[i];
+        others[i] = others[j];
+        others[j] = tmp;
+      }
+
+      var insertIdx = Math.floor(Math.random() * (others.length + 1));
+      var ordered = others.slice(0, insertIdx).concat(pair, others.slice(insertIdx));
+      ordered.forEach(function (card) { container.appendChild(card); });
+    }
+
     /* --- Main page: featured team marquee --- */
     var marqueeTrack = $('#teamMarqueeTrack');
     if (marqueeTrack) {
+      // Keep Head & Vice Head leading, randomize core members with Surya beside Mansi
+      var allCards = Array.from(marqueeTrack.querySelectorAll('.team-featured-card'));
+      var leaders = allCards.filter(function (c) {
+        var role = (c.querySelector('.tf-role') || {}).textContent || '';
+        return role.includes('Head');
+      });
+      var coreCards = allCards.filter(function (c) {
+        var role = (c.querySelector('.tf-role') || {}).textContent || '';
+        return !role.includes('Head');
+      });
+
+      if (coreCards.length) {
+        var mansiF = coreCards.find(function (c) { return (c.textContent || '').includes('Mansi Yadav'); });
+        var suryaF = coreCards.find(function (c) { return (c.textContent || '').includes('Surya Narayan'); });
+        var pairF = (mansiF && suryaF) ? [mansiF, suryaF] : (mansiF ? [mansiF] : (suryaF ? [suryaF] : []));
+        var othersF = coreCards.filter(function (c) { return c !== mansiF && c !== suryaF; });
+
+        for (var i = othersF.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = othersF[i];
+          othersF[i] = othersF[j];
+          othersF[j] = tmp;
+        }
+
+        var insertIdx = Math.floor(Math.random() * (othersF.length + 1));
+        var orderedCore = othersF.slice(0, insertIdx).concat(pairF, othersF.slice(insertIdx));
+        marqueeTrack.innerHTML = '';
+        leaders.concat(orderedCore).forEach(function (c) { marqueeTrack.appendChild(c); });
+      }
+
       // Duplicate the cards for seamless infinite scroll
       var original = marqueeTrack.innerHTML;
       marqueeTrack.innerHTML = original + original;
@@ -654,6 +706,11 @@
     }
 
     /* --- Team page: member cards batch reveal --- */
+    var coreGrid = $('.team-core-grid');
+    if (coreGrid) {
+      shuffleCoreCards(coreGrid, '.team-member-card');
+    }
+
     var memberCards = $$('.team-member-card');
     if (memberCards.length) {
       gsap.set(memberCards, { y: 80, opacity: 0, rotate: 2.5 });
