@@ -16,6 +16,26 @@
   }, 12000);
 </script>
 <link rel="stylesheet" href="css/style.css">
+<style id="fx-css">
+  /* ===== 3D depth layer + mobile tuning — safe to delete; nothing here changes layout ===== */
+
+  /* Endless spinners are paused by the script while they're off-screen */
+  .fx-paused, .fx-paused * { animation-play-state: paused !important; }
+
+  /* Cards that turn in 3D never need to show their back face */
+  .fx-3d .event-card,
+  .fx-3d .quote-card,
+  .fx-3d .team-featured-card,
+  .fx-3d .impact-item { backface-visibility: hidden; }
+
+  /* Touch devices: no custom cursor, no pointer spotlight, and a still (not animated) grain layer */
+  @media (hover: none), (pointer: coarse) {
+    #cursorDot, #cursorRing, #spotlight { display: none !important; }
+    #grain { animation: none !important; }
+  }
+
+  a, button { -webkit-tap-highlight-color: transparent; }
+</style>
 </head>
 <body>
 
@@ -103,7 +123,7 @@
         <path d="M0 720 C 300 650 560 700 860 680 S 1360 640 1600 700 V900 H0Z" fill="#20342A"/>
         <path d="M0 800 C 280 760 620 790 900 780 S 1380 760 1600 790 V900 H0Z" fill="#182620"/>
       </svg>
-      <img id="heroImg" src="assets/images/_DSC0704.JPG" alt="NSS IIIT Naya Raipur volunteers at a tree plantation drive" onerror="this.remove()">
+      <img id="heroImg" fetchpriority="high" decoding="async" src="assets/images/_DSC0704.JPG" alt="NSS IIIT Naya Raipur volunteers at a tree plantation drive" onerror="this.remove()">
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -173,7 +193,7 @@
       <div class="frame" id="tiltFrame">
         <div class="duo" id="aboutDuo">
           <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg></div>
-          <img src="assets/images/_DSC0704.JPG" alt="Volunteers planting a sapling together" onerror="this.remove()">
+          <img src="assets/images/_DSC0704.JPG" loading="lazy" decoding="async" alt="Volunteers planting a sapling together" onerror="this.remove()">
         </div>
       </div>
       <div class="tag" id="aboutTag">Plantation Drive, Aug 2025</div>
@@ -266,9 +286,9 @@
             <img src="assets/images/_DSC0704.JPG" alt="Plantation drive with the whole unit" loading="lazy" onerror="this.remove()">
           </div>
           <div class="body">
-            <p class="event-date">Plantation Drive · Aug 2025</p>
-            <h3>Welcome saplings for the incoming batch</h3>
-            <p>Freshers and seniors planted saplings beside the sports complex as part of orientation week — replace with this year's date and count.</p>
+            <p class="event-date">28 Aug 2025 · Environmental Drive</p>
+            <h3>Campus-Wide Greenery &amp; Plantation Drive</h3>
+            <p>Organized in collaboration with Treewards to enhance campus biodiversity. Guided by Dr. K.N. Vishwakarma and Estate Officer Mr. Rakesh Kumar Mishra, over 250 volunteers planted native saplings.</p>
           </div>
         </div>
       </article>
@@ -278,14 +298,14 @@
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img src="assets/events/event-1.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <img src="assets/events/blood/583211647_18061174325560954_6986430030663391185_n.jpg" alt="Blood Donation Camp 2025" loading="lazy" onerror="this.src='assets/events/event-1.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">Add date · Instagram post</p>
-            <h3>Add this event's title</h3>
-            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <p class="event-date">15 Nov 2025 · Instagram post</p>
+            <h3>Blood Donation Camp 2025</h3>
+            <p>Annual voluntary Blood Donation Camp organized at IIIT Naya Raipur in collaboration with AIIMS Raipur and HDFC Bank.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
               <a href="https://www.instagram.com/p/DRIMupfDM8F/" target="_blank" rel="noopener">Open on Instagram</a>
@@ -299,14 +319,14 @@
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img src="assets/events/event-2.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <img src="assets/events/cleanliness/558433211_18056045522560954_2028026586167717535_n.jpg" alt="Cleanliness Drive 2025" loading="lazy" onerror="this.src='assets/events/event-2.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">Add date · Instagram post</p>
-            <h3>Add this event's title</h3>
-            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <p class="event-date">02 Oct 2025 · Instagram post</p>
+            <h3>Cleanliness Drive 2025</h3>
+            <p>Swachhata Hi Seva cleanliness campaign organized by NSS IIIT Naya Raipur. Student volunteers and staff cleaned campus surroundings, raising community awareness.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
               <a href="https://www.instagram.com/p/DPOR_EHjGGK/" target="_blank" rel="noopener">Open on Instagram</a>
@@ -316,21 +336,21 @@
       </article>
 
       <!-- Instagram event 3 -->
-      <article class="event-card ig" data-ig="DOG0l8kk_TN" style="--accent:var(--marigold-dim)">
+      <article class="event-card ig" data-ig="DP611miE4zf" style="--accent:var(--marigold-dim)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img src="assets/events/event-3.jpg" alt="Photo from the unit's Instagram post" loading="lazy" onerror="this.remove()">
+            <img src="assets/events/nukkadnatak/567122968_18058379459560954_905071543028999161_n.jpg" alt="The Nukkad Natak — HIV/AIDS Awareness" loading="lazy" onerror="this.src='assets/events/event-3.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">Add date · Instagram post</p>
-            <h3>Add this event's title</h3>
-            <p>Photos from the unit's Instagram post. Replace this line with what happened, where, and how many volunteers took part.</p>
+            <p class="event-date">16 Oct 2025 · Instagram post</p>
+            <h3>The Nukkad Natak — HIV/AIDS Awareness</h3>
+            <p>Student dramatists of NSS IIIT-NR performed a powerful street play near the Dr. SPM Statue to educate on HIV/AIDS awareness and dispel social stigmas.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
-              <a href="https://www.instagram.com/p/DOG0l8kk_TN/" target="_blank" rel="noopener">Open on Instagram</a>
+              <a href="https://www.instagram.com/p/DP611miE4zf/?img_index=1" target="_blank" rel="noopener">Open on Instagram</a>
             </div>
           </div>
         </div>
@@ -338,22 +358,28 @@
 
       <article class="event-card" style="--accent:var(--rust)">
         <div class="ec-inner">
-          <div class="media duo"><div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-3-7-6.5-7-10a7 7 0 0 1 14 0c0 3.5-3 7-7 10Z"/><path d="M12 12v3"/></svg></div></div>
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M19.07 4.93l-4.24 4.24m-5.66 5.66l-4.24 4.24"/></svg></div>
+            <img src="assets/events/sports cricket/WhatsApp Image 2026-09-20 at 1.04.46 PM.jpeg" alt="National Sports Day — Cricket Tournament" loading="lazy" onerror="this.src='assets/events/sports-cricket.jpg'; this.onerror=function(){this.remove();}">
+          </div>
           <div class="body">
-            <p class="event-date">Blood Donation Camp · Sample</p>
-            <h3>Blood donation camp with the local blood bank</h3>
-            <p>Add details of your unit's donation drive — partner hospital, units collected, and donor count.</p>
+            <p class="event-date">29–31 Aug 2025 · National Sports Day</p>
+            <h3>National Sports Day — Cricket Tournament</h3>
+            <p>Students and NSS volunteers competed in an energetic cricket tournament to celebrate National Sports Day, emphasizing teamwork and physical fitness.</p>
           </div>
         </div>
       </article>
 
       <article class="event-card" style="--accent:var(--moss)">
         <div class="ec-inner">
-          <div class="media duo"><div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div></div>
+          <div class="media duo">
+            <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 8 8 12 9.5 16 14.5 16 16 12 12 8"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="22" x2="12" y2="16"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="22" y1="12" x2="16" y2="12"/></svg></div>
+            <img src="assets/events/sports football/WhatsApp Image 2026-09-20 at 1.08.28 PM.jpeg" alt="National Sports Day — Football Tournament" loading="lazy" onerror="this.src='assets/events/sports-football.jpg'; this.onerror=function(){this.remove();}">
+          </div>
           <div class="body">
-            <p class="event-date">Literacy Programme · Sample</p>
-            <h3>Weekend tutoring at the nearby government school</h3>
-            <p>Add the school's name, subjects covered, and how many children were reached.</p>
+            <p class="event-date">29–31 Aug 2025 · National Sports Day</p>
+            <h3>National Sports Day — Football Tournament</h3>
+            <p>Campus football teams took the field in high-energy matches, bringing students together in celebration of National Sports Day and athletic spirit.</p>
           </div>
         </div>
       </article>
@@ -383,7 +409,7 @@
       <!-- Set 1 (duplicated by JS for seamless loop) -->
       <div class="team-featured-card" style="--accent:var(--marigold)">
         <div class="tf-photo">
-          <img src="assets/images/team/head.jpg" alt="Aditya Bhagat — Head" onerror="this.src='assets/images/team/head.jpeg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/head.jpg" loading="lazy" decoding="async" alt="Aditya Bhagat — Head" onerror="this.src='assets/images/team/head.jpeg'; this.onerror=function(){this.remove();}">
           <span class="tf-initials" style="background:var(--marigold);color:var(--ink)">AB</span>
         </div>
         <h4>Aditya Bhagat</h4>
@@ -391,15 +417,15 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/vice-head.jpg" alt="Vice Head" onerror="this.remove()">
-          <span class="tf-initials" style="background:var(--rust);color:var(--bone)">VH</span>
+          <img src="assets/images/team/RabinaDahariya.JPG" loading="lazy" decoding="async" alt="Rabina Dahariya — Vice Head" onerror="this.src='assets/images/team/rabina-dahariya.jpg'; this.onerror=function(){this.remove();}">
+          <span class="tf-initials" style="background:var(--rust);color:var(--bone)">RD</span>
         </div>
-        <h4>Add name</h4>
+        <h4>Rabina Dahariya</h4>
         <p class="tf-role">Vice Head</p>
       </div>
       <div class="team-featured-card" style="--accent:var(--marigold-dim)">
         <div class="tf-photo">
-          <img src="assets/images/team/rudra-khambhayata.jpg" alt="Rudra Khambhayata" onerror="this.remove()">
+          <img src="assets/images/team/rudra-khambhayata.jpg" loading="lazy" decoding="async" alt="Rudra Khambhayata" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--marigold-dim);color:var(--ink)">RK</span>
         </div>
         <h4>Rudra Khambhayata</h4>
@@ -407,7 +433,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--moss)">
         <div class="tf-photo">
-          <img src="assets/images/team/anushka.jpg" alt="Anushka" onerror="this.remove()">
+          <img src="assets/images/team/anushka.jpg" loading="lazy" decoding="async" alt="Anushka" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--moss);color:var(--bone)">AN</span>
         </div>
         <h4>Anushka</h4>
@@ -415,7 +441,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/mansi-yadav.jpg" alt="Mansi Yadav" onerror="this.remove()">
+          <img src="assets/images/team/mansi-yadav.jpg" loading="lazy" decoding="async" alt="Mansi Yadav" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">MY</span>
         </div>
         <h4>Mansi Yadav</h4>
@@ -423,7 +449,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/surya-narayan.jpg" alt="Surya Narayan" onerror="this.remove()">
+          <img src="assets/images/team/surya-narayan.jpg" loading="lazy" decoding="async" alt="Surya Narayan" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">SN</span>
         </div>
         <h4>Surya Narayan</h4>
@@ -431,7 +457,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--moss)">
         <div class="tf-photo">
-          <img src="assets/images/team/vikas-yadav.jpg" alt="Vikas Yadav" onerror="this.remove()">
+          <img src="assets/images/team/vikas-yadav.jpg" loading="lazy" decoding="async" alt="Vikas Yadav" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--moss);color:var(--bone)">VY</span>
         </div>
         <h4>Vikas Yadav</h4>
@@ -439,7 +465,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/astha-kujur.jpg" alt="Astha Kujur" onerror="this.remove()">
+          <img src="assets/images/team/astha-kujur.jpg" loading="lazy" decoding="async" alt="Astha Kujur" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">AK</span>
         </div>
         <h4>Astha Kujur</h4>
@@ -447,7 +473,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--marigold-dim)">
         <div class="tf-photo">
-          <img src="assets/images/team/dhawal-kumar-uike.jpg" alt="Dhawal Kumar Uike" onerror="this.remove()">
+          <img src="assets/images/team/dhawal-kumar-uike.jpg" loading="lazy" decoding="async" alt="Dhawal Kumar Uike" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--marigold-dim);color:var(--ink)">DK</span>
         </div>
         <h4>Dhawal Kumar Uike</h4>
@@ -455,7 +481,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--marigold)">
         <div class="tf-photo">
-          <img src="assets/images/team/anchal-pathak.jpg" alt="Anchal Pathak" onerror="this.remove()">
+          <img src="assets/images/team/anchal-pathak.jpg" loading="lazy" decoding="async" alt="Anchal Pathak" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--marigold);color:var(--ink)">AP</span>
         </div>
         <h4>Anchal Pathak</h4>
@@ -463,7 +489,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--moss)">
         <div class="tf-photo">
-          <img src="assets/images/team/manish-bagra.jpg" alt="Manish Bagra" onerror="this.remove()">
+          <img src="assets/images/team/manish-bagra.jpg" loading="lazy" decoding="async" alt="Manish Bagra" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--moss);color:var(--bone)">MB</span>
         </div>
         <h4>Manish Bagra</h4>
@@ -471,7 +497,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/trishi-thakur.jpg" alt="Trishi Thakur" onerror="this.remove()">
+          <img src="assets/images/team/trishi-thakur.jpg" loading="lazy" decoding="async" alt="Trishi Thakur" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">TT</span>
         </div>
         <h4>Trishi Thakur</h4>
@@ -479,7 +505,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--marigold)">
         <div class="tf-photo">
-          <img src="assets/images/team/divyansha-gupta.jpg" alt="Divyansha Gupta" onerror="this.remove()">
+          <img src="assets/images/team/divyansha-gupta.jpg" loading="lazy" decoding="async" alt="Divyansha Gupta" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--marigold);color:var(--ink)">DG</span>
         </div>
         <h4>Divyansha Gupta</h4>
@@ -833,6 +859,312 @@
 <script src="vendor/lenis.min.js"></script>
 <script src="js/main.js"></script>
 
+<!-- ==================== 3D DEPTH LAYER + MOBILE PERFORMANCE ====================
+  Additive: delete this block (and the #fx-css style in <head>) and the page goes back to how it was.
+  • ?fx=off in the URL switches it off (handy for comparing);  ?fx=lite | mobile | full forces a tier
+  • <html data-fx="off"> or window.NSS_FX = false disables it too
+  • Phones get smaller angles and fewer effects; reduced-motion users get none
+============================================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  var html = document.documentElement;
+  var qp = '';
+  try { qp = new URLSearchParams(location.search).get('fx') || ''; } catch (e) {}
+  if (qp === 'off' || html.getAttribute('data-fx') === 'off' || window.NSS_FX === false) return;
+
+  var qs = function (s, r) { return (r || document).querySelector(s); };
+  var qsa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var clamp = function (v, a, b) { return v < a ? a : (v > b ? b : v); };
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ============================ 1. MOBILE / PERFORMANCE (always on) ============================ */
+
+  // Endless CSS spinners only run while they're on screen
+  if (hasIO) {
+    var spinners = qsa('.ambient-wheel, .join-wheel, .footer-wheel');
+    if (spinners.length) {
+      var spio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.target.classList.toggle('fx-paused', !e.isIntersecting); });
+      }, { rootMargin: '150px 0px' });
+      spinners.forEach(function (s) { spio.observe(s); });
+    }
+  }
+
+  // Stop the phone's collapsing URL bar from forcing a full ScrollTrigger re-measure mid-scroll
+  function tuneScrollTrigger() {
+    try { if (window.ScrollTrigger && ScrollTrigger.config) ScrollTrigger.config({ ignoreMobileResize: true }); } catch (e) {}
+  }
+  tuneScrollTrigger();
+
+  /* ================================= 2. 3D DEPTH LAYER ================================= */
+
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!(window.CSS && CSS.supports && CSS.supports('rotate', '1 0 0 10deg') && CSS.supports('translate', '0 0 10px'))) return;
+
+  var nav = navigator, conn = nav.connection || {};
+  var coarse = matchMedia('(pointer: coarse)').matches || matchMedia('(hover: none)').matches;
+  var lite = !!conn.saveData || (nav.deviceMemory && nav.deviceMemory <= 2) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 3);
+  var isIOS = /iP(hone|ad|od)/.test(nav.userAgent) || (nav.platform === 'MacIntel' && nav.maxTouchPoints > 1);
+
+  // tier 1 = light (a few cheap effects) · tier 2 = phones & tablets · tier 3 = desktop (everything)
+  var tier = qp === 'lite' ? 1 : qp === 'mobile' ? 2 : qp === 'full' ? 3 : lite ? 1 : (coarse || innerWidth < 820) ? 2 : 3;
+  var K = tier === 3 ? 1 : (tier === 2 ? 0.62 : 0.5);      // scales every angle and depth below
+
+  var vw = innerWidth, vh = innerHeight;
+  var scenes = [], queued = false;
+
+  /* Uses the individual CSS properties `rotate` and `translate`, so it stacks on top of whatever
+     `transform` GSAP or your stylesheet already sets instead of fighting it. */
+  function put(el, rx, ry, x, y, z) {
+    if (!el.__g) {                                   // one-off: if a stylesheet says `transition: all`, keep our per-frame writes out of it
+      el.__g = 1;
+      if (getComputedStyle(el).transitionProperty === 'all') {
+        el.style.transitionProperty = 'transform, opacity, box-shadow, background-color, border-color, color, filter';
+      }
+    }
+    var m = Math.sqrt(rx * rx + ry * ry);
+    var r = m < 0.02 ? 'none' : (rx / m).toFixed(3) + ' ' + (ry / m).toFixed(3) + ' 0 ' + m.toFixed(2) + 'deg';
+    var t = (Math.abs(x || 0) + Math.abs(y || 0) + Math.abs(z || 0)) < 0.05 ? 'none'
+          : (x || 0).toFixed(1) + 'px ' + (y || 0).toFixed(1) + 'px ' + (z || 0).toFixed(1) + 'px';
+    if (el.__r !== r || !el.style.rotate) { el.style.rotate = r; el.__r = r; }
+    if (el.__t !== t || !el.style.translate) { el.style.translate = t; el.__t = t; }
+  }
+
+  /* Remembers where each child sits inside its container (measured with our own transforms switched off),
+     so the per-frame maths needs just ONE getBoundingClientRect() for the whole container. */
+  function lane(container, getEls) {
+    var api = { els: [], rel: [], count: -1 };
+    api.measure = function () {
+      var els = getEls(), saved = [];
+      els.forEach(function (e) { saved.push([e.style.rotate, e.style.translate]); e.style.rotate = 'none'; e.style.translate = 'none'; });
+      var cr = container.getBoundingClientRect(), sl = container.scrollLeft || 0, st = container.scrollTop || 0;
+      api.rel = els.map(function (e) {
+        var r = e.getBoundingClientRect();
+        return { x: r.left - cr.left + sl, y: r.top - cr.top + st, w: r.width, h: r.height };
+      });
+      els.forEach(function (e, i) { e.style.rotate = saved[i][0]; e.style.translate = saved[i][1]; });
+      api.els = els;
+      api.count = container.children.length;
+    };
+    api.stale = function () { return container.children.length !== api.count; };
+    return api;
+  }
+
+  /* ------------------------------ scenes ------------------------------ */
+
+  // HERO — the text block tips back into the distance as you scroll away; the wheel turns like a coin
+  function heroScene() {
+    var hero = qs('#top'); if (!hero) return null;
+    var content = qs('#heroContent'), inner = qs('.hero-inner', hero), wheel = qs('#heroWheel');
+    if (content && inner) content.style.perspective = '1000px';
+    if (wheel && tier >= 2) hero.style.perspective = '1400px';
+    var p = 0, last = -1;
+    return {
+      root: hero, live: false, visible: true,
+      read: function () { p = clamp((window.pageYOffset || 0) / ((hero.offsetHeight || vh) * 0.9), 0, 1); },
+      write: function () {
+        if (Math.abs(p - last) < 0.002) return;
+        last = p;
+        var e = p * p * (3 - 2 * p);
+        if (inner) put(inner, e * 26 * K, 0, 0, -e * 30, -e * 240 * K);
+        if (wheel && tier >= 2) put(wheel, e * 20 * K, e * 150 * K, 0, 0, 0);
+      }
+    };
+  }
+
+  // ABOUT — the photo block swings in on a hinge, and its layers (frame, tag, chip) sit at different depths
+  function aboutScene() {
+    var grid = qs('#about .about-grid'), media = qs('#about .about-media');
+    if (!grid || !media) return null;
+    grid.style.perspective = '1400px';
+    if (tier >= 2) {
+      media.style.transformStyle = 'preserve-3d';
+      [[qs('.frame-back', media), -46], [qs('.tag', media), 52], [qs('.float-chip', media), 84]].forEach(function (l) {
+        if (l[0]) l[0].style.translate = '0px 0px ' + Math.round(l[1] * K) + 'px';
+      });
+    }
+    var f = 0, e = 0, last = 9;
+    return {
+      root: grid, live: false, visible: true,
+      read: function () {
+        var r = grid.getBoundingClientRect();
+        f = clamp((r.top + r.height / 2 - vh / 2) / (vh * 0.8), -1, 1);
+        e = clamp((r.top - vh * 0.45) / (vh * 0.55), 0, 1);
+      },
+      write: function () {
+        var key = f * 7 + e;
+        if (Math.abs(key - last) < 0.004) return;
+        last = key;
+        put(media, f * 13 * K, -e * 18 * K, 0, 0, -(Math.abs(f) * 110 + e * 90) * K);
+      }
+    };
+  }
+
+  // IMPACT — each stat card stands up from a lying-back position as it enters the screen
+  function impactScene() {
+    var row = qs('#impact .impact-row'); if (!row) return null;
+    row.style.perspective = '1300px';
+    var L = lane(row, function () { return qsa('.impact-item', row); });
+    var top = 0;
+    return {
+      root: row, live: false, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { top = row.getBoundingClientRect().top; },
+      write: function () {
+        L.els.forEach(function (el, i) {
+          var p = clamp((vh * 0.94 - (top + L.rel[i].y)) / (vh * 0.34), 0, 1);
+          var r = Math.pow(1 - p, 3);                   // 1 = still lying back · 0 = standing up
+          put(el, r * 52 * K, 0, 0, r * 46, -r * 230 * K);
+        });
+      }
+    };
+  }
+
+  // EVENTS — cover-flow: the card in the middle faces you, the ones either side angle away into depth
+  function eventsScene() {
+    var rail = qs('#eventsRail'); if (!rail || tier < 2) return null;
+    rail.style.perspective = '1200px';
+    var L = lane(rail, function () { return qsa('.event-card', rail); });
+    var left = 0;
+    return {
+      root: qs('#events') || rail, live: true, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { left = rail.getBoundingClientRect().left; },
+      write: function () {
+        rail.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';   // vanishing point stays at screen centre while the rail slides
+        L.els.forEach(function (el, i) {
+          var r = L.rel[i];
+          var d = clamp((left + r.x + r.w / 2 - vw / 2) / (vw * 0.5), -1.6, 1.6);
+          put(el, 0, -d * 24 * K, 0, 0, -Math.abs(d) * 130 * K);
+        });
+      }
+    };
+  }
+
+  // VOICES — same cover-flow on the testimonial rail (skipped on iOS: Safari is flaky with 3D inside scrollers)
+  function quoteScene() {
+    var rail = qs('#quoteRail'); if (!rail || isIOS || tier < 2) return null;
+    rail.style.perspective = '1100px';
+    var L = lane(rail, function () { return qsa('.quote-card', rail); });
+    var scroller = false, rr = null, sl = 0;
+    return {
+      root: rail, live: false, visible: true, stale: L.stale,
+      measure: function () { L.measure(); scroller = rail.scrollWidth > rail.clientWidth + 2; },
+      read: function () { rr = rail.getBoundingClientRect(); sl = rail.scrollLeft; },
+      write: function () {
+        if (!scroller) return;
+        var mid = rr.left + rr.width / 2;
+        L.els.forEach(function (el, i) {
+          var r = L.rel[i];
+          var d = clamp((rr.left + r.x - sl + r.w / 2 - mid) / (rr.width * 0.5), -1.5, 1.5);
+          put(el, 0, -d * 18 * K, 0, 0, -Math.abs(d) * 80 * K);
+        });
+      }
+    };
+  }
+
+  // TEAM (desktop only) — the auto-scrolling strip bows away from the centre of the screen
+  function teamScene() {
+    var track = qs('#teamMarqueeTrack'); if (!track || tier < 3) return null;
+    track.style.perspective = '1300px';
+    var L = lane(track, function () { return Array.prototype.slice.call(track.children); });   // includes the clones main.js adds
+    var left = 0;
+    return {
+      root: qs('#teamMarquee') || track, live: true, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { left = track.getBoundingClientRect().left; },
+      write: function () {
+        track.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';
+        L.els.forEach(function (el, i) {
+          var r = L.rel[i], cx = left + r.x + r.w / 2;
+          if (cx < -r.w * 2 || cx > vw + r.w * 2) return;             // off-screen: skip
+          var d = clamp((cx - vw / 2) / (vw * 0.55), -1.5, 1.5);
+          put(el, 0, -d * 28 * K, 0, 0, -Math.abs(d) * 150 * K);
+        });
+      }
+    };
+  }
+
+  /* ------------------------------ engine ------------------------------ */
+
+  function request() { if (!queued) { queued = true; requestAnimationFrame(frame); } }
+
+  function frame() {
+    queued = false;
+    if (document.hidden) return;
+    var act = [], again = false, i, s;
+    for (i = 0; i < scenes.length; i++) {
+      s = scenes[i];
+      if (!s.visible) continue;
+      if (s.stale && s.stale()) s.measure();
+      act.push(s);
+      if (s.live) again = true;
+    }
+    for (i = 0; i < act.length; i++) act[i].read();     // all reads first…
+    for (i = 0; i < act.length; i++) act[i].write();    // …then all writes: no layout thrashing
+    if (again) request();
+  }
+
+  var rt;
+  function remeasure() { scenes.forEach(function (s) { if (s.measure) s.measure(); }); request(); }
+
+  window.addEventListener('scroll', request, { passive: true });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) request(); });
+  window.addEventListener('resize', function () {
+    var w = innerWidth; vh = innerHeight;
+    if (w === vw) { request(); return; }                // height-only change = phone URL bar; nothing to re-measure
+    vw = w; clearTimeout(rt); rt = setTimeout(remeasure, 150);
+  });
+  window.addEventListener('orientationchange', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { vw = innerWidth; vh = innerHeight; remeasure(); }, 300);
+  });
+
+  // Wait until the loader is gone and main.js has built its pins and clones, then start
+  function whenReady(fn) {
+    var done = false;
+    function go() {
+      if (done) return; done = true;
+      try { fn(); } catch (err) { if (window.console) console.warn('[3D layer]', err); }
+    }
+    function check() {
+      if (document.readyState === 'complete' && !html.classList.contains('is-loading')) { go(); return true; }
+      return false;
+    }
+    if (check()) return;
+    var mo = new MutationObserver(function () { if (check()) mo.disconnect(); });
+    mo.observe(html, { attributes: true, attributeFilter: ['class'] });
+    window.addEventListener('load', check);
+    setTimeout(go, 14000);                              // failsafe
+  }
+
+  whenReady(function () {
+    tuneScrollTrigger();
+    [heroScene, aboutScene, impactScene, eventsScene, quoteScene, teamScene].forEach(function (make) {
+      try { var s = make(); if (s) scenes.push(s); } catch (err) { if (window.console) console.warn('[3D layer]', err); }
+    });
+    scenes.forEach(function (s) { if (s.measure) s.measure(); });
+
+    if (hasIO) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          scenes.forEach(function (s) { if (s.root === en.target) s.visible = en.isIntersecting; });
+        });
+        request();
+      }, { rootMargin: '160px 0px' });
+      scenes.forEach(function (s) { io.observe(s.root); });
+    }
+
+    if (window.ScrollTrigger && ScrollTrigger.addEventListener) {
+      ScrollTrigger.addEventListener('refresh', function () { clearTimeout(rt); rt = setTimeout(remeasure, 100); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+
+    html.classList.add('fx-3d');
+    request();
+  });
+})();
+</script>
+
 <!-- Testimonials autoplay: advances the rail on its own, loops, and steps aside when someone interacts -->
 <script>
 (function () {
@@ -857,10 +1189,14 @@
     function offset() { return firstLeft() - rail.getBoundingClientRect().left; }
     var startOff = offset();   // where the first card sits when the rail is at its start
     window.addEventListener('resize', function () { if (rail.scrollLeft < 2) startOff = offset(); });
+    function native() { return rail.scrollWidth > rail.clientWidth + 2; }   // is the rail a normal scrolling box?
+    // Layout-based measurements (offsetLeft / scrollLeft) so the 3D tilt on the cards can't skew them
     function stepSize() {
-      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
+      return native() ? cards[1].offsetLeft - cards[0].offsetLeft
+                      : cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
     }
     function atEnd() {
+      if (native()) return rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
       var r = rail.getBoundingClientRect();
       var last = cards[cards.length - 1].getBoundingClientRect();
       return last.right <= r.right + 4;
@@ -883,7 +1219,7 @@
 
     function advance() {
       if (atEnd()) {
-        if (Math.abs(offset() - startOff) < 2) return;   // everything already fits — nothing to scroll
+        if (!native() && Math.abs(offset() - startOff) < 2) return;   // everything already fits — nothing to scroll
         rewind();
         return;
       }

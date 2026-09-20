@@ -2,7 +2,7 @@ Save the photos from your Instagram event posts here, named:
 
   event-1.jpg   ->  https://www.instagram.com/p/DRIMupfDM8F/
   event-2.jpg   ->  https://www.instagram.com/p/DPOR_EHjGGK/
-  event-3.jpg   ->  https://www.instagram.com/p/DOG0l8kk_TN/
+  event-3.jpg   ->  https://www.instagram.com/p/DP611miE4zf/
 
 Roughly square, ~1000px is plenty. If a file is missing, the card shows an Instagram tile
 and the "Preview post" button still shows the real post.
