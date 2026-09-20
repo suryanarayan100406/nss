@@ -285,12 +285,13 @@ section.about{padding:clamp(100px,15vh,160px) 0 clamp(110px,15vh,150px);backgrou
 .about-media .frame .duo img{height:118%;top:-9%;}
 .about-media .tag{position:absolute;left:-20px;bottom:-20px;background:var(--marigold);color:var(--ink);padding:15px 20px;border-radius:2px;font-family:var(--font-display);font-weight:600;font-size:0.95rem;max-width:210px;box-shadow:0 16px 30px -12px rgba(15,23,18,.45);z-index:2;}
 .about-media .frame-back{position:absolute;inset:14px -14px -14px 14px;border:1px solid var(--line-on-paper);border-radius:2px;z-index:-1;}
-.float-chip{position:absolute;top:-18px;right:16px;background:var(--paper);border:1px solid var(--line-on-paper);border-radius:6px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 20px 34px -16px rgba(15,23,18,.32);z-index:3;}
-.float-chip .float-in{display:flex;align-items:center;gap:10px;animation:chipFloat 4.5s ease-in-out infinite;}
+.float-chip{position:absolute;top:-18px;right:16px;background:var(--paper);border:1px solid var(--line-on-paper);border-radius:6px;padding:14px 18px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 34px -16px rgba(15,23,18,.32);z-index:3;}
+.float-chip .float-in{display:flex;align-items:center;gap:11px;animation:chipFloat 4.5s ease-in-out infinite;}
 .float-chip .chip-icon{width:22px;height:22px;stroke:var(--moss);flex-shrink:0;fill:none;}
-.float-chip strong{display:block;font-family:var(--font-display);font-size:1.05rem;color:var(--ink-on-paper);line-height:1.1;}
-.float-chip span.cap{font-size:.7rem;color:var(--ink-on-paper-dim);}
-@keyframes chipFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.float-chip .float-text{display:flex;flex-direction:column;justify-content:center;}
+.float-chip strong{display:block;font-family:var(--font-display);font-size:1.05rem;color:var(--ink-on-paper);line-height:1.15;margin-bottom:2px;}
+.float-chip span.cap{display:block;font-size:.72rem;line-height:1.2;color:var(--ink-on-paper-dim);letter-spacing:.01em;}
+@keyframes chipFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
 
 /* ---------- IMPACT ---------- */
 section.impact{
