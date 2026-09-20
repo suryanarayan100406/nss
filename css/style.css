@@ -457,26 +457,40 @@ section.team .section-lead{color:var(--ink-on-paper-dim);max-width:46ch;margin-b
 @media (max-width:680px){.team-core-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:480px){.team-core-grid{grid-template-columns:1fr;}}
 
-/* ---------- TESTIMONIALS ---------- */
+/* ---------- TESTIMONIALS (featured marquee) ---------- */
 section.testimonials{padding:clamp(100px,15vh,160px) 0 calc(clamp(90px,12vh,130px) + var(--curve));overflow:hidden;background:var(--paper);}
 .q-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;}
-.q-controls{display:flex;gap:10px;margin-bottom:22px;}
-.q-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--line-on-paper);display:flex;align-items:center;justify-content:center;transition:background .3s ease,border-color .3s ease,transform .3s var(--ease);}
-.q-btn svg{width:18px;height:18px;stroke:var(--ink-on-paper);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s ease;}
-.q-btn:hover{background:var(--ink);border-color:var(--ink);}
-.q-btn:hover svg{stroke:var(--bone);}
-.quote-rail{display:flex;gap:28px;margin-top:clamp(28px,5vh,50px);padding:10px clamp(20px,5vw,60px) 20px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;scroll-behavior:smooth;cursor:grab;}
-.quote-rail::-webkit-scrollbar{display:none;}
-.quote-rail.dragging{scroll-snap-type:none;scroll-behavior:auto;cursor:grabbing;user-select:none;}
-.quote-card{scroll-snap-align:center;flex:0 0 auto;width:min(430px,84vw);background:var(--ink);color:var(--bone);border-radius:2px;padding:36px 32px;position:relative;transition:transform .6s var(--ease), opacity .6s ease;transform:scale(.94);opacity:.55;}
-.quote-card.active{transform:scale(1);opacity:1;}
+
+.quote-marquee{overflow:hidden;margin-top:clamp(40px,6vh,60px);padding:20px 0 28px;position:relative;}
+.quote-marquee::before,.quote-marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none;}
+.quote-marquee::before{left:0;background:linear-gradient(to right, var(--paper), transparent);}
+.quote-marquee::after{right:0;background:linear-gradient(to left, var(--paper), transparent);}
+.quote-marquee-track{display:flex;gap:clamp(28px,3.5vw,44px);width:max-content;animation:quoteScroll 50s linear infinite;}
+.quote-marquee:hover .quote-marquee-track{animation-play-state:paused;}
+
+@keyframes quoteScroll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+.quote-card{flex:0 0 auto;width:min(440px,84vw);background:var(--ink);color:var(--bone);border-radius:4px;padding:36px 32px;position:relative;transition:transform .4s var(--ease), border-color .3s ease, box-shadow .4s ease;border:1px solid rgba(245,241,228,.08);box-shadow:0 14px 38px -12px rgba(15,23,18,.25);cursor:default;}
+.quote-card:hover{transform:translateY(-5px) scale(1.02);border-color:rgba(232,166,60,.4);box-shadow:0 24px 50px -14px rgba(15,23,18,.38);}
 .quote-mark{position:absolute;top:24px;right:28px;font-family:var(--font-display);font-size:3.4rem;color:var(--pine-3);line-height:1;transition:color .6s ease, transform .8s var(--ease);}
-.quote-card.active .quote-mark{color:var(--marigold);transform:translateY(-4px) rotate(-6deg);}
+.quote-card:hover .quote-mark{color:var(--marigold);transform:translateY(-4px) rotate(-6deg);}
 .quote-text{font-family:var(--font-display);font-size:1.2rem;line-height:1.48;margin-bottom:24px;font-weight:400;}
 .quote-attr{display:flex;align-items:center;gap:12px;}
 .quote-attr .dot{width:38px;height:38px;border-radius:50%;background:var(--marigold);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;}
 .quote-attr .who{font-size:0.86rem;color:var(--bone-dim);}
 .quote-attr .who strong{color:var(--bone);display:block;font-size:0.92rem;}
+
+@media (max-width:560px){
+  .quote-marquee-track{gap:20px;}
+  .quote-card{width:min(330px,82vw);padding:28px 22px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .quote-marquee-track{animation:none;}
+  .quote-marquee{overflow-x:auto;scrollbar-width:none;}
+}
 
 /* ---------- JOIN ---------- */
 section.join{

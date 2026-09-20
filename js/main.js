@@ -745,51 +745,23 @@
   }
 
   /* ---------------------------------------------------------------------
-     TESTIMONIALS — drag, arrows, active-card focus
+     TESTIMONIALS — smooth infinite marquee
   --------------------------------------------------------------------- */
   function initTestimonials() {
-    var rail = $('#quoteRail');
-    if (!rail) return;
-    var cards = $$('.quote-card', rail);
+    var quoteTrack = $('#quoteTrack');
+    var quoteMarquee = $('#quoteMarquee');
+    if (!quoteTrack) return;
 
-    function updateActive() {
-      var center = rail.scrollLeft + rail.clientWidth / 2, closest = null, best = Infinity;
-      cards.forEach(function (c) {
-        var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
-        if (d < best) { best = d; closest = c; }
+    // Duplicate cards so each half has 8 cards for a seamless loop across all screens
+    var orig = quoteTrack.innerHTML;
+    var doubleOrig = orig + orig;
+    quoteTrack.innerHTML = doubleOrig + doubleOrig;
+
+    if (!reduce && quoteMarquee) {
+      gsap.from(quoteMarquee, {
+        y: 60, opacity: 0, duration: 1.2, ease: 'power4.out',
+        scrollTrigger: { trigger: quoteMarquee, start: 'top 92%', once: true }
       });
-      cards.forEach(function (c) { c.classList.toggle('active', c === closest); });
-    }
-    rail.addEventListener('scroll', function () { requestAnimationFrame(updateActive); }, { passive: true });
-    window.addEventListener('resize', debounce(updateActive, 150));
-    updateActive();
-
-    // mouse drag
-    var down = false, sx = 0, sl = 0;
-    rail.addEventListener('pointerdown', function (e) {
-      if (e.pointerType !== 'mouse') return;
-      down = true; sx = e.clientX; sl = rail.scrollLeft;
-      rail.classList.add('dragging'); rail.setPointerCapture(e.pointerId);
-    });
-    rail.addEventListener('pointermove', function (e) { if (down) rail.scrollLeft = sl - (e.clientX - sx); });
-    function up(e) {
-      if (!down) return;
-      down = false; rail.classList.remove('dragging');
-      try { rail.releasePointerCapture(e.pointerId); } catch (err) { /* noop */ }
-    }
-    rail.addEventListener('pointerup', up);
-    rail.addEventListener('pointercancel', up);
-
-    function step(dirn) {
-      var w = cards[0] ? cards[0].offsetWidth + 28 : 400;
-      rail.scrollBy({ left: dirn * w, behavior: 'smooth' });
-    }
-    $('#qPrev').addEventListener('click', function () { step(-1); });
-    $('#qNext').addEventListener('click', function () { step(1); });
-
-    if (!reduce) {
-      gsap.from(rail, { y: 70, opacity: 0, duration: 1.3, ease: 'power3.out',
-        scrollTrigger: { trigger: rail, start: 'top 92%', once: true } });
     }
   }
 

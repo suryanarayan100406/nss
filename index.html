@@ -527,30 +527,33 @@
     <div>
       <p class="eyebrow" data-eyebrow>Voices from the unit</p>
       <h2 class="section-title">
-        <span class="line"><span>Sample testimonials —</span></span>
-        <span class="line"><span>replace with real ones.</span></span>
+        <span class="line"><span>Stories from</span></span>
+        <span class="line"><span>the ground.</span></span>
       </h2>
     </div>
-    <div class="q-controls">
-      <button class="q-btn" id="qPrev" type="button" aria-label="Previous testimonial"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="q-btn" id="qNext" type="button" aria-label="Next testimonial"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-    </div>
   </div>
-  <div class="quote-rail" id="quoteRail" data-cursor="Drag">
-    <div class="quote-card">
-      <span class="quote-mark">"</span>
-      <p class="quote-text">The plantation drive was the first time I felt like campus was more than classes and deadlines. Small hours, real difference.</p>
-      <div class="quote-attr"><div class="dot">V1</div><div class="who"><strong>Add name</strong>Volunteer, sample quote</div></div>
-    </div>
-    <div class="quote-card">
-      <span class="quote-mark">"</span>
-      <p class="quote-text">NSS is the one commitment on my calendar I never want to skip — the donation camp taught me more about organising people than any project did.</p>
-      <div class="quote-attr"><div class="dot">V2</div><div class="who"><strong>Add name</strong>Volunteer, sample quote</div></div>
-    </div>
-    <div class="quote-card">
-      <span class="quote-mark">"</span>
-      <p class="quote-text">Coordinating the school visits pushed me to actually plan, delegate and follow up — skills the classroom doesn't really teach.</p>
-      <div class="quote-attr"><div class="dot">V3</div><div class="who"><strong>Add name</strong>Event lead, sample quote</div></div>
+  <div class="quote-marquee" id="quoteMarquee">
+    <div class="quote-marquee-track" id="quoteTrack">
+      <div class="quote-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">The plantation drive was the first time I felt like campus was more than classes and deadlines. Getting our hands in the soil alongside batchmates gave service real meaning.</p>
+        <div class="quote-attr"><div class="dot" style="background:var(--marigold);color:var(--ink)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Plantation Drive</div></div>
+      </div>
+      <div class="quote-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">NSS is the one commitment on my calendar I never want to skip — organizing the blood donation camp taught me more about teamwork and coordination than any project could.</p>
+        <div class="quote-attr"><div class="dot" style="background:var(--rust);color:var(--bone)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Blood Donation Camp</div></div>
+      </div>
+      <div class="quote-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Performing the HIV/AIDS awareness Nukkad Natak showed me how street theater can spark dialogue and break stigmas. Seeing the campus pause and listen was unforgettable.</p>
+        <div class="quote-attr"><div class="dot" style="background:var(--moss);color:var(--bone)">NSS</div><div class="who"><strong>NSS Volunteer</strong>HIV/AIDS Awareness Campaign</div></div>
+      </div>
+      <div class="quote-card">
+        <span class="quote-mark">"</span>
+        <p class="quote-text">Organizing these drives and seeing students step forward with pure enthusiasm makes every late planning session and on-ground challenge completely worth it.</p>
+        <div class="quote-attr"><div class="dot" style="background:var(--marigold-dim);color:var(--ink)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Cleanliness &amp; Sports Fest</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1041,23 +1044,22 @@
     };
   }
 
-  // VOICES — same cover-flow on the testimonial rail (skipped on iOS: Safari is flaky with 3D inside scrollers)
+  // VOICES (desktop only) — the auto-scrolling strip bows subtly away from the centre of the screen
   function quoteScene() {
-    var rail = qs('#quoteRail'); if (!rail || isIOS || tier < 2) return null;
-    rail.style.perspective = '1100px';
-    var L = lane(rail, function () { return qsa('.quote-card', rail); });
-    var scroller = false, rr = null, sl = 0;
+    var track = qs('#quoteTrack'); if (!track || tier < 3) return null;
+    track.style.perspective = '1300px';
+    var L = lane(track, function () { return Array.prototype.slice.call(track.children); });
+    var left = 0;
     return {
-      root: rail, live: false, visible: true, stale: L.stale,
-      measure: function () { L.measure(); scroller = rail.scrollWidth > rail.clientWidth + 2; },
-      read: function () { rr = rail.getBoundingClientRect(); sl = rail.scrollLeft; },
+      root: qs('#quoteMarquee') || track, live: true, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { left = track.getBoundingClientRect().left; },
       write: function () {
-        if (!scroller) return;
-        var mid = rr.left + rr.width / 2;
+        track.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';
         L.els.forEach(function (el, i) {
-          var r = L.rel[i];
-          var d = clamp((rr.left + r.x - sl + r.w / 2 - mid) / (rr.width * 0.5), -1.5, 1.5);
-          put(el, 0, -d * 18 * K, 0, 0, -Math.abs(d) * 80 * K);
+          var r = L.rel[i], cx = left + r.x + r.w / 2;
+          if (cx < -r.w * 2 || cx > vw + r.w * 2) return;
+          var d = clamp((cx - vw / 2) / (vw * 0.55), -1.5, 1.5);
+          put(el, 0, -d * 20 * K, 0, 0, -Math.abs(d) * 100 * K);
         });
       }
     };
@@ -1162,113 +1164,6 @@
     html.classList.add('fx-3d');
     request();
   });
-})();
-</script>
-
-<!-- Testimonials autoplay: advances the rail on its own, loops, and steps aside when someone interacts -->
-<script>
-(function () {
-  var rail = document.getElementById('quoteRail');
-  var section = document.getElementById('testimonials');
-  var next = document.getElementById('qNext');
-  var prev = document.getElementById('qPrev');
-  if (!rail || !section) return;
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var DELAY = 4500;      // ms between slides
-  var COOLDOWN = 9000;   // ms to stay still after someone drags, scrolls or clicks a control
-
-  function init() {
-    var cards = rail.querySelectorAll('.quote-card');
-    if (cards.length < 2) return;
-
-    var timer, coolTimer;
-    var inView = false, hovering = false, cooling = false;
-
-    function firstLeft() { return cards[0].getBoundingClientRect().left; }
-    function offset() { return firstLeft() - rail.getBoundingClientRect().left; }
-    var startOff = offset();   // where the first card sits when the rail is at its start
-    window.addEventListener('resize', function () { if (rail.scrollLeft < 2) startOff = offset(); });
-    function native() { return rail.scrollWidth > rail.clientWidth + 2; }   // is the rail a normal scrolling box?
-    // Layout-based measurements (offsetLeft / scrollLeft) so the 3D tilt on the cards can't skew them
-    function stepSize() {
-      return native() ? cards[1].offsetLeft - cards[0].offsetLeft
-                      : cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left;
-    }
-    function atEnd() {
-      if (native()) return rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
-      var r = rail.getBoundingClientRect();
-      var last = cards[cards.length - 1].getBoundingClientRect();
-      return last.right <= r.right + 4;
-    }
-
-    // Back to the first card. Works for a natively scrolling rail; if the rail is moved
-    // by transforms instead, it falls back to pressing the Previous button.
-    function rewind() {
-      var before = firstLeft();
-      rail.scrollTo({ left: 0, behavior: 'smooth' });
-      setTimeout(function () {
-        if (Math.abs(firstLeft() - before) < 2 && prev) {
-          var left = cards.length - 1;
-          (function back() {
-            if (left-- > 0) { prev.click(); setTimeout(back, 260); }
-          })();
-        }
-      }, 900);
-    }
-
-    function advance() {
-      if (atEnd()) {
-        if (!native() && Math.abs(offset() - startOff) < 2) return;   // everything already fits — nothing to scroll
-        rewind();
-        return;
-      }
-      var before = firstLeft();
-      if (next) next.click();                       // reuse the existing Next behaviour
-      setTimeout(function () {                      // safety net if the button didn't move the rail
-        if (Math.abs(firstLeft() - before) < 2 && !atEnd()) {
-          rail.scrollBy({ left: stepSize(), behavior: 'smooth' });
-        }
-      }, 900);
-    }
-
-    function running() { return inView && !hovering && !cooling && !document.hidden; }
-    function schedule() {
-      clearTimeout(timer);
-      if (running()) timer = setTimeout(function () { advance(); schedule(); }, DELAY);
-    }
-    function cooldown() {
-      cooling = true;
-      clearTimeout(timer);
-      clearTimeout(coolTimer);
-      coolTimer = setTimeout(function () { cooling = false; schedule(); }, COOLDOWN);
-    }
-
-    // Pause while the pointer or keyboard focus is on the testimonials
-    rail.addEventListener('pointerenter', function () { hovering = true; clearTimeout(timer); });
-    rail.addEventListener('pointerleave', function () { hovering = false; schedule(); });
-    section.addEventListener('focusin',  function () { hovering = true; clearTimeout(timer); });
-    section.addEventListener('focusout', function () { hovering = false; schedule(); });
-
-    // Stay still for a while after any manual interaction
-    rail.addEventListener('pointerdown', cooldown);
-    rail.addEventListener('touchstart', cooldown, { passive: true });
-    rail.addEventListener('wheel', cooldown, { passive: true });
-    [next, prev].forEach(function (b) {
-      if (b) b.addEventListener('click', function (e) { if (e.isTrusted) cooldown(); });
-    });
-
-    document.addEventListener('visibilitychange', schedule);
-
-    // Only run while the testimonials are on screen
-    new IntersectionObserver(function (entries) {
-      inView = entries[0].isIntersecting;
-      schedule();
-    }, { threshold: 0.25 }).observe(section);
-  }
-
-  if (document.readyState === 'complete') init();
-  else window.addEventListener('load', init);
 })();
 </script>
 </body>
