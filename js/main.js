@@ -488,7 +488,7 @@
 
   function initTextReveals() {
     // Section titles: each line slides up out of its mask
-    $$('h1.section-title, h2.section-title, h2.join-title').forEach(function (h) {
+    $$('h2.section-title, h2.join-title').forEach(function (h) {
       var spans = $$('.line > span', h);
       var hls = $$('.hl[data-hl]', h);
       gsap.set(spans, { yPercent: 115, skewY: 4 });
@@ -631,131 +631,6 @@
       gsap.from(cards, { y: 50, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.1,
         scrollTrigger: { trigger: rail, start: 'top 85%', once: true } });
     });
-  }
-
-  /* ---------------------------------------------------------------------
-     EVENTS PAGE (events.html) — category filtering & photo lightbox
-  --------------------------------------------------------------------- */
-  function initEventsPage() {
-    var filterBar = $('#eventsFilterBar');
-    var spotlight = $('.event-spotlight-card');
-    var eventCards = $$('.events-chronicle-grid .event-card');
-    var lightbox = $('#eventLightbox');
-    var elImg = $('#elImg');
-    var elCaption = $('#elCaption');
-    var elClose = $('#elClose');
-    var elOverlay = $('#elOverlay');
-
-    // 1. Category Filtering
-    if (filterBar) {
-      var pills = $$('.filter-pill', filterBar);
-      pills.forEach(function (pill) {
-        pill.addEventListener('click', function () {
-          var targetFilter = this.getAttribute('data-filter');
-
-          pills.forEach(function (p) {
-            p.classList.remove('active');
-            p.setAttribute('aria-selected', 'false');
-          });
-          this.classList.add('active');
-          this.setAttribute('aria-selected', 'true');
-
-          if (spotlight) {
-            var spotCat = spotlight.getAttribute('data-category');
-            if (targetFilter === 'all' || spotCat === targetFilter) {
-              spotlight.style.display = '';
-              gsap.fromTo(spotlight, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
-            } else {
-              spotlight.style.display = 'none';
-            }
-          }
-
-          eventCards.forEach(function (card) {
-            var cardCat = card.getAttribute('data-category');
-            if (targetFilter === 'all' || cardCat === targetFilter) {
-              card.style.display = '';
-              gsap.fromTo(card, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
-            } else {
-              card.style.display = 'none';
-            }
-          });
-
-          ScrollTrigger.refresh();
-        });
-      });
-    }
-
-    // 2. Entrance reveals for event chronicle cards
-    if (eventCards.length && !reduce) {
-      gsap.set(eventCards, { y: 40, opacity: 0 });
-      ScrollTrigger.batch(eventCards, {
-        start: 'top 92%',
-        once: true,
-        onEnter: function (batch) {
-          gsap.to(batch, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', stagger: 0.08 });
-        }
-      });
-    }
-
-    // 3. Photo Lightbox Modal
-    if (lightbox) {
-      function openLightbox(fig) {
-        var imgUrl = fig.getAttribute('data-img') || (fig.querySelector('img') ? fig.querySelector('img').src : '');
-        var caption = fig.getAttribute('data-caption') || (fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent : '');
-        if (!imgUrl) return;
-
-        if (elImg) elImg.src = imgUrl;
-        if (elCaption) elCaption.textContent = caption || '';
-
-        if (typeof lightbox.showModal === 'function') {
-          try {
-            lightbox.showModal();
-          } catch (e) {
-            lightbox.setAttribute('open', '');
-            lightbox.style.display = 'flex';
-          }
-        } else {
-          lightbox.setAttribute('open', '');
-          lightbox.style.display = 'flex';
-        }
-      }
-
-      function closeLightbox() {
-        if (typeof lightbox.close === 'function') {
-          try {
-            lightbox.close();
-          } catch (e) {}
-        }
-        lightbox.removeAttribute('open');
-        lightbox.style.display = 'none';
-        if (elImg) elImg.src = 'about:blank';
-      }
-
-      var triggerFigs = $$('.spotlight-fig, .ec-photo');
-      triggerFigs.forEach(function (fig) {
-        fig.addEventListener('click', function () {
-          openLightbox(this);
-        });
-        fig.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openLightbox(this);
-          }
-        });
-      });
-
-      if (elClose) elClose.addEventListener('click', closeLightbox);
-      if (elOverlay) elOverlay.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('cancel', function (e) {
-        e.preventDefault();
-        closeLightbox();
-      });
-      window.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && (lightbox.open || lightbox.hasAttribute('open'))) {
-          closeLightbox();
-        }
-      });
-    }
   }
 
   /* ---------------------------------------------------------------------
@@ -1033,7 +908,6 @@
     window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
     var f = $('#footer'); if (f) doc.style.setProperty('--footer-h', f.offsetHeight + 'px');
     window.addEventListener('resize', debounce(function () { doc.style.setProperty('--footer-h', f.offsetHeight + 'px'); }, 200));
-    initEventsPage();
   }
 
   /* ---------------------------------------------------------------------
@@ -1045,7 +919,7 @@
     doc.classList.add('no-gsap');
     doc.classList.remove('is-loading');
     var pre = $('#preloader'); if (pre) pre.style.display = 'none';
-    $$('.line > span, .hero-sub, .hero-actions, .team-featured-card, .team-member-card, .team-leader-card, .impact-item, .step, .event-card, .event-spotlight-card, .quote-rail, [data-fade], #heroMedia, #heroWheel, #siteNav, #aboutDuo, #footerBig .ch')
+    $$('.line > span, .hero-sub, .hero-actions, .team-featured-card, .team-member-card, .team-leader-card, .impact-item, .step, .event-card, .quote-rail, [data-fade], #heroMedia, #heroWheel, #siteNav, #aboutDuo, #footerBig .ch')
       .forEach(function (el) { gsap.set(el, { clearProps: 'all' }); });
     $$('.hl[data-hl]').forEach(function (h) { h.classList.add('on'); });
     $$('[data-eyebrow]').forEach(function (e) { e.classList.add('in'); });
@@ -1079,7 +953,6 @@
       initAbout(mm);
       initImpact();
       initEvents(mm);
-      initEventsPage();
       initTeam(mm);
       initJoin();
       initFooter();
