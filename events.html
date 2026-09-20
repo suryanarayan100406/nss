@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events &amp; Activities — NSS IIIT Naya Raipur</title>
+<meta name="description" content="Explore the chronicle of service drives, health camps, environmental stewardship, and student volunteering at Dr. SPM IIIT Naya Raipur.">
+<meta name="theme-color" content="#0F1712">
+<script>
+  document.documentElement.className = 'js is-loading';
+  window.__plFailsafe = setTimeout(function () {
+    var p = document.getElementById('preloader');
+    if (p) p.style.display = 'none';
+    document.documentElement.classList.remove('is-loading');
+  }, 12000);
+</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#eventsChronicle">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-flood"></div>
+  <div class="pl-stage">
+    <svg class="pl-wheel" viewBox="0 0 240 240" fill="none">
+      <g class="pl-letters"></g>
+      <g class="pl-ticks"></g>
+      <circle class="pl-rim"  cx="120" cy="120" r="76"/>
+      <circle class="pl-rim2" cx="120" cy="120" r="62"/>
+      <g class="pl-spokes"></g>
+      <circle class="pl-hubring" cx="120" cy="120" r="15"/>
+      <circle class="pl-hub" cx="120" cy="120" r="8"/>
+    </svg>
+    <div class="pl-lockup">
+      <span class="l1"><span>Dr. SPM IIIT Naya Raipur</span></span>
+      <span class="l2"><span>NATIONAL SERVICE SCHEME</span></span>
+    </div>
+  </div>
+  <div class="pl-meta"><span class="pl-count" id="plCount">0</span><span class="pl-pct">%</span></div>
+</div>
+
+<div id="grain"></div>
+<div id="spotlight"></div>
+<div id="cursorDot"></div>
+<div id="cursorRing"><span class="cl"></span></div>
+
+<header class="site-nav" id="siteNav">
+  <a href="index.html" class="brand" data-scroll>
+    <span class="emblem" id="emblem">
+      <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
+        <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
+        <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
+        <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
+          <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
+          <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
+          <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
+          <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
+        </g>
+      </svg>
+      <img class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+    </span>
+    <span class="name">NSS<small>IIIT Naya Raipur</small></span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html#about" data-nav>About</a>
+    <a href="events.html" data-nav class="active">Events</a>
+    <a href="team.html" data-nav>Team</a>
+    <a href="index.html#impact" data-nav>Impact</a>
+    <a href="index.html#testimonials" data-nav>Voices</a>
+    <a href="index.html#join" class="nav-cta magnetic" data-nav>Join us</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============================== EVENTS HERO ============================== -->
+<section class="events-hero" id="eventsHero">
+  <div class="wrap">
+    <a href="index.html" class="events-page-back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Back to home
+    </a>
+    <p class="eyebrow" data-eyebrow>Chronicle of Action</p>
+    <h1 class="section-title">
+      <span class="line"><span>What the unit's</span></span>
+      <span class="line"><span><span class="hl" data-hl>been up to</span>.</span></span>
+    </h1>
+    <p class="section-lead" data-fade>
+      A verified record of health camps, environmental drives, civic initiatives, and state-level participations led by the volunteers of Dr. SPM IIIT Naya Raipur.
+    </p>
+
+    <!-- Stat Highlights -->
+    <div class="events-stats-strip" data-fade>
+      <div class="stat-cell">
+        <strong class="stat-num">15</strong>
+        <span class="stat-lbl">Documented Drives &amp; Camps</span>
+      </div>
+      <div class="stat-cell">
+        <strong class="stat-num">500+</strong>
+        <span class="stat-lbl">Campus &amp; Community Attendees</span>
+      </div>
+      <div class="stat-cell">
+        <strong class="stat-num">04</strong>
+        <span class="stat-lbl">Partner Collaborations (AIIMS, MoSPI, NTCP, Treewards)</span>
+      </div>
+      <div class="stat-cell">
+        <strong class="stat-num">100%</strong>
+        <span class="stat-lbl">Student-Led Execution</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== EVENTS CHRONICLE & FILTERS ============================== -->
+<section class="events-chronicle-section" id="eventsChronicle" data-section>
+  <div class="wrap">
+
+    <!-- Category Filter Bar -->
+    <div class="events-filter-bar" id="eventsFilterBar">
+      <div class="filter-pills" role="tablist" aria-label="Filter events by category">
+        <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All Activities <span class="pill-count">15</span></button>
+        <button class="filter-pill" data-filter="health" role="tab" aria-selected="false">Health &amp; Camps <span class="pill-count">6</span></button>
+        <button class="filter-pill" data-filter="environment" role="tab" aria-selected="false">Environment <span class="pill-count">2</span></button>
+        <button class="filter-pill" data-filter="national" role="tab" aria-selected="false">National Observances <span class="pill-count">3</span></button>
+        <button class="filter-pill" data-filter="competition" role="tab" aria-selected="false">Competitions &amp; Outreach <span class="pill-count">4</span></button>
+      </div>
+    </div>
+
+    <!-- Featured Spotlight: Blood Donation Camp -->
+    <article class="event-spotlight-card" data-category="health" data-fade>
+      <div class="spotlight-inner">
+        <div class="spotlight-header">
+          <div class="spotlight-badge-row">
+            <span class="spotlight-tag">Featured Drive • Activity 13</span>
+            <span class="spotlight-date">15 November 2025</span>
+          </div>
+          <h2 class="spotlight-title">Mega Blood Donation Camp at IIIT-NR</h2>
+          <div class="spotlight-meta">
+            <span><strong>Organized with:</strong> AIIMS Raipur &amp; HDFC Bank</span>
+            <span><strong>Venue:</strong> Incubation Centre, IIIT-NR (10:00 AM)</span>
+            <span><strong>Officers:</strong> Dr. Krishnanand Vishwakarma &amp; Dr. Lakhindar Murmu</span>
+          </div>
+          <p class="spotlight-desc">
+            The NSS Unit of Dr. SPM IIIT Naya Raipur organized an impactful voluntary Blood Donation Camp in collaboration with AIIMS Raipur and HDFC Bank. Students, research scholars, faculty, and non-teaching staff stepped forward in large numbers, demonstrating the core NSS ethos: <em>“Not Me, But You.”</em> Each donated unit was processed to potentially save up to three lives in critical need across state healthcare networks.
+          </p>
+        </div>
+
+        <!-- 4-Image Spotlight Showcase -->
+        <div class="spotlight-gallery">
+          <figure class="spotlight-fig main-photo" tabindex="0" role="button" aria-label="View photo in fullscreen" data-img="assets/images/events/blood-donation-1.jpeg" data-caption="Blood Donation Camp 2025 — Official report photograph taken during the camp at the Incubation Centre.">
+            <img src="assets/images/events/blood-donation-1.jpeg" alt="Volunteers and medical staff during blood donation camp" loading="lazy">
+            <figcaption>Official Camp Record • AIIMS Raipur &amp; IIIT-NR</figcaption>
+          </figure>
+          <figure class="spotlight-fig" tabindex="0" role="button" aria-label="View photo in fullscreen" data-img="assets/images/events/blood-donation-2.jpeg" data-caption="Student volunteer actively donating blood under professional medical supervision by AIIMS Raipur personnel.">
+            <img src="assets/images/events/blood-donation-2.jpeg" alt="Student donor receiving care during blood collection" loading="lazy">
+            <figcaption>Volunteer in Action</figcaption>
+          </figure>
+          <figure class="spotlight-fig" tabindex="0" role="button" aria-label="View photo in fullscreen" data-img="assets/images/events/blood-donation-3.jpeg" data-caption="NSS volunteers and donors resting post-donation with certificates of humanitarian service.">
+            <img src="assets/images/events/blood-donation-3.jpeg" alt="Donation beds and donors resting" loading="lazy">
+            <figcaption>Care &amp; Screening Area</figcaption>
+          </figure>
+          <figure class="spotlight-fig" tabindex="0" role="button" aria-label="View photo in fullscreen" data-img="assets/images/events/blood-donation-4.jpeg" data-caption="Medical coordinators and NSS team members managing registration and donor health checks.">
+            <img src="assets/images/events/blood-donation-4.jpeg" alt="Camp organizers and medical team at donation station" loading="lazy">
+            <figcaption>Medical Operations Desk</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- Chronicle Grid for all activities -->
+    <div class="events-chronicle-grid" id="eventsGrid">
+
+      <!-- Activity 01 -->
+      <article class="event-card" data-category="health" style="--card-accent:var(--marigold);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 01</span>
+            <span class="ec-cat">Health &amp; Wellness</span>
+          </div>
+          <time class="ec-date">21 June 2025</time>
+        </div>
+        <h3 class="ec-title">International Yoga Day Celebration at IIIT-NR</h3>
+        <p class="ec-desc">
+          Organized to promote regular yoga practice and physical-mental well-being under the expert guidance of renowned instructor Mr. Manjeet Sthapak (The Yoga Institute, Raipur). Over 60 students and faculty performed guided asanas, pranayama, and mindfulness routines.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Program Officers:</strong> Dr. K.N. Vishwakarma / Dr. L. Murmu</span>
+          <span><strong>Instructor:</strong> Mr. Manjeet Sthapak</span>
+        </div>
+        <div class="ec-gallery" style="--cols:2;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/yoga-day-1.jpeg" data-caption="International Yoga Day — Guided asanas and mindfulness session.">
+            <img src="assets/images/events/yoga-day-1.jpeg" alt="Yoga Day celebration session" loading="lazy">
+          </figure>
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/yoga-day-2.jpeg" data-caption="International Yoga Day — Group photograph of participants.">
+            <img src="assets/images/events/yoga-day-2.jpeg" alt="Yoga Day group photograph" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 02 -->
+      <article class="event-card" data-category="competition" style="--card-accent:var(--rust);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 02</span>
+            <span class="ec-cat">Statewide Competition</span>
+          </div>
+          <time class="ec-date">18 July 2025</time>
+        </div>
+        <h3 class="ec-title">ANVESHA 2.0 Nationwide Quiz Competition</h3>
+        <p class="ec-desc">
+          Organized by the Ministry of Statistics &amp; Programme Implementation (MoSPI) at Regional Office, Raipur. Competing against 180+ students from 34 state universities, the IIIT Naya Raipur contingent achieved the <strong>9th Statewide Rank</strong> in official statistical acumen and data interpretation.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Organized by:</strong> MoSPI, Govt. of India</span>
+          <span><strong>Achievement:</strong> 9th Position Statewide</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/anvesha-quiz.jpeg" data-caption="ANVESHA 2.0 Quiz — IIIT-NR team and coordinators at MoSPI regional office.">
+            <img src="assets/images/events/anvesha-quiz.jpeg" alt="ANVESHA 2.0 quiz team" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 03 -->
+      <article class="event-card" data-category="national" style="--card-accent:var(--marigold);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 03</span>
+            <span class="ec-cat">National Observance</span>
+          </div>
+          <time class="ec-date">28 July 2025</time>
+        </div>
+        <h3 class="ec-title">"Kargil Vijay Diwas" Commemoration</h3>
+        <p class="ec-desc">
+          Graced by Chief Guest Prof. N.P. Dixit (Chairman, Jammu &amp; Kashmir Ladakh Study Center) and Shri Deshdeepak Singh, alongside Director Prof. Om Prakash Vyas. A solemn tribute honoring the sacrifices of Indian soldiers, instilling national duty and resilience in students.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Chief Guest:</strong> Prof. N.P. Dixit</span>
+          <span><strong>Chairmanship:</strong> Prof. Om Prakash Vyas</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/kargil-vijay-diwas.jpeg" data-caption="Kargil Vijay Diwas — Felicitation and commemorative ceremony at campus.">
+            <img src="assets/images/events/kargil-vijay-diwas.jpeg" alt="Kargil Vijay Diwas commemoration ceremony" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 04 -->
+      <article class="event-card" data-category="national" style="--card-accent:var(--rust);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 04</span>
+            <span class="ec-cat">National Observance</span>
+          </div>
+          <time class="ec-date">15 August 2025</time>
+        </div>
+        <h3 class="ec-title">78th Independence Day Celebrations</h3>
+        <p class="ec-desc">
+          A grand campus celebration attended by more than 500 students, faculty, and administrative staff. Featured ceremonial flag hoisting by Director Dr. Om Prakash Vyas, address to the university, and student cultural tributes honoring India's freedom movement.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Chief Guest:</strong> Dr. Om Prakash Vyas (Director)</span>
+          <span><strong>Attendance:</strong> 500+ Participants</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/independence-day.png" data-caption="Independence Day 2025 — Flag hoisting and parade at IIIT-NR.">
+            <img src="assets/images/events/independence-day.png" alt="Independence Day celebration at IIIT-NR" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 05 -->
+      <article class="event-card" data-category="environment" style="--card-accent:var(--moss);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 05</span>
+            <span class="ec-cat">Environmental Drive</span>
+          </div>
+          <time class="ec-date">28 August 2025</time>
+        </div>
+        <h3 class="ec-title">Campus-Wide Greenery &amp; Plantation Drive</h3>
+        <p class="ec-desc">
+          Organized in collaboration with Treewards to enhance biodiversity and promote climate responsibility. Guided by Dr. K.N. Vishwakarma and Estate Officer Mr. Rakesh Kumar Mishra, over 250 volunteers planted saplings across the institutional perimeter.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Collaboration:</strong> Treewards &amp; Estate Office</span>
+          <span><strong>Volunteers:</strong> 250+ Students &amp; Staff</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/plantation-drive.jpeg" data-caption="Plantation Drive — Students planting native trees on campus grounds.">
+            <img src="assets/images/events/plantation-drive.jpeg" alt="Tree plantation on campus grounds" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 06 -->
+      <article class="event-card" data-category="health" style="--card-accent:var(--marigold);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 06</span>
+            <span class="ec-cat">Fit India / Sports</span>
+          </div>
+          <time class="ec-date">29–31 August 2025</time>
+        </div>
+        <h3 class="ec-title">National Sports Day Multi-Sport Fest</h3>
+        <p class="ec-desc">
+          Held under the Fit India and Khelo India mandates to celebrate fitness and team spirit. Organizers coordinated three days of intra-university tournaments in Cricket, Chess, and Basketball, fostering cross-departmental fellowship.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Disciplines:</strong> Cricket, Chess, Basketball</span>
+          <span><strong>Initiatives:</strong> Fit India &amp; Khelo India</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/national-sports-day.jpeg" data-caption="National Sports Day — Tournament finals and prize distribution.">
+            <img src="assets/images/events/national-sports-day.jpeg" alt="Sports Day tournament participants" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 07 -->
+      <article class="event-card" data-category="competition" style="--card-accent:var(--rust);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 07</span>
+            <span class="ec-cat">State Accolade</span>
+          </div>
+          <time class="ec-date">04 September 2025</time>
+        </div>
+        <h3 class="ec-title">New India Festival at IGKV Raipur</h3>
+        <p class="ec-desc">
+          Six IIIT-NR students (Tanishq Bhattacharya, Divyansh Rangari, Yog Verma, Arpita Dash, Pranjal Gupta, and Omkareshwar) emerged as winners in state youth competitions and were formally accoladed by the Honorable Member of Parliament (Raipur) at NIT Raipur.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Venue:</strong> IGKV &amp; NIT Raipur</span>
+          <span><strong>Honored:</strong> 6 Student Innovator Winners</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/new-india-festival.jpeg" data-caption="New India Festival — IIIT-NR student winners accoladed by Raipur dignitaries.">
+            <img src="assets/images/events/new-india-festival.jpeg" alt="New India Festival felicitations" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 08 -->
+      <article class="event-card" data-category="health" style="--card-accent:var(--rust);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 08</span>
+            <span class="ec-cat">State Marathon</span>
+          </div>
+          <time class="ec-date">07 September 2025</time>
+        </div>
+        <h3 class="ec-title">RED RUN 2024 State-Level Marathon</h3>
+        <p class="ec-desc">
+          A 10-kilometer awareness marathon organized by the Chhattisgarh State Government and Red Ribbon Club in presence of Dr. Neeta Bajpayee (State NSS Officer). Seven IIIT-NR athletes completed the run to raise awareness and combat social stigma surrounding HIV/AIDS.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Distance:</strong> 10 Km City Circuit (7:00 AM)</span>
+          <span><strong>Cause:</strong> HIV/AIDS Destigmatization</span>
+        </div>
+        <div class="ec-gallery" style="--cols:2;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/red-run-marathon-1.jpeg" data-caption="RED RUN Marathon — IIIT-NR student runners at the starting line.">
+            <img src="assets/images/events/red-run-marathon-1.jpeg" alt="Runners at starting line" loading="lazy">
+          </figure>
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/red-run-marathon-2.jpeg" data-caption="RED RUN Marathon — Volunteers with State NSS leadership.">
+            <img src="assets/images/events/red-run-marathon-2.jpeg" alt="Runners at the finish line" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 09 -->
+      <article class="event-card" data-category="competition" style="--card-accent:var(--marigold-dim);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 09</span>
+            <span class="ec-cat">Academic Policy</span>
+          </div>
+          <time class="ec-date">19 September 2025</time>
+        </div>
+        <h3 class="ec-title">MoSPI 75th NSS Anniversary Essay Contest</h3>
+        <p class="ec-desc">
+          Organized by the National Statistics Office (FOD), Raipur to celebrate 75 years of the National Sample Survey. Students authored essays exploring Artificial Intelligence in national statistical pipelines, digital survey transformation, and data-driven governance for Sustainable Development Goals.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Host:</strong> National Statistics Office (FOD)</span>
+          <span><strong>Theme:</strong> AI in India's Statistical Systems</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/essay-competition.jpeg" data-caption="MoSPI Essay Competition — Certificate distribution ceremony.">
+            <img src="assets/images/events/essay-competition.jpeg" alt="Participants receiving MoSPI certificates" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 10 -->
+      <article class="event-card" data-category="environment" style="--card-accent:var(--moss);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 10</span>
+            <span class="ec-cat">Swachh Bharat</span>
+          </div>
+          <time class="ec-date">02 October 2025</time>
+        </div>
+        <h3 class="ec-title">Gandhi Jayanti Cleanliness Drive</h3>
+        <p class="ec-desc">
+          A dedicated campus sanitation drive led by Dr. K.N. Vishwakarma and Dr. Ramakrishna Bandi (CYTC Coordinator), with departmental support from Dr. Lakhindar Murmu and Dr. Maifuz Ali. Volunteers cleaned academic blocks, walkways, and perimeter grounds in the spirit of civic self-reliance.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Movement:</strong> Swachh Bharat Abhiyan</span>
+          <span><strong>Locations:</strong> Classrooms, Corridors &amp; Grounds</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/cleanliness-drive.jpeg" data-caption="Gandhi Jayanti Drive — NSS volunteers cleaning institutional grounds.">
+            <img src="assets/images/events/cleanliness-drive.jpeg" alt="NSS volunteers engaged in campus cleaning" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 11 -->
+      <article class="event-card" data-category="competition" style="--card-accent:var(--marigold);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 11</span>
+            <span class="ec-cat">Higher Education</span>
+          </div>
+          <time class="ec-date">30 November 2024</time>
+        </div>
+        <h3 class="ec-title">Education USA &amp; U.S. Consulate Higher Studies Seminar</h3>
+        <p class="ec-desc">
+          An in-depth informational session conducted by U.S. Consulate and EducationUSA representatives for pre-final and final-year students. Covered Master's/Ph.D. admissions, funding fellowships, GRE/TOEFL requirements, and student visa compliance.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Collaborator:</strong> EducationUSA &amp; U.S. Consulate</span>
+          <span><strong>Audience:</strong> 60+ Aspiring Postgraduates</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/higher-studies-usa.jpeg" data-caption="EducationUSA Seminar — Q&amp;A session on international study visas.">
+            <img src="assets/images/events/higher-studies-usa.jpeg" alt="Higher studies seminar hall" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 12 -->
+      <article class="event-card" data-category="health" style="--card-accent:var(--rust);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 12</span>
+            <span class="ec-cat">Social Theater</span>
+          </div>
+          <time class="ec-date">16 October 2025</time>
+        </div>
+        <h3 class="ec-title">HIV/AIDS Awareness Nukkad Natak (Street Play)</h3>
+        <p class="ec-desc">
+          Performed near the Dr. SPM Statue in the Main Academic Building under the Red Ribbon Club mandate. Student dramatists utilized street theater to break social myths, educate on transmission routes, and advocate for empathy and responsible health practices.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Venue:</strong> Dr. SPM Statue, Academic Building</span>
+          <span><strong>Initiative:</strong> Red Ribbon Club, CG Dept.</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/aids-awareness-nukkad-natak.jpeg" data-caption="Nukkad Natak — Street play performance by NSS students on campus.">
+            <img src="assets/images/events/aids-awareness-nukkad-natak.jpeg" alt="Students performing Nukkad Natak street play" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+      <!-- Activity 14 -->
+      <article class="event-card" data-category="health" style="--card-accent:var(--moss);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 14</span>
+            <span class="ec-cat">Preventive Health</span>
+          </div>
+          <time class="ec-date">21 January 2026</time>
+        </div>
+        <h3 class="ec-title">Free Dental Check-Up &amp; Tobacco Awareness Camp</h3>
+        <p class="ec-desc">
+          Organized in association with the National Tobacco Control Programme (NTCP), National Oral Health Programme (NOHP), and Rakhi Medical Centre. Qualified dentists administered dental screenings, hygiene counseling, and anti-tobacco education to campus residents.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Partners:</strong> NTCP, NOHP &amp; Rakhi Medical Centre</span>
+          <span><strong>Venue:</strong> Medical Centre Ground Floor</span>
+        </div>
+        <div class="ec-note-badge">
+          <span>Medical Consultation Drive • Free Oral Screening for Campus</span>
+        </div>
+      </article>
+
+      <!-- Activity 15 -->
+      <article class="event-card" data-category="national" style="--card-accent:var(--marigold);">
+        <div class="ec-header">
+          <div class="ec-badge-row">
+            <span class="ec-num">Activity 15</span>
+            <span class="ec-cat">National Observance</span>
+          </div>
+          <time class="ec-date">26 January 2026</time>
+        </div>
+        <h3 class="ec-title">77th Republic Day Celebrations at IIIT-NR</h3>
+        <p class="ec-desc">
+          Commemorating the adoption of the Constitution of India with director Dr. Om Prakash Vyas as Chief Guest. The ceremony assembled faculty, staff, and families at the Academic Building entrance for national flag hoisting, constitutional oaths, and student cultural tributes.
+        </p>
+        <div class="ec-meta">
+          <span><strong>Chief Guest:</strong> Dr. Om Prakash Vyas (Director)</span>
+          <span><strong>Theme:</strong> Constitutional Values &amp; Unity</span>
+        </div>
+        <div class="ec-gallery" style="--cols:1;">
+          <figure class="ec-photo" tabindex="0" role="button" data-img="assets/images/events/republic-day.jpeg" data-caption="Republic Day 2026 — Flag hoisting and salute ceremony at IIIT-NR.">
+            <img src="assets/images/events/republic-day.jpeg" alt="Republic Day celebrations at IIIT-NR" loading="lazy">
+          </figure>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================== LIGHTBOX DIALOG ============================== -->
+<dialog class="event-lightbox" id="eventLightbox" aria-label="Event photograph viewer">
+  <div class="el-overlay" id="elOverlay"></div>
+  <div class="el-box">
+    <button class="el-close" id="elClose" type="button" aria-label="Close viewer">
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="el-figure">
+      <img id="elImg" src="about:blank" alt="Enlarged event photograph">
+      <p class="el-caption" id="elCaption"></p>
+    </div>
+  </div>
+</dialog>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer id="footer" style="position:relative;">
+  <svg class="footer-wheel" id="footerWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="2"/>
+    <circle cx="60" cy="60" r="8" fill="currentColor"/>
+    <g stroke="currentColor" stroke-width="2">
+      <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+      <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+      <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+      <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+    </g>
+  </svg>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="https://www.iiitnr.ac.in/" target="_blank" rel="noopener" class="footer-logo-link" title="Dr. SPM IIIT Naya Raipur">
+        <img src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" class="footer-logo" width="56" height="56">
+      </a>
+      <p class="footer-note">NSS unit of Dr. SPM IIIT Naya Raipur — students serving the communities around campus.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="index.html#about">About</a>
+      <a href="events.html">Events</a>
+      <a href="team.html">Team</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="index.html#join">Join</a>
+    </nav>
+  </div>
+  <p class="footer-big" id="footerBig" aria-label="Not me, but you.">
+    <span class="fl" aria-hidden="true">Not me,</span>
+    <span class="fl" aria-hidden="true">but you.</span>
+  </p>
+  <div class="footer-bar">
+    <span>© 2026 NSS, IIIT Naya Raipur. Not Me, But You.</span>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </a>
+      <a href="https://x.com/NSS_IIITNR" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </a>
+      <a href="mailto:nss@iiitnr.edu.in" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+    </div>
+    <a href="#" class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
