@@ -662,15 +662,19 @@
     /* --- Main page: featured team marquee --- */
     var marqueeTrack = $('#teamMarqueeTrack');
     if (marqueeTrack) {
-      // Keep Head & Vice Head leading, randomize core members with Surya beside Mansi
+      // Keep NSS Officer and Heads leading, randomize core members with Surya beside Mansi
       var allCards = Array.from(marqueeTrack.querySelectorAll('.team-featured-card'));
-      var leaders = allCards.filter(function (c) {
+      var officer = allCards.filter(function (c) {
+        var role = (c.querySelector('.tf-role') || {}).textContent || '';
+        return role.includes('Officer');
+      });
+      var studentLeaders = allCards.filter(function (c) {
         var role = (c.querySelector('.tf-role') || {}).textContent || '';
         return role.includes('Head');
       });
       var coreCards = allCards.filter(function (c) {
         var role = (c.querySelector('.tf-role') || {}).textContent || '';
-        return !role.includes('Head');
+        return !role.includes('Head') && !role.includes('Officer');
       });
 
       if (coreCards.length) {
@@ -689,7 +693,7 @@
         var insertIdx = Math.floor(Math.random() * (othersF.length + 1));
         var orderedCore = othersF.slice(0, insertIdx).concat(pairF, othersF.slice(insertIdx));
         marqueeTrack.innerHTML = '';
-        leaders.concat(orderedCore).forEach(function (c) { marqueeTrack.appendChild(c); });
+        officer.concat(studentLeaders, orderedCore).forEach(function (c) { marqueeTrack.appendChild(c); });
       }
 
       // Duplicate the cards for seamless infinite scroll

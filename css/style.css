@@ -414,7 +414,10 @@ section.team .section-lead{color:var(--ink-on-paper-dim);max-width:46ch;margin-b
 
 /* Leadership section */
 .team-leaders{background:var(--paper);padding:clamp(80px,12vh,120px) 0;}
-.team-leaders-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(32px,4vw,56px);margin-top:clamp(36px,5vh,56px);}
+.team-officer-spotlight{max-width:480px;margin:clamp(36px,5vh,52px) auto clamp(32px,4.5vh,48px);}
+.team-officer-spotlight .team-leader-card{border-color:rgba(46,74,56,.28);box-shadow:0 22px 50px -20px rgba(15,23,18,.22);}
+.team-officer-spotlight .team-leader-card::before{background:var(--accent,var(--moss));height:5px;}
+.team-leaders-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(32px,4vw,56px);margin-top:clamp(28px,4vh,44px);}
 .team-leader-card{text-align:center;padding:40px 28px;background:var(--paper-2);border-radius:2px;position:relative;overflow:hidden;
   border:1px solid var(--line-on-paper);transition:box-shadow .5s ease, transform .5s var(--ease);}
 .team-leader-card:hover{box-shadow:0 30px 56px -22px rgba(15,23,18,.3);transform:translateY(-6px);}
