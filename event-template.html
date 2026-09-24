@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
+<!-- REPLACE: page title -->
+<title>Event Name — NSS IIIT Naya Raipur</title>
+<!-- REPLACE: one-line description for search engines / link previews -->
+<meta name="description" content="A short line about this event — what it was, when, and who took part.">
+<meta name="theme-color" content="#0F1712">
+<script>
+  /* Marks the page as JS-enabled and adds a failsafe so the loader can never get stuck. */
+  document.documentElement.className = 'js is-loading';
+  window.__plFailsafe = setTimeout(function () {
+    var p = document.getElementById('preloader');
+    if (p) p.style.display = 'none';
+    document.documentElement.classList.remove('is-loading');
+  }, 12000);
+</script>
+<link rel="stylesheet" href="css/style.css">
+<style id="fx-css">
+  /* ===== 3D depth layer + mobile tuning — safe to delete; nothing here changes layout ===== */
+
+  /* Endless spinners are paused by the script while they're off-screen */
+  .fx-paused, .fx-paused * { animation-play-state: paused !important; }
+
+  /* Cards that turn in 3D never need to show their back face */
+  .fx-3d .event-card,
+  .fx-3d .quote-card,
+  .fx-3d .team-featured-card,
+  .fx-3d .impact-item { backface-visibility: hidden; }
+
+  /* Touch devices: no custom cursor, no pointer spotlight, and a still (not animated) grain layer */
+  @media (hover: none), (pointer: coarse) {
+    #cursorDot, #cursorRing, #spotlight { display: none !important; }
+    #grain { animation: none !important; }
+  }
+
+  a, button { -webkit-tap-highlight-color: transparent; }
+</style>
+<style id="mobile-css">
+  /* ===== Mobile tuning — defensive defaults; none of this changes the desktop layout ===== */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }          /* stop iOS inflating text after rotation */
+  a, button, [role="button"], .magnetic { touch-action: manipulation; }     /* no double-tap-zoom delay on controls */
+  body { overflow-x: clip; }                                                /* a stray wide element can't make the page pan sideways */
+
+  /* Grid/flex children may shrink below their content's width (long words and e-mails can't push the page wider) */
+  .about-grid > *, .join-grid > *, .impact-row > *, .impact-head > *,
+  .events-head > *, .q-head > *, .footer-top > * { min-width: 0; }
+  .contact-box .email { overflow-wrap: anywhere; }
+
+  /* Effects that only pay off with a mouse, or cost too much battery on a phone */
+  @media (max-width: 820px), (pointer: coarse) {
+    #grain, #spotlight, #cursorDot, #cursorRing { display: none !important; }
+  }
+
+  /* Fill the *small* viewport so the address bar sliding in and out doesn't make the hero jump */
+  @supports (height: 100svh) {
+    @media (max-width: 820px) { .hero { min-height: 100svh; } }
+  }
+</style>
+<!--
+  This page reuses index.html's exact chrome (preloader, nav, hero, "about"-style photo block,
+  footer, and the vendor/main.js/3D scripts) so it gets the identical fonts, colours and scroll
+  animations. Only the section below marked EVP-CSS and the content marked REPLACE are specific
+  to this template.
+-->
+<style id="evp-css">
+  /* Event-specific bits with no equivalent component on index.html: the meta strip in the hero,
+     the photo gallery, and the participants table. Everything else above (nav/hero/about/footer)
+     is styled entirely by css/style.css, exactly like index.html. */
+
+  .evp-meta{ list-style:none; margin:22px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:18px 32px; }
+  .evp-meta li{ display:flex; flex-direction:column; gap:2px; }
+  .evp-meta .k{ font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:rgba(245,241,228,.55); }
+  .evp-meta .v{ font-size:1rem; font-weight:600; color:var(--bone,#F5F1E4); }
+
+  .evp-gallery{ padding:clamp(48px,8vh,96px) 0; }
+  .evp-grid{ margin-top:28px; display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:14px; }
+  .evp-grid figure{ margin:0; border-radius:14px; overflow:hidden; background:rgba(245,241,228,.06); aspect-ratio:4/3; position:relative; }
+  .evp-grid img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+  .evp-grid figure:hover img{ transform:scale(1.04); }
+  .evp-grid figcaption{ position:absolute; left:0; right:0; bottom:0; padding:10px 12px; font-size:.8rem; background:linear-gradient(0deg, rgba(15,23,18,.85), transparent); color:var(--bone,#F5F1E4); }
+
+  .evp-table-section{ padding:clamp(48px,8vh,96px) 0 clamp(64px,10vh,120px); }
+  .evp-table-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px; }
+  .evp-table-tools{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .evp-table-tools input[type="search"]{
+    background:rgba(245,241,228,.06); border:1px solid rgba(245,241,228,.16); color:var(--bone,#F5F1E4);
+    border-radius:10px; padding:10px 14px; font-size:.92rem; min-width:230px; outline:none; transition:border-color .2s ease;
+  }
+  .evp-table-tools input[type="search"]:focus{ border-color:var(--marigold,#E8A63C); }
+  .evp-btn-ghost{
+    background:transparent; border:1px solid rgba(245,241,228,.3); color:var(--bone,#F5F1E4); border-radius:10px;
+    padding:10px 16px; font-size:.9rem; cursor:pointer; transition:border-color .2s ease, color .2s ease;
+  }
+  .evp-btn-ghost:hover, .evp-btn-ghost:focus-visible{ border-color:var(--marigold,#E8A63C); color:var(--marigold,#E8A63C); }
+  .evp-table-summary{ margin:14px 0 8px; font-size:.88rem; color:rgba(245,241,228,.6); }
+  .evp-scroll-hint{ display:none; margin:0 0 8px; font-size:.78rem; color:rgba(245,241,228,.5); }
+
+  .evp-table-wrap{ overflow-x:auto; border:1px solid rgba(245,241,228,.12); border-radius:14px; }
+  table.evp-table{ width:100%; min-width:720px; border-collapse:collapse; font-size:.92rem; color:var(--bone,#F5F1E4); }
+  table.evp-table thead th{
+    position:sticky; top:0; z-index:1; text-align:left; background:color-mix(in srgb, var(--ink,#0F1712) 94%, var(--marigold,#E8A63C) 6%);
+    padding:13px 14px; font-weight:600; font-size:.78rem; letter-spacing:.03em; text-transform:uppercase;
+    color:rgba(245,241,228,.75); border-bottom:1px solid rgba(245,241,228,.14); white-space:nowrap; cursor:pointer; user-select:none;
+  }
+  table.evp-table thead th:hover{ color:var(--marigold,#E8A63C); }
+  table.evp-table thead th.evp-num, table.evp-table tbody td.evp-num{ cursor:default; width:1%; text-align:center; }
+  table.evp-table thead th.evp-num:hover{ color:inherit; }
+  .evp-sort{ display:inline-block; margin-left:5px; opacity:.4; font-size:.75em; }
+  th[data-sort-dir="asc"] .evp-sort::after{ content:"▲"; opacity:1; }
+  th[data-sort-dir="desc"] .evp-sort::after{ content:"▼"; opacity:1; }
+  table.evp-table tbody td{ padding:12px 14px; border-bottom:1px solid rgba(245,241,228,.08); vertical-align:middle; }
+  table.evp-table tbody tr:nth-child(even){ background:rgba(245,241,228,.03); }
+  table.evp-table tbody tr:hover{ background:rgba(232,166,60,.07); }
+  table.evp-table tbody tr:last-child td{ border-bottom:none; }
+  tbody{ counter-reset:evprow; }
+  tbody tr{ counter-increment:evprow; }
+  td.evp-num::before{ content:counter(evprow); opacity:.55; font-variant-numeric:tabular-nums; }
+
+  .evp-pill{ display:inline-block; padding:4px 11px; border-radius:999px; font-size:.78rem; font-weight:600; letter-spacing:.01em; }
+  .evp-pill.present{ background:color-mix(in srgb, var(--moss,#4B6B4E) 30%, transparent); color:var(--bone,#F5F1E4); }
+  .evp-pill.absent{ background:color-mix(in srgb, var(--rust,#B5533C) 34%, transparent); color:var(--bone,#F5F1E4); }
+
+  .evp-table-note{ margin-top:14px; font-size:.82rem; color:rgba(245,241,228,.5); max-width:70ch; }
+
+  @media (max-width:640px){
+    .evp-scroll-hint{ display:block; }
+    table.evp-table{ min-width:640px; }
+  }
+
+  @media print{
+    .site-nav, .hero, .marquee, #footer, #preloader, #grain, #spotlight, #cursorDot, #cursorRing,
+    .evp-table-tools, .evp-gallery, #scrollProgress, .grow{ display:none !important; }
+    body{ background:#fff; color:#000; }
+    .evp-table-wrap{ border-color:#000; }
+    table.evp-table thead th{ background:#fff; color:#000; border-bottom-color:#000; }
+    table.evp-table tbody tr:nth-child(even){ background:#f2f2f2; }
+    .evp-pill{ border:1px solid #000; background:none !important; color:#000 !important; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#about">Skip to content</a>
+<div id="scrollProgress"></div>
+
+<!-- ============ PRELOADER: NSS wheel drawn in SVG + HTML (no image) ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-flood"></div>
+  <div class="pl-stage">
+    <svg class="pl-wheel" viewBox="0 0 240 240" fill="none">
+      <g class="pl-letters"></g>   <!-- letters around the ring are generated in js/main.js -->
+      <g class="pl-ticks"></g>     <!-- 24 ticks (one per hour) are generated in js/main.js -->
+      <circle class="pl-rim"  cx="120" cy="120" r="76"/>
+      <circle class="pl-rim2" cx="120" cy="120" r="62"/>
+      <g class="pl-spokes"></g>    <!-- 8 spokes are generated in js/main.js -->
+      <circle class="pl-hubring" cx="120" cy="120" r="15"/>
+      <circle class="pl-hub" cx="120" cy="120" r="8"/>
+    </svg>
+    <div class="pl-lockup">
+      <span class="l1"><span>Dr. SPM IIIT Naya Raipur</span></span>
+      <span class="l2"><span>NATIONAL SERVICE SCHEME</span></span>
+    </div>
+  </div>
+  <div class="pl-meta"><span class="pl-count" id="plCount">0</span><span class="pl-pct">%</span></div>
+</div>
+
+<div id="grain"></div>
+<div id="spotlight"></div>
+<div id="cursorDot"></div>
+<div id="cursorRing"><span class="cl"></span></div>
+
+<!-- Sapling that grows as you scroll (built in js/main.js) -->
+<div class="grow" id="grow" aria-hidden="true"></div>
+
+<header class="site-nav" id="siteNav">
+  <a href="index.html#top" class="brand">
+    <span class="emblem" id="emblem">
+      <!-- Fallback wheel shows if the emblem photo is missing -->
+      <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
+        <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
+        <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
+        <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
+          <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
+          <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
+          <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
+          <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
+        </g>
+      </svg>
+      <img decoding="async" class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+    </span>
+    <span class="name">NSS<small>IIIT Naya Raipur</small></span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+  <nav class="links" id="navLinks">
+    <a href="index.html#about" data-nav>About</a>
+    <a href="index.html#events" data-nav>Events</a>
+    <a href="team.html" data-nav>Team</a>
+    <a href="index.html#impact" data-nav>Impact</a>
+    <a href="index.html#director" data-nav>Director</a>
+    <a href="index.html#join" class="nav-cta magnetic" data-nav>Join us</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- ============================== HERO — REPLACE ============================== -->
+<section class="hero" id="top">
+  <div class="hero-media duo" id="heroMedia">
+    <div class="hero-parallax" id="heroParallax">
+      <!-- Fallback landscape: visible only when the photo is missing -->
+      <svg class="hero-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0F1712"/><stop offset=".5" stop-color="#20342A"/><stop offset="1" stop-color="#8a5a2b"/>
+          </linearGradient>
+          <radialGradient id="sunG" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#E8A63C" stop-opacity=".95"/><stop offset=".55" stop-color="#E8A63C" stop-opacity=".25"/><stop offset="1" stop-color="#E8A63C" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#skyG)"/>
+        <circle cx="1180" cy="560" r="260" fill="url(#sunG)"/>
+        <circle cx="1180" cy="560" r="86" fill="#E8A63C" opacity=".92"/>
+        <path d="M0 640 C 260 560 520 610 820 580 S 1340 540 1600 600 V900 H0Z" fill="#2A4A38"/>
+        <path d="M0 720 C 300 650 560 700 860 680 S 1360 640 1600 700 V900 H0Z" fill="#20342A"/>
+        <path d="M0 800 C 280 760 620 790 900 780 S 1380 760 1600 790 V900 H0Z" fill="#182620"/>
+      </svg>
+      <!-- REPLACE: cover photo -->
+      <img id="heroImg" fetchpriority="high" decoding="async" src="assets/events/EVENT-FOLDER/cover.jpg" alt="REPLACE: short description of the cover photo" onerror="this.remove()">
+    </div>
+  </div>
+  <div class="hero-scrim"></div>
+  <canvas id="fireflies" aria-hidden="true"></canvas>
+  <svg class="hero-wheel" id="heroWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <g id="heroWheelSpin">
+      <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="#E8A63C"/>
+      <g stroke="#F5F1E4" stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </g>
+  </svg>
+  <div class="hero-content" id="heroContent">
+    <div class="hero-inner">
+      <!-- REPLACE: date + category -->
+      <p class="motto" id="heroMotto">28 Aug 2025 · Environmental Drive</p>
+      <h1 class="hero-title" id="heroTitle">
+        <!-- REPLACE: event title, split across the two lines -->
+        <span class="line"><span><span class="hl" data-hl>Campus-Wide Greenery &amp;</span></span></span>
+        <span class="line"><span><span class="hl" data-hl>Plantation Drive.</span></span></span>
+      </h1>
+      <!-- REPLACE: one-line summary -->
+      <p class="hero-sub" id="heroSub">A short line summarising what happened, in one sentence — this shows right under the title.</p>
+      <ul class="evp-meta" aria-label="Event details">
+        <!-- REPLACE: event details -->
+        <li><span class="k">Location</span><span class="v">Campus, IIIT-NR</span></li>
+        <li><span class="k">Volunteers</span><span class="v">250+</span></li>
+        <li><span class="k">Partner</span><span class="v">Treewards</span></li>
+      </ul>
+      <div class="hero-actions" id="heroActions">
+        <a href="#participants" class="btn-primary magnetic" data-scroll>See participants</a>
+        <a href="index.html#events" class="btn-ghost">All events</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" id="heroScrollHint"><span class="line"></span> Scroll</div>
+  <div class="hero-dim" id="heroDim"></div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <!-- one group is enough: js/main.js clones it until it fills any screen width -->
+  <div class="marquee-track" id="marqueeTrack">
+    <span>
+      <b>Not Me But You</b>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Plant
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Teach
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Donate
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+      Serve
+      <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+    </span>
+  </div>
+</div>
+
+<!-- ============================== ABOUT-STYLE STORY — REPLACE ============================== -->
+<!-- Reuses index.html's About layout (id="about" so the same 3D hinge-swing parallax applies) -->
+<section class="about" id="about" data-section>
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <!-- REPLACE: date + category -->
+      <p class="eyebrow" data-eyebrow>28 Aug 2025 · Environmental Drive</p>
+      <h2 class="section-title">
+        <!-- REPLACE: heading -->
+        <span class="line"><span>What happened,</span></span>
+        <span class="line"><span>and why it mattered.</span></span>
+      </h2>
+      <!-- REPLACE: opening paragraph -->
+      <p class="lead fill-words" data-fill>Add the opening line of the story here — what was organised and who was involved.</p>
+      <!-- REPLACE: second paragraph -->
+      <p data-fade>Add a second paragraph with more detail: numbers, notable moments, or who the unit partnered with for this drive.</p>
+    </div>
+    <div class="about-media">
+      <div class="frame-back"></div>
+      <div class="frame" id="tiltFrame">
+        <div class="duo" id="aboutDuo">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg></div>
+          <!-- REPLACE: a photo from the event -->
+          <img src="assets/events/EVENT-FOLDER/photo-1.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.remove()">
+        </div>
+      </div>
+      <!-- REPLACE -->
+      <div class="tag" id="aboutTag">28 Aug 2025, Campus</div>
+      <div class="float-chip" id="aboutChip">
+        <div class="float-in">
+          <svg class="chip-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg>
+          <!-- REPLACE: a standout number -->
+          <div class="float-text"><strong>250+</strong><span class="cap">volunteers</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GALLERY — REPLACE PHOTOS ============================== -->
+<section class="evp-gallery" id="gallery" data-section>
+  <div class="wrap">
+    <p class="eyebrow" data-eyebrow>Photos</p>
+    <h2 class="section-title">
+      <span class="line"><span>From the day.</span></span>
+    </h2>
+    <div class="evp-grid" data-fade>
+      <!-- REPLACE: duplicate a <figure> for each photo; delete the ones you don't need -->
+      <figure><img src="assets/events/EVENT-FOLDER/photo-2.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+      <figure><img src="assets/events/EVENT-FOLDER/photo-3.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+      <figure><img src="assets/events/EVENT-FOLDER/photo-4.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+      <figure><img src="assets/events/EVENT-FOLDER/photo-5.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+      <figure><img src="assets/events/EVENT-FOLDER/photo-6.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+      <figure><img src="assets/events/EVENT-FOLDER/photo-7.jpg" loading="lazy" decoding="async" alt="REPLACE" onerror="this.closest('figure').remove()"><figcaption>REPLACE: caption</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PARTICIPANTS TABLE — REPLACE ROWS ============================== -->
+<section class="evp-table-section" id="participants" data-section>
+  <div class="wrap">
+    <div class="evp-table-head">
+      <div>
+        <p class="eyebrow" data-eyebrow>Participants</p>
+        <h2 class="section-title"><span class="line"><span>Attendance &amp; details.</span></span></h2>
+      </div>
+      <div class="evp-table-tools">
+        <input type="search" id="evpSearch" placeholder="Search by name or roll no…" aria-label="Search participants">
+        <button type="button" id="evpPrint" class="evp-btn-ghost">Print</button>
+      </div>
+    </div>
+    <p class="evp-table-summary" id="evpSummary" aria-live="polite"></p>
+    <p class="evp-scroll-hint">Scroll sideways to see every column →</p>
+    <div class="evp-table-wrap">
+      <table class="evp-table" id="evpTable">
+        <thead>
+          <tr>
+            <th scope="col" class="evp-num">#</th>
+            <th scope="col" data-sort="text">Name<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Roll No.<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Branch<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Year<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Contact<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Attendance<span class="evp-sort"></span></th>
+          </tr>
+        </thead>
+        <!-- REPLACE: duplicate a <tr> per student. Set data-attendance="present" or "absent" —
+             the pill text/colour and the summary counts above are generated from that attribute. -->
+        <tbody id="evpBody">
+          <tr data-attendance="present">
+            <td class="evp-num"></td>
+            <td>Student Name 1</td>
+            <td>CSE2023001</td>
+            <td>CSE</td>
+            <td>2nd</td>
+            <td>98xxxxxxx0</td>
+            <td><span class="evp-pill present">Present</span></td>
+          </tr>
+          <tr data-attendance="present">
+            <td class="evp-num"></td>
+            <td>Student Name 2</td>
+            <td>ECE2023014</td>
+            <td>ECE</td>
+            <td>2nd</td>
+            <td>98xxxxxxx1</td>
+            <td><span class="evp-pill present">Present</span></td>
+          </tr>
+          <tr data-attendance="absent">
+            <td class="evp-num"></td>
+            <td>Student Name 3</td>
+            <td>DSAI2023027</td>
+            <td>DSAI</td>
+            <td>1st</td>
+            <td>98xxxxxxx2</td>
+            <td><span class="evp-pill absent">Absent</span></td>
+          </tr>
+          <tr data-attendance="present">
+            <td class="evp-num"></td>
+            <td>Student Name 4</td>
+            <td>CSE2022041</td>
+            <td>CSE</td>
+            <td>3rd</td>
+            <td>98xxxxxxx3</td>
+            <td><span class="evp-pill present">Present</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="evp-table-note">Duplicate a row in the table above and edit its cells to add a student — the row number, the summary line, and the Present/Absent pill are all generated automatically. Click a column heading to sort; type in the search box to filter.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="footerReveal" aria-hidden="true"></div>
+
+<!-- ============================== FOOTER ============================== -->
+<footer id="footer">
+  <svg class="footer-wheel" id="footerWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="2"/>
+    <circle cx="60" cy="60" r="8" fill="currentColor"/>
+    <g stroke="currentColor" stroke-width="2">
+      <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+      <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+      <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+      <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+    </g>
+  </svg>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="https://www.iiitnr.ac.in/" target="_blank" rel="noopener" class="footer-logo-link" title="Dr. SPM IIIT Naya Raipur">
+        <img decoding="async" src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" class="footer-logo" width="56" height="56">
+      </a>
+      <p class="footer-note">NSS unit of Dr. SPM IIIT Naya Raipur — students serving the communities around campus.</p>
+    </div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="index.html#about">About</a>
+      <a href="index.html#events">Events</a>
+      <a href="team.html">Team</a>
+      <a href="index.html#impact">Impact</a>
+      <a href="index.html#join">Join</a>
+    </nav>
+  </div>
+  <p class="footer-big" id="footerBig" aria-label="Not me, but you.">
+    <span class="fl" aria-hidden="true">Not me,</span>
+    <span class="fl" aria-hidden="true">but you.</span>
+  </p>
+  <div class="footer-bar">
+    <span>© 2026 NSS, IIIT Naya Raipur. Not Me, But You.</span>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </a>
+      <a href="https://x.com/NSS_IIITNR" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </a>
+      <a href="mailto:nss@iiitnr.edu.in" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+    </div>
+    <a href="#top" class="to-top" data-scroll>Back to top ↑</a>
+  </div>
+</footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/DrawSVGPlugin.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  var html = document.documentElement;
+  var qp = '';
+  try { qp = new URLSearchParams(location.search).get('fx') || ''; } catch (e) {}
+  if (qp === 'off' || html.getAttribute('data-fx') === 'off' || window.NSS_FX === false) return;
+
+  var qs = function (s, r) { return (r || document).querySelector(s); };
+  var qsa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var clamp = function (v, a, b) { return v < a ? a : (v > b ? b : v); };
+  var hasIO = 'IntersectionObserver' in window;
+
+  /* ============================ 1. MOBILE / PERFORMANCE (always on) ============================ */
+
+  // Endless CSS spinners and marquee bands only run while they're on screen
+  if (hasIO) {
+    var spinners = qsa('.ambient-wheel, .join-wheel, .footer-wheel, .marquee, .team-marquee');
+    if (spinners.length) {
+      var spio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.target.classList.toggle('fx-paused', !e.isIntersecting); });
+      }, { rootMargin: '150px 0px' });
+      spinners.forEach(function (s) { spio.observe(s); });
+    }
+  }
+
+  // Stop the phone's collapsing URL bar from forcing a full ScrollTrigger re-measure mid-scroll
+  function tuneScrollTrigger() {
+    try { if (window.ScrollTrigger && ScrollTrigger.config) ScrollTrigger.config({ ignoreMobileResize: true }); } catch (e) {}
+  }
+  tuneScrollTrigger();
+
+  /* ================================= 2. 3D DEPTH LAYER ================================= */
+
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!(window.CSS && CSS.supports && CSS.supports('rotate', '1 0 0 10deg') && CSS.supports('translate', '0 0 10px'))) return;
+
+  var nav = navigator, conn = nav.connection || {};
+  var coarse = matchMedia('(pointer: coarse)').matches || matchMedia('(hover: none)').matches;
+  var lite = !!conn.saveData || (nav.deviceMemory && nav.deviceMemory <= 2) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 3);
+  var isIOS = /iP(hone|ad|od)/.test(nav.userAgent) || (nav.platform === 'MacIntel' && nav.maxTouchPoints > 1);
+
+  // tier 1 = light (a few cheap effects) · tier 2 = phones & tablets · tier 3 = desktop (everything)
+  var tier = qp === 'lite' ? 1 : qp === 'mobile' ? 2 : qp === 'full' ? 3 : lite ? 1 : (coarse || innerWidth < 820) ? 2 : 3;
+  var K = tier === 3 ? 1 : (tier === 2 ? 0.62 : 0.5);      // scales every angle and depth below
+
+  var vw = innerWidth, vh = innerHeight;
+  var scenes = [], queued = false;
+
+  /* Uses the individual CSS properties `rotate` and `translate`, so it stacks on top of whatever
+     `transform` GSAP or your stylesheet already sets instead of fighting it. */
+  function put(el, rx, ry, x, y, z) {
+    if (!el.__g) {                                   // one-off: if a stylesheet says `transition: all`, keep our per-frame writes out of it
+      el.__g = 1;
+      if (getComputedStyle(el).transitionProperty === 'all') {
+        el.style.transitionProperty = 'transform, opacity, box-shadow, background-color, border-color, color, filter';
+      }
+    }
+    var m = Math.sqrt(rx * rx + ry * ry);
+    var r = m < 0.02 ? 'none' : (rx / m).toFixed(3) + ' ' + (ry / m).toFixed(3) + ' 0 ' + m.toFixed(2) + 'deg';
+    var t = (Math.abs(x || 0) + Math.abs(y || 0) + Math.abs(z || 0)) < 0.05 ? 'none'
+          : (x || 0).toFixed(1) + 'px ' + (y || 0).toFixed(1) + 'px ' + (z || 0).toFixed(1) + 'px';
+    if (el.__r !== r || !el.style.rotate) { el.style.rotate = r; el.__r = r; }
+    if (el.__t !== t || !el.style.translate) { el.style.translate = t; el.__t = t; }
+  }
+
+  /* Remembers where each child sits inside its container (measured with our own transforms switched off),
+     so the per-frame maths needs just ONE getBoundingClientRect() for the whole container. */
+  function lane(container, getEls) {
+    var api = { els: [], rel: [], count: -1 };
+    api.measure = function () {
+      var els = getEls(), saved = [];
+      els.forEach(function (e) { saved.push([e.style.rotate, e.style.translate]); e.style.rotate = 'none'; e.style.translate = 'none'; });
+      var cr = container.getBoundingClientRect(), sl = container.scrollLeft || 0, st = container.scrollTop || 0;
+      api.rel = els.map(function (e) {
+        var r = e.getBoundingClientRect();
+        return { x: r.left - cr.left + sl, y: r.top - cr.top + st, w: r.width, h: r.height };
+      });
+      els.forEach(function (e, i) { e.style.rotate = saved[i][0]; e.style.translate = saved[i][1]; });
+      api.els = els;
+      api.count = container.children.length;
+    };
+    api.stale = function () { return container.children.length !== api.count; };
+    return api;
+  }
+
+  /* ------------------------------ scenes ------------------------------ */
+
+  // HERO — the text block tips back into the distance as you scroll away; the wheel turns like a coin
+  function heroScene() {
+    var hero = qs('#top'); if (!hero) return null;
+    var content = qs('#heroContent'), inner = qs('.hero-inner', hero), wheel = qs('#heroWheel');
+    if (content && inner) content.style.perspective = '1000px';
+    if (wheel && tier >= 2) hero.style.perspective = '1400px';
+    var p = 0, last = -1;
+    return {
+      root: hero, live: false, visible: true,
+      read: function () { p = clamp((window.pageYOffset || 0) / ((hero.offsetHeight || vh) * 0.9), 0, 1); },
+      write: function () {
+        if (Math.abs(p - last) < 0.002) return;
+        last = p;
+        var e = p * p * (3 - 2 * p);
+        if (inner) put(inner, e * 26 * K, 0, 0, -e * 30, -e * 240 * K);
+        if (wheel && tier >= 2) put(wheel, e * 20 * K, e * 150 * K, 0, 0, 0);
+      }
+    };
+  }
+
+  // ABOUT — the photo block swings in on a hinge, and its layers (frame, tag, chip) sit at different depths
+  function aboutScene() {
+    var grid = qs('#about .about-grid'), media = qs('#about .about-media');
+    if (!grid || !media) return null;
+    grid.style.perspective = '1400px';
+    if (tier >= 2) {
+      media.style.transformStyle = 'preserve-3d';
+      [[qs('.frame-back', media), -46], [qs('.tag', media), 52], [qs('.float-chip', media), 84]].forEach(function (l) {
+        if (l[0]) l[0].style.translate = '0px 0px ' + Math.round(l[1] * K) + 'px';
+      });
+    }
+    var f = 0, e = 0, last = 9;
+    return {
+      root: grid, live: false, visible: true,
+      read: function () {
+        var r = grid.getBoundingClientRect();
+        f = clamp((r.top + r.height / 2 - vh / 2) / (vh * 0.8), -1, 1);
+        e = clamp((r.top - vh * 0.45) / (vh * 0.55), 0, 1);
+      },
+      write: function () {
+        var key = f * 7 + e;
+        if (Math.abs(key - last) < 0.004) return;
+        last = key;
+        put(media, f * 13 * K, -e * 18 * K, 0, 0, -(Math.abs(f) * 110 + e * 90) * K);
+      }
+    };
+  }
+
+  // IMPACT — each stat card stands up from a lying-back position as it enters the screen
+  function impactScene() {
+    var row = qs('#impact .impact-row'); if (!row) return null;
+    row.style.perspective = '1300px';
+    var L = lane(row, function () { return qsa('.impact-item', row); });
+    var top = 0;
+    return {
+      root: row, live: false, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { top = row.getBoundingClientRect().top; },
+      write: function () {
+        L.els.forEach(function (el, i) {
+          var p = clamp((vh * 0.94 - (top + L.rel[i].y)) / (vh * 0.34), 0, 1);
+          var r = Math.pow(1 - p, 3);                   // 1 = still lying back · 0 = standing up
+          put(el, r * 52 * K, 0, 0, r * 46, -r * 230 * K);
+        });
+      }
+    };
+  }
+
+  // EVENTS — cover-flow: the card in the middle faces you, the ones either side angle away into depth
+  function eventsScene() {
+    var rail = qs('#eventsRail'); if (!rail || tier < 2) return null;
+    rail.style.perspective = '1200px';
+    var L = lane(rail, function () { return qsa('.event-card', rail); });
+    var left = 0;
+    return {
+      root: qs('#events') || rail, live: true, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { left = rail.getBoundingClientRect().left; },
+      write: function () {
+        rail.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';   // vanishing point stays at screen centre while the rail slides
+        L.els.forEach(function (el, i) {
+          var r = L.rel[i];
+          var d = clamp((left + r.x + r.w / 2 - vw / 2) / (vw * 0.5), -1.6, 1.6);
+          put(el, 0, -d * 24 * K, 0, 0, -Math.abs(d) * 130 * K);
+        });
+      }
+    };
+  }
+
+  // DIRECTOR — same hinge-swing as ABOUT, on the director's portrait
+  function directorScene() {
+    var grid = qs('#director .director-grid'), media = qs('#director .about-media');
+    if (!grid || !media) return null;
+    grid.style.perspective = '1400px';
+    if (tier >= 2) {
+      media.style.transformStyle = 'preserve-3d';
+      [[qs('.frame-back', media), -46], [qs('.tag', media), 52]].forEach(function (l) {
+        if (l[0]) l[0].style.translate = '0px 0px ' + Math.round(l[1] * K) + 'px';
+      });
+    }
+    var f = 0, e = 0, last = 9;
+    return {
+      root: grid, live: false, visible: true,
+      read: function () {
+        var r = grid.getBoundingClientRect();
+        f = clamp((r.top + r.height / 2 - vh / 2) / (vh * 0.8), -1, 1);
+        e = clamp((r.top - vh * 0.45) / (vh * 0.55), 0, 1);
+      },
+      write: function () {
+        var key = f * 7 + e;
+        if (Math.abs(key - last) < 0.004) return;
+        last = key;
+        put(media, f * 13 * K, -e * 18 * K, 0, 0, -(Math.abs(f) * 110 + e * 90) * K);
+      }
+    };
+  }
+
+  // TEAM (desktop only) — the auto-scrolling strip bows away from the centre of the screen
+  function teamScene() {
+    var track = qs('#teamMarqueeTrack'); if (!track || tier < 3) return null;
+    track.style.perspective = '1300px';
+    var L = lane(track, function () { return Array.prototype.slice.call(track.children); });   // includes the clones main.js adds
+    var left = 0;
+    return {
+      root: qs('#teamMarquee') || track, live: true, visible: true, measure: L.measure, stale: L.stale,
+      read: function () { left = track.getBoundingClientRect().left; },
+      write: function () {
+        track.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';
+        L.els.forEach(function (el, i) {
+          var r = L.rel[i], cx = left + r.x + r.w / 2;
+          if (cx < -r.w * 2 || cx > vw + r.w * 2) return;             // off-screen: skip
+          var d = clamp((cx - vw / 2) / (vw * 0.55), -1.5, 1.5);
+          put(el, 0, -d * 28 * K, 0, 0, -Math.abs(d) * 150 * K);
+        });
+      }
+    };
+  }
+
+  /* ------------------------------ engine ------------------------------ */
+
+  function request() { if (!queued) { queued = true; requestAnimationFrame(frame); } }
+
+  function frame() {
+    queued = false;
+    if (document.hidden) return;
+    var act = [], again = false, i, s;
+    for (i = 0; i < scenes.length; i++) {
+      s = scenes[i];
+      if (!s.visible) continue;
+      if (s.stale && s.stale()) s.measure();
+      act.push(s);
+      if (s.live) again = true;
+    }
+    for (i = 0; i < act.length; i++) act[i].read();     // all reads first…
+    for (i = 0; i < act.length; i++) act[i].write();    // …then all writes: no layout thrashing
+    if (again) request();
+  }
+
+  var rt;
+  function remeasure() { scenes.forEach(function (s) { if (s.measure) s.measure(); }); request(); }
+
+  window.addEventListener('scroll', request, { passive: true });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) request(); });
+  window.addEventListener('resize', function () {
+    var w = innerWidth; vh = innerHeight;
+    if (w === vw) { request(); return; }                // height-only change = phone URL bar; nothing to re-measure
+    vw = w; clearTimeout(rt); rt = setTimeout(remeasure, 150);
+  });
+  window.addEventListener('orientationchange', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { vw = innerWidth; vh = innerHeight; remeasure(); }, 300);
+  });
+
+  // Wait until the loader is gone and main.js has built its pins and clones, then start
+  function whenReady(fn) {
+    var done = false;
+    function go() {
+      if (done) return; done = true;
+      try { fn(); } catch (err) { if (window.console) console.warn('[3D layer]', err); }
+    }
+    function check() {
+      if (document.readyState === 'complete' && !html.classList.contains('is-loading')) { go(); return true; }
+      return false;
+    }
+    if (check()) return;
+    var mo = new MutationObserver(function () { if (check()) mo.disconnect(); });
+    mo.observe(html, { attributes: true, attributeFilter: ['class'] });
+    window.addEventListener('load', check);
+    setTimeout(go, 14000);                              // failsafe
+  }
+
+  whenReady(function () {
+    tuneScrollTrigger();
+    [heroScene, aboutScene, impactScene, eventsScene, directorScene, teamScene].forEach(function (make) {
+      try { var s = make(); if (s) scenes.push(s); } catch (err) { if (window.console) console.warn('[3D layer]', err); }
+    });
+    scenes.forEach(function (s) { if (s.measure) s.measure(); });
+
+    if (hasIO) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          scenes.forEach(function (s) { if (s.root === en.target) s.visible = en.isIntersecting; });
+        });
+        request();
+      }, { rootMargin: '160px 0px' });
+      scenes.forEach(function (s) { io.observe(s.root); });
+    }
+
+    if (window.ScrollTrigger && ScrollTrigger.addEventListener) {
+      ScrollTrigger.addEventListener('refresh', function () { clearTimeout(rt); rt = setTimeout(remeasure, 100); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+
+    html.classList.add('fx-3d');
+    request();
+  });
+})();
+</script>
+
+<!-- ==================== PARTICIPANTS TABLE: search + sort + print ====================
+  Custom to this template — no equivalent on index.html.
+============================================================================= -->
+<script>
+(function () {
+  'use strict';
+  var table = document.getElementById('evpTable');
+  if (!table) return;
+  var body = document.getElementById('evpBody');
+  var search = document.getElementById('evpSearch');
+  var summary = document.getElementById('evpSummary');
+  var printBtn = document.getElementById('evpPrint');
+
+  function rows() { return Array.prototype.slice.call(body.querySelectorAll('tr')); }
+
+  function updateSummary() {
+    var all = rows();
+    var visible = all.filter(function (r) { return r.style.display !== 'none'; });
+    var present = visible.filter(function (r) { return r.dataset.attendance === 'present'; }).length;
+    var absent = visible.filter(function (r) { return r.dataset.attendance === 'absent'; }).length;
+    var text = 'Showing ' + visible.length + ' of ' + all.length;
+    if (present || absent) text += ' · ' + present + ' present · ' + absent + ' absent';
+    summary.textContent = text;
+  }
+
+  if (search) {
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      rows().forEach(function (r) {
+        r.style.display = !q || r.textContent.toLowerCase().indexOf(q) > -1 ? '' : 'none';
+      });
+      updateSummary();
+    });
+  }
+
+  Array.prototype.slice.call(table.querySelectorAll('thead th[data-sort]')).forEach(function (th) {
+    th.addEventListener('click', function () {
+      var headers = Array.prototype.slice.call(table.querySelectorAll('thead th'));
+      var idx = headers.indexOf(th);
+      var dir = th.getAttribute('data-sort-dir') === 'asc' ? 'desc' : 'asc';
+      headers.forEach(function (h) { h.removeAttribute('data-sort-dir'); });
+      th.setAttribute('data-sort-dir', dir);
+
+      var sorted = rows().sort(function (a, b) {
+        var av = a.children[idx].textContent.trim().toLowerCase();
+        var bv = b.children[idx].textContent.trim().toLowerCase();
+        if (av < bv) return dir === 'asc' ? -1 : 1;
+        if (av > bv) return dir === 'asc' ? 1 : -1;
+        return 0;
+      });
+      sorted.forEach(function (r) { body.appendChild(r); });
+    });
+  });
+
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
+  updateSummary();
+})();
+</script>
+</body>
+</html>

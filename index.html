@@ -118,7 +118,7 @@
     <a href="#events" data-nav>Events</a>
     <a href="team.html" data-nav>Team</a>
     <a href="#impact" data-nav>Impact</a>
-    <a href="#testimonials" data-nav>Voices</a>
+    <a href="#director" data-nav>Director</a>
     <a href="#join" class="nav-cta magnetic" data-nav>Join us</a>
   </nav>
 </header>
@@ -568,38 +568,30 @@
   </div>
 </section>
 
-<!-- ============================== TESTIMONIALS ============================== -->
-<section class="testimonials" id="testimonials" data-section>
-  <div class="wrap q-head">
-    <div>
-      <p class="eyebrow" data-eyebrow>Voices from the unit</p>
-      <h2 class="section-title">
-        <span class="line"><span>Stories from</span></span>
-        <span class="line"><span>the ground.</span></span>
-      </h2>
+<!-- ============================== DIRECTOR ============================== -->
+<section class="about director" id="director" data-section>
+  <div class="wrap about-grid director-grid">
+    <div class="about-media">
+      <div class="frame-back"></div>
+      <div class="frame">
+        <div class="duo">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <img src="assets/images/director.jpg" loading="lazy" decoding="async" alt="Prof. (Dr.) Om Prakash Vyas — Director, IIIT Naya Raipur" onerror="this.src='assets/images/team/Prof. (Dr.) Om Prakash Vyas.jpg'; this.onerror=function(){this.remove();}">
+        </div>
+      </div>
+      <div class="tag">Director's message</div>
     </div>
-  </div>
-  <div class="quote-marquee" id="quoteMarquee">
-    <div class="quote-marquee-track" id="quoteTrack">
-      <div class="quote-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">The plantation drive was the first time I felt like campus was more than classes and deadlines. Getting our hands in the soil alongside batchmates gave service real meaning.</p>
-        <div class="quote-attr"><div class="dot" style="background:var(--marigold);color:var(--ink)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Plantation Drive</div></div>
-      </div>
-      <div class="quote-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">NSS is the one commitment on my calendar I never want to skip — organizing the blood donation camp taught me more about teamwork and coordination than any project could.</p>
-        <div class="quote-attr"><div class="dot" style="background:var(--rust);color:var(--bone)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Blood Donation Camp</div></div>
-      </div>
-      <div class="quote-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">Performing the HIV/AIDS awareness Nukkad Natak showed me how street theater can spark dialogue and break stigmas. Seeing the campus pause and listen was unforgettable.</p>
-        <div class="quote-attr"><div class="dot" style="background:var(--moss);color:var(--bone)">NSS</div><div class="who"><strong>NSS Volunteer</strong>HIV/AIDS Awareness Campaign</div></div>
-      </div>
-      <div class="quote-card">
-        <span class="quote-mark">"</span>
-        <p class="quote-text">Organizing these drives and seeing students step forward with pure enthusiasm makes every late planning session and on-ground challenge completely worth it.</p>
-        <div class="quote-attr"><div class="dot" style="background:var(--marigold-dim);color:var(--ink)">NSS</div><div class="who"><strong>NSS Volunteer</strong>Cleanliness &amp; Sports Fest</div></div>
+    <div class="about-copy director-copy">
+      <p class="eyebrow" data-eyebrow>From the director's desk</p>
+      <h2 class="section-title">
+        <span class="line"><span>A word from</span></span>
+        <span class="line"><span>the Director.</span></span>
+      </h2>
+      <span class="quote-mark director-mark" aria-hidden="true">"</span>
+      <p class="lead fill-words" data-fill>National Service Scheme at IIIT Naya Raipur empowers young engineers to look beyond code and classrooms, stepping into the community with compassion, purpose, and civic responsibility.</p>
+      <div class="director-attr">
+        <strong>Prof. (Dr.) Om Prakash Vyas</strong>
+        <span>Director, IIIT Naya Raipur</span>
       </div>
     </div>
   </div>
@@ -933,7 +925,7 @@
 
   // Endless CSS spinners and marquee bands only run while they're on screen
   if (hasIO) {
-    var spinners = qsa('.ambient-wheel, .join-wheel, .footer-wheel, .marquee, .team-marquee, .quote-marquee');
+    var spinners = qsa('.ambient-wheel, .join-wheel, .footer-wheel, .marquee, .team-marquee');
     if (spinners.length) {
       var spio = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) { e.target.classList.toggle('fx-paused', !e.isIntersecting); });
@@ -1091,23 +1083,30 @@
     };
   }
 
-  // VOICES (desktop only) — the auto-scrolling strip bows subtly away from the centre of the screen
-  function quoteScene() {
-    var track = qs('#quoteTrack'); if (!track || tier < 3) return null;
-    track.style.perspective = '1300px';
-    var L = lane(track, function () { return Array.prototype.slice.call(track.children); });
-    var left = 0;
+  // DIRECTOR — same hinge-swing as ABOUT, on the director's portrait
+  function directorScene() {
+    var grid = qs('#director .director-grid'), media = qs('#director .about-media');
+    if (!grid || !media) return null;
+    grid.style.perspective = '1400px';
+    if (tier >= 2) {
+      media.style.transformStyle = 'preserve-3d';
+      [[qs('.frame-back', media), -46], [qs('.tag', media), 52]].forEach(function (l) {
+        if (l[0]) l[0].style.translate = '0px 0px ' + Math.round(l[1] * K) + 'px';
+      });
+    }
+    var f = 0, e = 0, last = 9;
     return {
-      root: qs('#quoteMarquee') || track, live: true, visible: true, measure: L.measure, stale: L.stale,
-      read: function () { left = track.getBoundingClientRect().left; },
+      root: grid, live: false, visible: true,
+      read: function () {
+        var r = grid.getBoundingClientRect();
+        f = clamp((r.top + r.height / 2 - vh / 2) / (vh * 0.8), -1, 1);
+        e = clamp((r.top - vh * 0.45) / (vh * 0.55), 0, 1);
+      },
       write: function () {
-        track.style.perspectiveOrigin = (vw / 2 - left).toFixed(0) + 'px 50%';
-        L.els.forEach(function (el, i) {
-          var r = L.rel[i], cx = left + r.x + r.w / 2;
-          if (cx < -r.w * 2 || cx > vw + r.w * 2) return;
-          var d = clamp((cx - vw / 2) / (vw * 0.55), -1.5, 1.5);
-          put(el, 0, -d * 20 * K, 0, 0, -Math.abs(d) * 100 * K);
-        });
+        var key = f * 7 + e;
+        if (Math.abs(key - last) < 0.004) return;
+        last = key;
+        put(media, f * 13 * K, -e * 18 * K, 0, 0, -(Math.abs(f) * 110 + e * 90) * K);
       }
     };
   }
@@ -1188,7 +1187,7 @@
 
   whenReady(function () {
     tuneScrollTrigger();
-    [heroScene, aboutScene, impactScene, eventsScene, quoteScene, teamScene].forEach(function (make) {
+    [heroScene, aboutScene, impactScene, eventsScene, directorScene, teamScene].forEach(function (make) {
       try { var s = make(); if (s) scenes.push(s); } catch (err) { if (window.console) console.warn('[3D layer]', err); }
     });
     scenes.forEach(function (s) { if (s.measure) s.measure(); });
