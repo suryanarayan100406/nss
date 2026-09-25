@@ -49,28 +49,33 @@
 
 <header class="site-nav" id="siteNav">
   <a href="index.html" class="brand" data-scroll>
-    <span class="emblem" id="emblem">
-      <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
-        <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
-        <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
-        <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
-          <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
-          <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
-          <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
-          <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
-        </g>
-      </svg>
-      <img class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+    <span class="brand-logos">
+      <span class="emblem" id="emblem" title="National Service Scheme">
+        <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
+          <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
+          <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
+            <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
+            <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
+            <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
+            <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
+          </g>
+        </svg>
+        <img class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+      </span>
+      <span class="emblem emblem-iiit" title="IIIT Naya Raipur">
+        <img decoding="async" src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" onerror="this.remove()">
+      </span>
     </span>
     <span class="name">NSS<small>IIIT Naya Raipur</small></span>
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
   <nav class="links" id="navLinks">
     <a href="index.html#about" data-nav>About</a>
-    <a href="index.html#events" data-nav>Events</a>
-    <a href="team.html" data-nav class="active">Team</a>
     <a href="index.html#impact" data-nav>Impact</a>
+    <a href="index.html#events" data-nav>Events</a>
     <a href="index.html#director" data-nav>Director</a>
+    <a href="team.html" data-nav class="active">Team</a>
     <a href="index.html#join" class="nav-cta magnetic" data-nav>Join us</a>
   </nav>
 </header>
@@ -106,7 +111,7 @@
     <div class="team-officer-spotlight">
       <div class="team-leader-card" style="--accent:var(--moss)">
         <div class="tl-photo">
-          <img src="assets/images/team/Mallikharjuna_Rao_K.jpeg" alt="Mallikharjuna Rao K — NSS Officer" onerror="this.src='assets/images/team/mallikharjuna-rao-k.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/mallikharjuna-rao-k.jpg" alt="Mallikharjuna Rao K — NSS Officer" onerror="this.remove()">
           <span class="tl-initials" style="background:var(--moss);color:var(--bone)">MK</span>
         </div>
         <h3>Mallikharjuna Rao K</h3>
@@ -118,7 +123,7 @@
     <div class="team-leaders-grid">
       <div class="team-leader-card" style="--accent:var(--marigold)">
         <div class="tl-photo">
-          <img src="assets/images/team/head.jpg" alt="Aditya Bhagat — Head" onerror="this.src='assets/images/team/head.jpeg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/head.jpg" alt="Aditya Bhagat — Head" onerror="this.remove()">
           <span class="tl-initials" style="background:var(--marigold);color:var(--ink)">AB</span>
         </div>
         <h3>Aditya Bhagat</h3>
@@ -126,7 +131,7 @@
       </div>
       <div class="team-leader-card" style="--accent:var(--rust)">
         <div class="tl-photo">
-          <img src="assets/images/team/RabinaDahariya.JPG" alt="Rabina Dahariya — Vice Head" onerror="this.src='assets/images/team/rabina-dahariya.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/rabina-dahariya.jpg" alt="Rabina Dahariya — Vice Head" onerror="this.remove()">
           <span class="tl-initials" style="background:var(--rust);color:var(--bone)">RD</span>
         </div>
         <h3>Rabina Dahariya</h3>
@@ -258,7 +263,7 @@
 
       <div class="team-member-card" style="--fold:var(--rust);--accent:var(--rust)">
         <div class="tm-photo">
-          <img src="assets/images/team/surbhi.jpeg" alt="Surbhi Singh" onerror="this.src='assets/images/team/surbhi-singh.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/surbhi-singh.jpg" alt="Surbhi Singh" onerror="this.remove()">
           <span class="tm-initials" style="background:var(--rust);color:var(--bone)">SS</span>
         </div>
         <h4>Surbhi Singh</h4>
@@ -268,7 +273,7 @@
 
       <div class="team-member-card" style="--fold:var(--moss);--accent:var(--moss)">
         <div class="tm-photo">
-          <img src="assets/images/team/neelabjo.jpeg" alt="Neelabjo Das" onerror="this.src='assets/images/team/neelabjo-das.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/neelabjo-das.jpg" alt="Neelabjo Das" onerror="this.remove()">
           <span class="tm-initials" style="background:var(--moss);color:var(--bone)">ND</span>
         </div>
         <h4>Neelabjo Das</h4>
@@ -276,6 +281,260 @@
         <div class="role-line"></div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============================== VOLUNTEERS ============================== -->
+<section class="team-volunteers" id="team-volunteers" data-section>
+  <div class="wrap">
+    <p class="eyebrow" data-eyebrow>Student Volunteers</p>
+    <h2 class="section-title">
+      <span class="line"><span>The spirit of</span></span>
+      <span class="line"><span>service on ground.</span></span>
+    </h2>
+    <p class="section-lead" data-fade>Active NSS student volunteers dedicated to community outreach, organizing drives, and making an impact across campus and neighboring villages.</p>
+
+    <div class="team-volunteers-grid">
+      <!-- Volunteer 1 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--moss);--accent:var(--moss)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--moss);color:var(--bone)">SK</span>
+        </div>
+        <h4>Shiv Karnwal</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:shiv26101@iiitnr.edu.in" class="vc-link" title="Email Shiv Karnwal">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>shiv26101@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:7017210545" class="vc-link" title="Call Shiv Karnwal">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 70172 10545</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 2 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--rust);--accent:var(--rust)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--rust);color:var(--bone)">HR</span>
+        </div>
+        <h4>Himanshu Ranjan</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:himanshur26102@iiitnr.edu.in" class="vc-link" title="Email Himanshu Ranjan">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>himanshur26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:8957913510" class="vc-link" title="Call Himanshu Ranjan">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 89579 13510</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 3 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--marigold);--accent:var(--marigold)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--marigold);color:var(--ink)">PT</span>
+        </div>
+        <h4>Prerna Tirkey</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:Prerna26102@iiitnr.edu.in" class="vc-link" title="Email Prerna Tirkey">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>Prerna26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9329500758" class="vc-link" title="Call Prerna Tirkey">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 93295 00758</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 4 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--pine-3);--accent:var(--pine-3)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--pine-3);color:var(--bone)">AA</span>
+        </div>
+        <h4>Arnav Agrawal</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:arnav26101@iiitnr.edu.in" class="vc-link" title="Email Arnav Agrawal">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>arnav26101@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9993936002" class="vc-link" title="Call Arnav Agrawal">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 99939 36002</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 5 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--rust);--accent:var(--rust)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--rust);color:var(--bone)">MS</span>
+        </div>
+        <h4>Manideep Sharma</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:manideep26102@iiitnr.edu.in" class="vc-link" title="Email Manideep Sharma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>manideep26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9755927199" class="vc-link" title="Call Manideep Sharma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 97559 27199</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 6 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--moss);--accent:var(--moss)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--moss);color:var(--bone)">RP</span>
+        </div>
+        <h4>Rudra Pratap Pandey</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:rudra26100@iiitnr.edu.in" class="vc-link" title="Email Rudra Pratap Pandey">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>rudra26100@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9329988452" class="vc-link" title="Call Rudra Pratap Pandey">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 93299 88452</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 7 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--marigold);--accent:var(--marigold)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--marigold);color:var(--ink)">VK</span>
+        </div>
+        <h4>Vivek Kumar</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:vivek26101@iiitnr.edu.in" class="vc-link" title="Email Vivek Kumar">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>vivek26101@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9508794127" class="vc-link" title="Call Vivek Kumar">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 95087 94127</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 8 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--pine-3);--accent:var(--pine-3)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--pine-3);color:var(--bone)">MV</span>
+        </div>
+        <h4>Mehul Vishwakarma</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:mehul26101@iiitnr.edu.in" class="vc-link" title="Email Mehul Vishwakarma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>mehul26101@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9329841491" class="vc-link" title="Call Mehul Vishwakarma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 93298 41491</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 9 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--moss);--accent:var(--moss)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--moss);color:var(--bone)">US</span>
+        </div>
+        <h4>Utkarsh Sharma</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:utkarsh26100@iiitnr.edu.in" class="vc-link" title="Email Utkarsh Sharma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>utkarsh26100@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:8960170036" class="vc-link" title="Call Utkarsh Sharma">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 89601 70036</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 10 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--rust);--accent:var(--rust)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--rust);color:var(--bone)">SD</span>
+        </div>
+        <h4>Shruti Deokar</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:shruti26102@iiitnr.edu.in" class="vc-link" title="Email Shruti Deokar">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>shruti26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:8446011798" class="vc-link" title="Call Shruti Deokar">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 84460 11798</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 11 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--marigold);--accent:var(--marigold)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--marigold);color:var(--ink)">SJ</span>
+        </div>
+        <h4>Sovanya Jethanandani</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:sovanya26102@iiitnr.edu.in" class="vc-link" title="Email Sovanya Jethanandani">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>sovanya26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:9519429683" class="vc-link" title="Call Sovanya Jethanandani">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 95194 29683</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
+
+      <!-- Volunteer 12 -->
+      <div class="team-member-card volunteer-card" style="--fold:var(--pine-3);--accent:var(--pine-3)">
+        <div class="tm-photo">
+          <span class="tm-initials" style="background:var(--pine-3);color:var(--bone)">SD</span>
+        </div>
+        <h4>Shreya Dewangan</h4>
+        <p class="tm-role">Volunteer</p>
+        <div class="volunteer-contact">
+          <a href="mailto:shreya26102@iiitnr.edu.in" class="vc-link" title="Email Shreya Dewangan">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <span>shreya26102@iiitnr.edu.in</span>
+          </a>
+          <a href="tel:8770229397" class="vc-link" title="Call Shreya Dewangan">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+91 87702 29397</span>
+          </a>
+        </div>
+        <div class="role-line"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -294,7 +553,7 @@
     <div class="team-leaders-grid senior-leaders-grid">
       <div class="team-leader-card" style="--accent:var(--marigold)">
         <div class="tl-photo">
-          <img src="assets/images/team/senior/Janhvi_Diwan_Head.jpeg" alt="Janhvi Diwan — Head (Batch of 2024)" onerror="this.src='assets/images/team/janhvi-diwan.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/senior/janhvi-diwan.jpg" alt="Janhvi Diwan — Head (Batch of 2024)" onerror="this.remove();">
           <span class="tl-initials" style="background:var(--marigold);color:var(--ink)">JD</span>
         </div>
         <h3>Janhvi Diwan</h3>
@@ -303,7 +562,7 @@
 
       <div class="team-leader-card" style="--accent:var(--rust)">
         <div class="tl-photo">
-          <img src="assets/images/team/senior/vaibhav-bhagat.jpg" alt="Vaibhav Bhagat — Vice Head (Batch of 2024)" onerror="this.src='assets/images/team/senior/Vaibhav_Bhagat_Vice%20Head.jpeg'; this.onerror=function(){this.src='assets/images/team/vaibhav-bhagat.jpg'; this.onerror=function(){this.remove();};}">
+          <img src="assets/images/team/senior/vaibhav-bhagat.jpg" alt="Vaibhav Bhagat — Vice Head (Batch of 2024)" onerror="this.remove();">
           <span class="tl-initials" style="background:var(--rust);color:var(--bone)">VB</span>
         </div>
         <h3>Vaibhav Bhagat</h3>
@@ -315,7 +574,7 @@
     <div class="senior-core-grid">
       <div class="team-member-card" style="--fold:var(--moss);--accent:var(--moss)">
         <div class="tm-photo">
-          <img src="assets/images/team/senior/Arpita_Dash_Core.jpeg" alt="Arpita Dash — Core Member" onerror="this.src='assets/images/team/arpita-dash.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/senior/arpita-dash.jpg" alt="Arpita Dash — Core Member" onerror="this.remove();">
           <span class="tm-initials" style="background:var(--moss);color:var(--bone)">AD</span>
         </div>
         <h4>Arpita Dash</h4>
@@ -325,8 +584,8 @@
 
       <div class="team-member-card" style="--fold:var(--rust);--accent:var(--rust)">
         <div class="tm-photo">
-          <img src="assets/images/team/senior/Devikarani_Anant_Core.jpeg" alt="Devikarani Anant — Core Member" onerror="this.src='assets/images/team/devikarani-anant.jpg'; this.onerror=function(){this.remove();}">
-          <span class="tm-initials" style="background:var(--rust);color:var(--bone)">DA</span>
+          <img src="assets/images/team/senior/devikarani-anant.jpg" alt="Devikarani Anant — Core Member" onerror="this.remove();">
+          <span class="tl-initials" style="background:var(--rust);color:var(--bone)">DA</span>
         </div>
         <h4>Devikarani Anant</h4>
         <p class="tm-role">Core Member &bull; 2024</p>

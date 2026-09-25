@@ -837,13 +837,17 @@
       return;
     }
 
-    var frame = $('#igFrame'), openLink = $('#igOpen'), shell = $('#igShell');
+    var frame = $('#igFrame'), openLink = $('#igOpen'), tplLink = $('#igTemplate'), shell = $('#igShell');
     var lastFocus = null;
 
-    function openPost(code, from) {
+    function openPost(code, from, card) {
       lastFocus = from;
       frame.src = 'https://www.instagram.com/p/' + code + '/embed/';
       openLink.href = 'https://www.instagram.com/p/' + code + '/';
+      if (tplLink) {
+        var tpl = card ? (card.getAttribute('data-template') || card.getAttribute('data-event-url')) : null;
+        tplLink.href = tpl || 'event-template.html';
+      }
       dlg.showModal();
       if (lenis) lenis.stop();
       if (!reduce) gsap.fromTo(shell, { y: 46, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power4.out' });
@@ -862,7 +866,7 @@
 
     triggers.forEach(function (card) {
       $$('.ev-preview, .media-hit', card).forEach(function (b) {
-        b.addEventListener('click', function () { openPost(card.getAttribute('data-ig'), b); });
+        b.addEventListener('click', function () { openPost(card.getAttribute('data-ig'), b, card); });
       });
     });
     $('#igClose').addEventListener('click', closeModal);

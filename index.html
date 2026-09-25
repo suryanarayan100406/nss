@@ -96,29 +96,34 @@
 
 <header class="site-nav" id="siteNav">
   <a href="#top" class="brand" data-scroll>
-    <span class="emblem" id="emblem">
-      <!-- Fallback wheel shows if the emblem photo is missing -->
-      <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
-        <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
-        <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
-        <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
-          <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
-          <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
-          <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
-          <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
-        </g>
-      </svg>
-      <img decoding="async" class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+    <span class="brand-logos">
+      <span class="emblem" id="emblem" title="National Service Scheme">
+        <!-- Fallback wheel shows if the emblem photo is missing -->
+        <svg viewBox="0 0 120 120" fill="none" class="spin" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="5"/>
+          <circle cx="60" cy="60" r="9" fill="#E8A63C"/>
+          <g stroke="#F5F1E4" stroke-width="5" stroke-linecap="round">
+            <line x1="60" y1="10" x2="60" y2="30"/><line x1="60" y1="90" x2="60" y2="110"/>
+            <line x1="10" y1="60" x2="30" y2="60"/><line x1="90" y1="60" x2="110" y2="60"/>
+            <line x1="25" y1="25" x2="39" y2="39"/><line x1="81" y1="81" x2="95" y2="95"/>
+            <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
+          </g>
+        </svg>
+        <img decoding="async" class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
+      </span>
+      <span class="emblem emblem-iiit" title="IIIT Naya Raipur">
+        <img decoding="async" src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" onerror="this.remove()">
+      </span>
     </span>
     <span class="name">NSS<small>IIIT Naya Raipur</small></span>
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
   <nav class="links" id="navLinks">
     <a href="#about" data-nav>About</a>
-    <a href="#events" data-nav>Events</a>
-    <a href="team.html" data-nav>Team</a>
     <a href="#impact" data-nav>Impact</a>
+    <a href="#events" data-nav>Events</a>
     <a href="#director" data-nav>Director</a>
+    <a href="team.html" data-nav>Team</a>
     <a href="#join" class="nav-cta magnetic" data-nav>Join us</a>
   </nav>
 </header>
@@ -415,6 +420,35 @@
   </div>
 </section>
 
+<!-- ============================== DIRECTOR ============================== -->
+<section class="about director" id="director" data-section>
+  <div class="wrap about-grid director-grid">
+    <div class="about-media">
+      <div class="frame-back"></div>
+      <div class="frame">
+        <div class="duo">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <img src="assets/images/director.jpg" loading="lazy" decoding="async" alt="Prof. (Dr.) Om Prakash Vyas — Director, IIIT Naya Raipur" onerror="this.remove()">
+        </div>
+      </div>
+      <div class="tag">Director's message</div>
+    </div>
+    <div class="about-copy director-copy">
+      <p class="eyebrow" data-eyebrow>From the director's desk</p>
+      <h2 class="section-title">
+        <span class="line"><span>A word from</span></span>
+        <span class="line"><span>the Director.</span></span>
+      </h2>
+      <span class="quote-mark director-mark" aria-hidden="true">"</span>
+      <p class="lead fill-words" data-fill>National Service Scheme at IIIT Naya Raipur empowers young engineers to look beyond code and classrooms, stepping into the community with compassion, purpose, and civic responsibility.</p>
+      <div class="director-attr">
+        <strong>Prof. (Dr.) Om Prakash Vyas</strong>
+        <span>Director, IIIT Naya Raipur</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================== TEAM (featured) ============================== -->
 <section class="team" id="team" data-section>
   <div class="wrap">
@@ -432,7 +466,7 @@
       <!-- Set 1 (duplicated by JS for seamless loop) -->
       <div class="team-featured-card" style="--accent:var(--moss)">
         <div class="tf-photo">
-          <img src="assets/images/team/Mallikharjuna_Rao_K.jpeg" loading="lazy" decoding="async" alt="Mallikharjuna Rao K — NSS Officer" onerror="this.src='assets/images/team/mallikharjuna-rao-k.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/mallikharjuna-rao-k.jpg" loading="lazy" decoding="async" alt="Mallikharjuna Rao K — NSS Officer" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--moss);color:var(--bone)">MK</span>
         </div>
         <h4>Mallikharjuna Rao K</h4>
@@ -440,7 +474,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--marigold)">
         <div class="tf-photo">
-          <img src="assets/images/team/head.jpg" loading="lazy" decoding="async" alt="Aditya Bhagat — Head" onerror="this.src='assets/images/team/head.jpeg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/head.jpg" loading="lazy" decoding="async" alt="Aditya Bhagat — Head" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--marigold);color:var(--ink)">AB</span>
         </div>
         <h4>Aditya Bhagat</h4>
@@ -448,7 +482,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/RabinaDahariya.JPG" loading="lazy" decoding="async" alt="Rabina Dahariya — Vice Head" onerror="this.src='assets/images/team/rabina-dahariya.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/rabina-dahariya.jpg" loading="lazy" decoding="async" alt="Rabina Dahariya — Vice Head" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">RD</span>
         </div>
         <h4>Rabina Dahariya</h4>
@@ -544,7 +578,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--rust)">
         <div class="tf-photo">
-          <img src="assets/images/team/surbhi.jpeg" loading="lazy" decoding="async" alt="Surbhi Singh" onerror="this.src='assets/images/team/surbhi-singh.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/surbhi-singh.jpg" loading="lazy" decoding="async" alt="Surbhi Singh" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--rust);color:var(--bone)">SS</span>
         </div>
         <h4>Surbhi Singh</h4>
@@ -552,7 +586,7 @@
       </div>
       <div class="team-featured-card" style="--accent:var(--moss)">
         <div class="tf-photo">
-          <img src="assets/images/team/neelabjo.jpeg" loading="lazy" decoding="async" alt="Neelabjo Das" onerror="this.src='assets/images/team/neelabjo-das.jpg'; this.onerror=function(){this.remove();}">
+          <img src="assets/images/team/neelabjo-das.jpg" loading="lazy" decoding="async" alt="Neelabjo Das" onerror="this.remove()">
           <span class="tf-initials" style="background:var(--moss);color:var(--bone)">ND</span>
         </div>
         <h4>Neelabjo Das</h4>
@@ -565,35 +599,6 @@
     <a href="team.html" class="btn-primary magnetic" style="display:inline-flex;">Meet the full team
       <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
     </a>
-  </div>
-</section>
-
-<!-- ============================== DIRECTOR ============================== -->
-<section class="about director" id="director" data-section>
-  <div class="wrap about-grid director-grid">
-    <div class="about-media">
-      <div class="frame-back"></div>
-      <div class="frame">
-        <div class="duo">
-          <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
-          <img src="assets/images/director.jpg" loading="lazy" decoding="async" alt="Prof. (Dr.) Om Prakash Vyas — Director, IIIT Naya Raipur" onerror="this.src='assets/images/team/Prof. (Dr.) Om Prakash Vyas.jpg'; this.onerror=function(){this.remove();}">
-        </div>
-      </div>
-      <div class="tag">Director's message</div>
-    </div>
-    <div class="about-copy director-copy">
-      <p class="eyebrow" data-eyebrow>From the director's desk</p>
-      <h2 class="section-title">
-        <span class="line"><span>A word from</span></span>
-        <span class="line"><span>the Director.</span></span>
-      </h2>
-      <span class="quote-mark director-mark" aria-hidden="true">"</span>
-      <p class="lead fill-words" data-fill>National Service Scheme at IIIT Naya Raipur empowers young engineers to look beyond code and classrooms, stepping into the community with compassion, purpose, and civic responsibility.</p>
-      <div class="director-attr">
-        <strong>Prof. (Dr.) Om Prakash Vyas</strong>
-        <span>Director, IIIT Naya Raipur</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -890,7 +895,7 @@
     <div class="ig-shell" id="igShell">
       <button class="ig-close" id="igClose" type="button" aria-label="Close preview"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       <div class="ig-frame" data-lenis-prevent><iframe id="igFrame" title="Instagram post preview" src="about:blank" allow="encrypted-media" scrolling="no"></iframe></div>
-      <div class="ig-bar"><span>Loaded from Instagram</span><a id="igOpen" href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener">Open on Instagram</a></div>
+      <div class="ig-bar"><a id="igTemplate" href="event-template.html" class="ig-template-link">View event details &rarr;</a><a id="igOpen" href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener">Open on Instagram</a></div>
     </div>
   </div>
 </dialog>
