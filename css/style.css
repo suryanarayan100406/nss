@@ -885,45 +885,48 @@ footer#footer{box-shadow:0 -1px 0 var(--edge-gold-soft);}
 .evp-ig-link{
   display:inline-flex !important;
   align-items:center;
-  gap:11px;
+  gap:10px;
   padding:12px 24px !important;
   border-radius:9999px !important;
-  background:linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
-  color:#ffffff !important;
+  background:var(--marigold, #E8A63C) !important;
+  color:var(--ink, #0F1712) !important;
+  font-family:var(--font-body);
   font-weight:600 !important;
-  font-size:0.93rem !important;
+  font-size:0.92rem !important;
   letter-spacing:0.015em;
   text-decoration:none !important;
-  border:1px solid rgba(255,255,255,0.3) !important;
-  box-shadow:0 10px 24px -5px rgba(220,39,67,0.48), 0 2px 6px rgba(0,0,0,0.12) !important;
-  transition:transform 0.28s var(--ease), box-shadow 0.28s var(--ease), filter 0.25s ease !important;
+  border:1px solid rgba(201,138,44,0.45) !important;
+  box-shadow:0 8px 22px -6px rgba(232,166,60,0.5), 0 2px 6px rgba(0,0,0,0.06) !important;
+  transition:transform 0.28s var(--ease), box-shadow 0.28s var(--ease), background 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
   position:relative;
   z-index:2;
   cursor:pointer;
 }
 .evp-ig-btn:hover,
 .evp-ig-link:hover{
-  transform:translateY(-3px) scale(1.02) !important;
-  box-shadow:0 16px 34px -4px rgba(220,39,67,0.65), 0 4px 12px rgba(0,0,0,0.18) !important;
-  filter:brightness(1.08) !important;
-  color:#ffffff !important;
+  transform:translateY(-2px) scale(1.02) !important;
+  background:var(--ink, #0F1712) !important;
+  color:var(--bone, #F5F1E4) !important;
+  border-color:var(--ink, #0F1712) !important;
+  box-shadow:0 12px 28px -6px rgba(15,23,18,0.4), 0 0 16px rgba(232,166,60,0.2) !important;
 }
 .evp-ig-btn:active,
 .evp-ig-link:active{
-  transform:translateY(-1px) scale(0.99) !important;
+  transform:translateY(0) scale(0.99) !important;
 }
 .evp-ig-btn svg,
 .evp-ig-link svg{
   width:18px;
   height:18px;
-  stroke:#ffffff !important;
+  stroke:var(--ink, #0F1712) !important;
   fill:none;
   stroke-width:2.2 !important;
   flex-shrink:0;
-  transition:transform 0.3s var(--ease);
+  transition:stroke 0.25s ease, transform 0.3s var(--ease);
 }
 .evp-ig-btn:hover svg,
 .evp-ig-link:hover svg{
+  stroke:var(--marigold, #E8A63C) !important;
   transform:rotate(8deg) scale(1.12);
 }
 
