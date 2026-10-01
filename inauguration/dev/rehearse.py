@@ -175,6 +175,10 @@ def build_app(root: Path, host: str, port: int):
     def holding_page():
         return FileResponse(WEB / "coming-soon.html", media_type="text/html; charset=utf-8")
 
+    @app.get("/coming-soon-v3.html", include_in_schema=False)
+    def holding_page_v3():
+        return FileResponse(WEB / "coming-soon-v3.html", media_type="text/html; charset=utf-8")
+
     app.mount("/admin", StaticFiles(directory=str(WEB / "admin"), html=True), name="admin")
 
     # The static site is mounted last so it cannot shadow the API routes above it.

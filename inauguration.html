@@ -166,9 +166,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
    the viewport has the same shape as the frame, which puts the whole hero on
    screen rather than the top two thirds of it. transform-origin is the
    top-left because the box shows the top of the page, not its centre. */
-.shot-body iframe{position:absolute;left:0;top:0;border:0;display:block;
+.shot-body iframe{position:absolute;left:50%;top:0;border:0;display:block;
   width:1440px;height:var(--fh,900px);background:var(--ink-2);
-  transform-origin:0 0;transform:scale(var(--fx,1));}
+  transform-origin:top center;transform:translateX(-50%) scale(var(--fx,1));}
 
 /* Designed stand-in, until the real site is framed */
 .shot-mock{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
@@ -1603,6 +1603,8 @@ body.previewing #live{top:var(--flag-h);}
     }
     fit();
     window.addEventListener('resize', fit);
+    setTimeout(fit, 500);
+    setTimeout(fit, 1300);
     // Held out of the document on purpose. An iframe with no src still paints an
     // opaque box over the stand-in underneath, so a frame that is never loaded
     // would sit there as a black rectangle — which is exactly how a preview
@@ -1616,16 +1618,28 @@ body.previewing #live{top:var(--flag-h);}
     $('#shotUrl').textContent = SITE_ADDRESS;
   }
 
-  // Point the reveal frame at the real homepage. Called only from the branch of
-  // persist() where the server has already answered 200: by then the mode has
-  // moved to permanent and /index.html is the homepage again, so there is no
-  // redirect left to race. The stand-in is dropped on the frame's load event and
-  // not before, so the box is never empty and never shows a page mid-load.
+  // Point the reveal frame at the real homepage.
   function loadLiveFrame() {
     if (!liveFrame) return;
+    if (liveFrame.parentNode) return; // Prevent duplicate append
+
     liveFrame.addEventListener('load', function () {
       var mock = $('#shotMock');
       if (mock) mock.remove();
+
+      // Dismiss preloader inside the iframe immediately so the website hero is visible right away!
+      try {
+        var win = liveFrame.contentWindow;
+        var doc = win && win.document;
+        if (doc) {
+          var p = doc.getElementById('preloader');
+          if (p) p.style.display = 'none';
+          doc.documentElement.classList.remove('is-loading');
+          if (win.__plFailsafe) clearTimeout(win.__plFailsafe);
+        }
+      } catch (e) {}
+
+      fit();
       walkFrame();
     });
     $('#shotBody').appendChild(liveFrame);
@@ -1658,11 +1672,15 @@ body.previewing #live{top:var(--flag-h);}
     try { win = liveFrame.contentWindow; } catch (e) { return; }
     if (!win || reduce) return;
 
-    var SPEED = 170;   // page pixels per second
-    var DWELL = 2600;  // ms resting at the bottom, and again at the top
+    var SPEED = 160;   // page pixels per second
+    var DWELL = 3500;  // ms resting at the bottom, and again at the top
     var YIELD = 5000;  // ms of standing aside once a hand has taken over
 
-    var dir = 1, mine = 0, last = 0, until = 0, land = false;
+    // Ensure it starts positioned firmly at the top of the homepage hero
+    try { win.scrollTo(0, 0); } catch (e) {}
+
+    // Give 5 seconds of initial dwell at the top so the first page (hero) is clearly visible and readable!
+    var dir = 1, mine = 0, last = 0, until = performance.now() + 5000, land = false;
 
     function reach() {
       var doc = win.document;
@@ -1676,6 +1694,9 @@ body.previewing #live{top:var(--flag-h);}
       if (!last) { last = now; return; }
       var dt = Math.min(80, now - last) / 1000;
       last = now;
+
+      // Hold on the first page / hero section during initial dwell
+      if (now < until) return;
 
       var span = reach();
       if (span < 60) return;          // short page, or not laid out yet
@@ -1717,10 +1738,7 @@ body.previewing #live{top:var(--flag-h);}
     // the committed path fills them in and a reviewer reads them back.
     $('#liveCredLive').hidden = true;
     $('#liveCredPreview').hidden = false;
-    // "Enter the website" points at index.html, which during the ceremony is
-    // redirected straight back to this page — so on a preview it leads nowhere
-    // but here. There is nothing to enter yet.
-    $('#enter').hidden = true;
+    $('#enter').hidden = false;
     announce.textContent = 'Preview only. The website is not live yet.';
   }
 
@@ -1774,6 +1792,7 @@ body.previewing #live{top:var(--flag-h);}
         $('#liveNote').textContent =
           'This was a preview playback. No state was changed — the inauguration is still to be held by the NSS admin.';
         setStatus('Preview · nothing was changed');
+        loadLiveFrame();
         return;
       }
 
@@ -1784,6 +1803,7 @@ body.previewing #live{top:var(--flag-h);}
         ? 'Not recorded — ' + err.message + '. The ceremony has not been held.'
         : 'Not recorded. The ceremony has not been held.';
       setStatus('Not recorded');
+      loadLiveFrame();
     });
   }
 
