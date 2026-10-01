@@ -1,0 +1,22 @@
+# /etc/sudoers.d/nss-inauguration — installed by deploy/install.sh, mode 0440.
+#
+# The service account gets exactly one privileged command and nothing else. There is
+# no wildcard in the path, no ALL, and no way to run an interpreter or a shell as
+# root. install.sh validates this file with `visudo -c` before it is put in place, so
+# a typo aborts the install instead of silently widening the grant.
+
+# sudo is invoked by the service, which has no terminal. use_pty keeps the session on
+# a pseudo-terminal anyway, which is what makes I/O logging possible if it is ever
+# turned on; it would otherwise refuse to run without a tty.
+Defaults:nss-inaug !requiretty, use_pty
+
+# The trailing "" is load-bearing, not decoration. In sudoers, a command listed
+# without an argument spec may be run with *any* arguments. Writing "" restricts the
+# rule to an empty argument vector, so the script can only ever be invoked exactly as
+# `sudo -n /usr/local/sbin/nss-decommission`.
+#
+# That is what makes the no-arguments guarantee enforced rather than merely intended:
+# even if a future change to the backend started building the command from a request
+# field, sudo would refuse it. routes_cleanup.invoke_decommission passes no arguments
+# today, and this rule is what keeps that true.
+nss-inaug ALL=(root) NOPASSWD: /usr/local/sbin/nss-decommission ""

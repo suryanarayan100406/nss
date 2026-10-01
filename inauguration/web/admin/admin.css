@@ -1,0 +1,250 @@
+/* ===== Admin portal =====
+   The public site has no form controls anywhere, so there was nothing to reuse for
+   inputs — everything below is authored against the same tokens as css/style.css
+   (colours, type, --ease, --container) so the portal reads as part of the same
+   project rather than a bolted-on tool. */
+
+:root {
+  --field-bg: rgba(245, 241, 228, 0.045);
+  --field-line: rgba(245, 241, 228, 0.2);
+  --danger: #D9534F;
+  --danger-dim: rgba(214, 69, 65, 0.14);
+  --ok: #7FA56A;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(70% 55% at 50% 0%, rgba(42, 74, 56, 0.5), transparent 70%);
+}
+
+/* ---------- shell ---------- */
+
+.ap-shell { max-width: 1080px; margin: 0 auto; padding: clamp(20px, 4vw, 44px) clamp(16px, 4vw, 40px) 80px; }
+
+.ap-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line-on-dark);
+  margin-bottom: clamp(22px, 3.4vw, 34px);
+}
+
+.ap-head img { width: 40px; height: 40px; border-radius: 50%; }
+
+.ap-head h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(19px, 2.6vw, 25px);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.ap-head .ap-sub { margin: 2px 0 0; font-size: 12.5px; color: var(--bone-dim); }
+
+.ap-head-actions { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- pills ---------- */
+
+.ap-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--field-line);
+  color: var(--bone-dim);
+  white-space: nowrap;
+}
+.ap-pill::before {
+  content: "";
+  width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+.ap-pill[data-mode="coming_soon"] { color: var(--marigold); border-color: rgba(232,166,60,.4); }
+.ap-pill[data-mode="inauguration"] { color: var(--leaf); border-color: rgba(127,165,106,.45); }
+.ap-pill[data-mode="permanent"]    { color: var(--bone); border-color: var(--line-on-dark); }
+
+/* ---------- panels ---------- */
+
+.ap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+  align-items: start;
+}
+
+.ap-panel {
+  border: 1px solid var(--line-on-dark);
+  border-radius: 16px;
+  background: rgba(24, 38, 32, 0.55);
+  padding: clamp(18px, 2.4vw, 24px);
+}
+
+.ap-panel h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 17px;
+  margin: 0 0 4px;
+}
+
+.ap-panel .ap-hint { margin: 0 0 16px; font-size: 12.5px; color: var(--bone-dim); }
+
+.ap-panel--wide { grid-column: 1 / -1; }
+
+/* ---------- definition rows ---------- */
+
+.ap-rows { margin: 0; display: grid; gap: 10px; }
+.ap-row { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+.ap-row dt { color: var(--bone-dim); font-size: 13px; }
+.ap-row dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.ap-row dd strong { font-weight: 500; }
+
+/* ---------- controls ---------- */
+
+.ap-field { display: block; margin-bottom: 14px; }
+
+.ap-field > span {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+  margin-bottom: 7px;
+}
+
+.ap-input {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--field-line);
+  background: var(--field-bg);
+  color: var(--bone);
+  font: inherit;
+}
+.ap-input:focus { outline: 2px solid var(--marigold); outline-offset: 1px; border-color: transparent; }
+.ap-input::placeholder { color: rgba(245, 241, 228, 0.35); }
+
+.ap-check { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; font-size: 14px; }
+.ap-check input { width: 17px; height: 17px; accent-color: var(--marigold); }
+
+.ap-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.ap-btn {
+  font: inherit;
+  cursor: pointer;
+  padding: 10px 17px;
+  border-radius: 999px;
+  border: 1px solid var(--field-line);
+  background: transparent;
+  color: var(--bone);
+  transition: background-color .2s var(--ease), border-color .2s var(--ease), opacity .2s var(--ease);
+}
+.ap-btn:hover:not(:disabled) { background: rgba(245, 241, 228, 0.07); }
+.ap-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.ap-btn--primary { background: var(--marigold); border-color: var(--marigold); color: var(--ink); font-weight: 500; }
+.ap-btn--primary:hover:not(:disabled) { background: var(--marigold-dim); border-color: var(--marigold-dim); }
+
+.ap-btn--danger { border-color: var(--danger); color: #F3B4B1; }
+.ap-btn--danger:hover:not(:disabled) { background: var(--danger-dim); }
+
+/* ---------- decommissioning ----------
+   Deliberately set apart: the only control here that destroys anything, and the only
+   one that must never be mistaken for a routine action. */
+
+.ap-danger {
+  margin-top: clamp(24px, 4vw, 40px);
+  border: 1px solid rgba(214, 69, 65, 0.5);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(214, 69, 65, 0.09), rgba(214, 69, 65, 0.03));
+  padding: clamp(18px, 2.6vw, 26px);
+}
+.ap-danger h2 { color: #F3B4B1; }
+.ap-danger .ap-hint { color: rgba(245, 241, 228, 0.62); }
+.ap-danger ul { margin: 0 0 18px; padding-left: 20px; font-size: 13px; color: var(--bone-dim); }
+.ap-danger li { margin-bottom: 5px; }
+.ap-danger code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  color: var(--marigold);
+}
+
+/* ---------- notices ---------- */
+
+.ap-notice {
+  margin-top: 16px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  border: 1px solid var(--field-line);
+  background: rgba(245, 241, 228, 0.05);
+}
+.ap-notice[hidden] { display: none; }
+.ap-notice[data-kind="error"] { border-color: rgba(214, 69, 65, .55); background: var(--danger-dim); color: #F3B4B1; }
+.ap-notice[data-kind="ok"] { border-color: rgba(127, 165, 106, .5); background: rgba(127, 165, 106, .12); color: #C8DDBC; }
+
+/* ---------- activity ---------- */
+
+.ap-log { list-style: none; margin: 0; padding: 0; max-height: 300px; overflow-y: auto; }
+.ap-log li {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(245, 241, 228, 0.07);
+  font-size: 13px;
+}
+.ap-log li:last-child { border-bottom: 0; }
+.ap-log time { color: var(--bone-dim); font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 12px; }
+.ap-log .ap-event { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; color: var(--leaf); }
+.ap-log .ap-who { color: var(--bone-dim); margin-left: auto; white-space: nowrap; }
+
+/* ---------- login ---------- */
+
+.ap-login {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.ap-login[hidden] { display: none; }
+.ap-login-card {
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--line-on-dark);
+  border-radius: 18px;
+  background: rgba(24, 38, 32, 0.72);
+  padding: clamp(26px, 5vw, 38px);
+  text-align: center;
+}
+.ap-login-card img { width: 54px; height: 54px; border-radius: 50%; margin-bottom: 16px; }
+.ap-login-card h1 { font-family: var(--font-display); font-weight: 400; font-size: 23px; margin: 0 0 4px; }
+.ap-login-card p { color: var(--bone-dim); font-size: 13px; margin: 0 0 22px; }
+.ap-login-card .ap-field { text-align: left; }
+.ap-login-card .ap-btn { width: 100%; justify-content: center; }
+
+[hidden] { display: none !important; }

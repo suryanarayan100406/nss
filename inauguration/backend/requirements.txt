@@ -1,0 +1,12 @@
+# Runtime dependencies for the inauguration administration service.
+# Pinned to the versions the system was tested against; installed into the venv by
+# deploy/install.sh. Nothing here is loaded by the public website, which is static.
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+argon2-cffi==23.1.0
+itsdangerous==2.2.0
+python-multipart==0.0.20
+
+# Test-only; install with `pip install -r requirements.txt -r requirements-dev.txt`.

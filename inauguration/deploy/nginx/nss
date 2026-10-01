@@ -1,0 +1,78 @@
+# nss.iiitnr.ac.in — the NSS site, and the front door for the inauguration system.
+#
+# Installed once, then left alone. Every mode-dependent rule lives in
+# /etc/nginx/nss-mode.inc, which the backend rewrites and reloads whenever the site
+# mode changes. Nothing here needs editing when the ceremony runs, and nothing here is
+# touched when the inauguration system is decommissioned.
+#
+# There is deliberately no `location /` and no `location ^~ /api/` in this file. The
+# include owns both in every mode, and a second copy of either would be a duplicate
+# location — `nginx -t` fails, which is the good outcome, but it fails at install time
+# on the one day there is no room for it.
+
+server {
+    listen      80;
+    listen      [::]:80;
+    server_name nss.iiitnr.ac.in;
+
+    # Certbot answers renewals here. Everything else is redirected, so a visitor who
+    # types the bare hostname still lands on the secure site.
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen      443 ssl;
+    listen      [::]:443 ssl;
+    http2       on;
+    server_name nss.iiitnr.ac.in;
+
+    ssl_certificate     /etc/letsencrypt/live/nss.iiitnr.ac.in/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/nss.iiitnr.ac.in/privkey.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache   shared:SSL:10m;
+
+    root  /var/www/nss;
+    index index.html;
+
+    # The pages carry em dashes, arrows and the rupee sign. Without this Nginx serves
+    # text/html with no charset and the browser guesses — usually right, occasionally
+    # a row of mojibake on a projector in front of the Director.
+    charset utf-8;
+
+    # No X-Frame-Options here, on purpose, and this is the one place it would be a
+    # mistake to "fix". The ceremony's reveal frames index.html inside its own page;
+    # a DENY at this level would replace the climax of the ceremony with Chrome's
+    # blocked-document icon. The framed page is same-origin, static, and takes no
+    # input, so there is nothing to clickjack. The backend still sends its own
+    # X-Frame-Options on /api/ and /admin/, where framing is genuinely unwanted.
+    #
+    # These three do apply to the proxied paths too, on top of the backend's own
+    # copies. Two identical nosniff headers and two HSTS headers are harmless; two
+    # Referrer-Policy values resolve to the stricter of the pair. Duplicating them is
+    # the price of not making the static site's headers depend on the application,
+    # which is a dependency that has to survive the application being deleted.
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    add_header Strict-Transport-Security "max-age=31536000" always;
+
+    # Inherited by every proxy location in the include — neither it nor the server
+    # block defines proxy_set_header anywhere below this point, so these reach the
+    # backend. That is what makes the login lockout key on the real client instead of
+    # on 127.0.0.1: security.client_ip trusts X-Forwarded-For only when the immediate
+    # peer is loopback, which is exactly how Nginx arrives.
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_http_version 1.1;
+
+    # The current mode: the hold page, the ceremony, or the permanent site.
+    include /etc/nginx/nss-mode.inc;
+}

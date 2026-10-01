@@ -1,0 +1,32 @@
+# Line endings.
+#
+# These files are read or executed on the Ubuntu VM, where the line endings decide
+# whether they work at all:
+#
+#   * a CRLF in a shebang makes the script fail to start — the kernel looks for an
+#     interpreter literally named "/usr/bin/env bash\r";
+#   * a CRLF in a sudoers rule can break parsing, and sudoers failing to parse locks
+#     out sudo entirely;
+#   * the nginx server block, the generated mode include and the systemd unit are all
+#     line-oriented configuration.
+#
+# Pinning them to LF means a checkout on any platform produces bytes the VM can use,
+# rather than depending on each contributor's core.autocrlf.
+* text=auto
+
+*.sh        text eol=lf
+*.py        text eol=lf
+*.service   text eol=lf
+*.inc       text eol=lf
+
+# These carry no extension, so they are named explicitly.
+inauguration/deploy/nginx/nss                   text eol=lf
+inauguration/deploy/sudoers/nss-inauguration    text eol=lf
+inauguration/deploy/sbin/nss-decommission       text eol=lf
+
+# Binary assets: never touch them.
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.JPG   binary
+*.docx  binary

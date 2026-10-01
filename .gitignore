@@ -1,0 +1,21 @@
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Scratch files
+2.html
+*.zip
+*.pdf
+
+# Python / pytest artefacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local rehearsal state. dev/rehearse.py writes here: it holds a generated admin
+# credential hash (rehearsal admin.json), the state document and an audit log. None
+# of it belongs in a public repository, and none of it is needed to run anything.
+.rehearsal/

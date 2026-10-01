@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inauguration control — NSS IIIT Naya Raipur</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0F1712">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ===== signed out ===== -->
+<section class="ap-login" id="login">
+  <form class="ap-login-card" id="loginForm" autocomplete="on">
+    <img src="../nss_logo.jpg" alt="" width="54" height="54">
+    <h1>Inauguration control</h1>
+    <p>NSS IIIT Naya Raipur</p>
+
+    <label class="ap-field">
+      <span>Username</span>
+      <input class="ap-input" type="text" name="username" id="username"
+             autocomplete="username" required autofocus>
+    </label>
+
+    <label class="ap-field">
+      <span>Password</span>
+      <input class="ap-input" type="password" name="password" id="password"
+             autocomplete="current-password" required>
+    </label>
+
+    <button class="ap-btn ap-btn--primary" type="submit" id="loginBtn">Sign in</button>
+
+    <p class="ap-notice" id="loginNotice" data-kind="error" hidden></p>
+  </form>
+</section>
+
+<!-- ===== signed in ===== -->
+<div class="ap-shell" id="dashboard" hidden>
+
+  <header class="ap-head">
+    <img src="../nss_logo.jpg" alt="" width="40" height="40">
+    <div>
+      <h1>Inauguration control</h1>
+      <p class="ap-sub">Signed in as <strong id="whoami">—</strong></p>
+    </div>
+    <div class="ap-head-actions">
+      <span class="ap-pill" id="modePill" data-mode="coming_soon">—</span>
+      <button class="ap-btn" type="button" id="logoutBtn">Sign out</button>
+    </div>
+  </header>
+
+  <div class="ap-grid">
+
+    <!-- status -->
+    <section class="ap-panel">
+      <h2>Status</h2>
+      <p class="ap-hint">What the public site is serving right now.</p>
+      <dl class="ap-rows">
+        <div class="ap-row"><dt>Site mode</dt><dd><strong id="stMode">—</strong></dd></div>
+        <div class="ap-row"><dt>Ceremony</dt><dd><strong id="stCeremony">—</strong></dd></div>
+        <div class="ap-row"><dt>Scheduled for</dt><dd><strong id="stScheduled">—</strong></dd></div>
+        <div class="ap-row"><dt>Countdown</dt><dd><strong id="stCountdown">—</strong></dd></div>
+        <div class="ap-row"><dt>Completed</dt><dd><strong id="stCompleted">—</strong></dd></div>
+      </dl>
+      <p class="ap-notice" id="statusNotice" hidden></p>
+    </section>
+
+    <!-- ceremony -->
+    <section class="ap-panel">
+      <h2>The ceremony</h2>
+      <p class="ap-hint">
+        The ribbon cut is performed by the signed-in admin on the projector laptop.
+        Anyone else who opens the page can watch the animation as a clearly-labelled
+        preview; only this session can commit it.
+      </p>
+      <div class="ap-actions">
+        <button class="ap-btn ap-btn--primary" type="button" id="enableBtn">Open the ceremony</button>
+        <button class="ap-btn" type="button" id="disableBtn">Return to coming soon</button>
+      </div>
+      <div class="ap-actions" style="margin-top:10px">
+        <button class="ap-btn" type="button" id="previewBtn">Open preview in a new tab</button>
+      </div>
+      <p class="ap-notice" id="ceremonyNotice" hidden></p>
+    </section>
+
+    <!-- schedule -->
+    <section class="ap-panel">
+      <h2>Schedule</h2>
+      <p class="ap-hint">
+        The countdown is an absolute instant. A time without a UTC offset would be read
+        differently by every visitor, so the offset is attached when this is saved.
+      </p>
+
+      <label class="ap-field">
+        <span>Inauguration date and time</span>
+        <input class="ap-input" type="datetime-local" id="scheduleInput">
+      </label>
+
+      <label class="ap-check">
+        <input type="checkbox" id="countdownToggle">
+        <span>Show the countdown on the holding page</span>
+      </label>
+
+      <p class="ap-hint" id="schedulePreview" style="margin-bottom:14px"></p>
+
+      <div class="ap-actions">
+        <button class="ap-btn ap-btn--primary" type="button" id="saveScheduleBtn">Save schedule</button>
+      </div>
+      <p class="ap-notice" id="scheduleNotice" hidden></p>
+    </section>
+
+    <!-- activity -->
+    <section class="ap-panel ap-panel--wide">
+      <h2>Recent activity</h2>
+      <p class="ap-hint">Append-only. Kept on disk after the inauguration system is removed.</p>
+      <ul class="ap-log" id="activity"></ul>
+    </section>
+
+  </div>
+
+  <!-- ===== decommissioning ===== -->
+  <section class="ap-danger" id="cleanupPanel">
+    <h2>Final cleanup</h2>
+    <p class="ap-hint">
+      Removes the inauguration system and leaves the permanent NSS website serving.
+      Unlocks only once the inauguration has been completed.
+    </p>
+
+    <ul>
+      <li>Removed: the ceremony page, the holding page, this portal, and the backend service.</li>
+      <li>Kept: every permanent page, the styles, scripts, images, fonts and the NSS logo.</li>
+      <li>Kept: backups under <code>/var/backups/nss-inauguration/</code> and the audit log.</li>
+      <li>The permanent site is verified over HTTP <em>before</em> anything is deleted.</li>
+      <li>This cannot be undone from here.</li>
+    </ul>
+
+    <label class="ap-field">
+      <span>Type <code id="phraseHint">DELETE INAUGURATION SYSTEM</code> to confirm</span>
+      <input class="ap-input" type="text" id="cleanupPhrase" autocomplete="off"
+             spellcheck="false" placeholder="DELETE INAUGURATION SYSTEM">
+    </label>
+
+    <label class="ap-field">
+      <span>Re-enter your password</span>
+      <input class="ap-input" type="password" id="cleanupPassword" autocomplete="current-password">
+    </label>
+
+    <div class="ap-actions">
+      <button class="ap-btn ap-btn--danger" type="button" id="cleanupBtn" disabled>
+        Decommission the inauguration system
+      </button>
+    </div>
+
+    <p class="ap-notice" id="cleanupNotice" hidden></p>
+  </section>
+
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

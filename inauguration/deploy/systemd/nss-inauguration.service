@@ -1,0 +1,80 @@
+[Unit]
+Description=NSS inauguration system (hold page, ceremony, admin portal)
+Documentation=file:/opt/nss-inauguration/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nss-inaug
+Group=nss-inaug
+WorkingDirectory=/opt/nss-inauguration
+
+# Paths, origins and cookie policy. Written by install.sh, mode 0640, read by the
+# service account. No secret is stored here — the session key is generated on first
+# boot into config/secret.key at 0600 and never leaves the machine.
+EnvironmentFile=/opt/nss-inauguration/config/nss.env
+
+# Binds loopback only. Every request reaches this process through Nginx; nothing on
+# the network can talk to it directly, which is what makes the proxy header trust in
+# security.client_ip safe.
+ExecStart=/opt/nss-inauguration/venv/bin/uvicorn app.main:app \
+    --host 127.0.0.1 --port 8001 --workers 1 --log-level warning
+Restart=on-failure
+RestartSec=3
+
+# --- hardening ---------------------------------------------------------------
+#
+# ProtectSystem=strict is the important one, and it is belt-and-braces on purpose.
+# The service account already owns nothing outside its three writable paths; this
+# makes the whole filesystem read-only for the process regardless, so a compromised
+# backend cannot write the web root even if a later change gets the file modes wrong.
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+
+# The three things the service is allowed to write: its own config, the backup
+# directory (which lives outside /opt on purpose — see the README), and the one
+# generated Nginx include. Note what is not here: /var/www/nss, and
+# /etc/nginx/sites-available/nss.
+ReadWritePaths=/opt/nss-inauguration/config
+ReadWritePaths=/var/backups/nss-inauguration
+ReadWritePaths=/etc/nginx/nss-mode.inc
+
+# --- two directives that are missing on purpose -------------------------------
+#
+# NoNewPrivileges=yes and SystemCallFilter=@system-service are the usual companions
+# to the block above, and the deployment plan called for both. They cannot be used
+# here, and it is worth being exact about why rather than shipping a unit that looks
+# hardened and silently breaks the one irreversible operation:
+#
+#   * NoNewPrivileges sets PR_SET_NO_NEW_PRIVS, after which execve of a set-user-ID
+#     binary does not grant privilege. `sudo` is a setuid-root binary. With this
+#     directive set, `sudo -n /usr/local/sbin/nss-decommission` — the entire
+#     privilege-escalation path, routes_cleanup.invoke_decommission — would fail.
+#
+#   * SystemCallFilter=@system-service does not include @privileged, which is where
+#     setuid/setresuid/setresgid live. sudo cannot become root without them, so the
+#     cleanup would fail the same way.
+#
+# The cleanup runs once, months from now, after the ceremony, on a machine nobody is
+# watching. A unit that hardens the process that *renders a countdown* at the cost of
+# the process that *removes the system* is the wrong trade. The privilege boundary
+# here is the account, the file modes and ProtectSystem, not the syscall filter.
+#
+# If the sudoers design is ever replaced by a systemd-mediated one (a root-owned
+# nss-decommission.service started over D-Bus with a polkit rule), both directives
+# become safe to add — no setuid binary is executed at that point. That is a larger
+# change than this deployment needed, and it is recorded in the README rather than
+# half-applied here.
+
+[Install]
+WantedBy=multi-user.target

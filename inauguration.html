@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#070C09">
+<title>The Unveiling — NSS IIIT Naya Raipur</title>
+<meta name="description" content="Inauguration ceremony of the National Service Scheme website, IIIT Naya Raipur.">
+
+<!--
+  ===========================================================================
+  THE UNVEILING — ceremony page for the NSS IIIT Naya Raipur website.
+
+  Built to be projected. One ceremony: the director cuts the ribbon, the
+  stage lifts, and the finished site is revealed beneath with a wax seal.
+
+  Motion vocabulary — all bundled, no CDN, works with no network:
+    · masked line rise + 3D blind flip       (title arrival)
+    · travelling gold-leaf shimmer           (per-character gradient phase)
+    · clean panel lift                       (the stage leaving)
+    · clip-path iris from the cut point      (the live scene opening)
+    · spring-damped particle burst           (marigold petals + streamers)
+
+  Anyone may open this page and play the animation. Only an NSS admin session
+  can commit it — the cut is a POST to /api/ceremony/cut, and the server checks
+  the session, the CSRF token and the site's state before it records anything.
+  A visitor without that session gets the full animation and a banner saying it
+  was a preview; no state changes. See inauguration/README.md.
+  ===========================================================================
+-->
+
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* ---------- fonts (bundled — works with no internet) ---------- */
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:100 900;font-display:block;
+  src:url('assets/fonts/fraunces-latin-wght-normal.woff2') format('woff2');}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:100 900;font-display:block;
+  src:url('assets/fonts/fraunces-latin-wght-italic.woff2') format('woff2');}
+@font-face{font-family:'Work Sans';font-style:normal;font-weight:100 900;font-display:block;
+  src:url('assets/fonts/work-sans-latin-wght-normal.woff2') format('woff2');}
+
+:root{
+  --ink:#070C09;
+  --ink-2:#0B120E;
+  --marigold:#E8A63C;
+  --marigold-lit:#FBDC9E;
+  --marigold-deep:#B8801F;
+  --rust:#C04A2E;
+  --rust-lit:#E8764F;
+  --rust-deep:#7A2A17;
+  --bone:#F7F4EA;
+  --bone-dim:rgba(247,244,234,.70);
+  --bone-faint:rgba(247,244,234,.42);
+  --hair:rgba(247,244,234,.14);
+  --gold-hair:rgba(232,166,60,.42);
+  --font-display:'Fraunces','Iowan Old Style','Palatino Linotype',Georgia,serif;
+  --font-body:'Work Sans','Segoe UI',Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --edge:clamp(14px,1.8vw,26px);
+  /* The vertical rhythm. Every gap and type size below is capped by viewport
+     HEIGHT as well as width. That is the load-bearing difference from the
+     previous version, which sized by width only and overflowed a projector. */
+  --gap:clamp(3px,.36vh,7px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  background:var(--ink);color:var(--bone);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+::selection{background:var(--marigold);color:var(--ink);}
+:focus-visible{outline:2px solid var(--marigold);outline-offset:4px;border-radius:3px;}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;}
+
+/* ==========================================================================
+   THE LIVE SCENE — the light one. Cream paper, ink-green type, a white browser
+   frame, and the wax seal overhanging its corner. The grid is kept from the
+   dark pass (it is what stops the composition overflowing a projector), but
+   every colour is back to the version that read as a printed invitation.
+   ========================================================================== */
+#live{
+  position:fixed;inset:0;z-index:1;
+  display:grid;grid-template-rows:auto 1fr auto;
+  padding:clamp(16px,3.4vh,44px) clamp(16px,3.4vw,48px);
+  gap:clamp(12px,2.4vh,28px);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(232,166,60,.16), transparent 62%),
+    radial-gradient(ellipse 90% 60% at 50% 108%, rgba(182,67,42,.14), transparent 60%),
+    #F1ECDC;
+  color:#1C2A1E;
+  opacity:0;visibility:hidden;   /* keeps its "Enter the website" link untabbable */
+}
+#live.on{opacity:1;visibility:visible;}
+
+.live-halo{position:absolute;left:50%;top:50%;width:130vmax;height:130vmax;
+  transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none;
+  /* gentler than on the dark pass — on cream a .22 bloom bleaches the paper */
+  background:radial-gradient(circle,rgba(232,166,60,.16) 0%,rgba(232,166,60,.05) 30%,transparent 58%);
+  -webkit-mask-image:radial-gradient(circle,#000 18%,transparent 62%);
+  mask-image:radial-gradient(circle,#000 18%,transparent 62%);}
+.live-grain{position:absolute;inset:-50%;opacity:.035;pointer-events:none;
+  animation:grainShift .6s steps(3) infinite;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='24 0 0 0 -12  24 0 0 0 -12  24 0 0 0 -12  0 0 0 0 .7'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size:200px 200px;}
+
+.live-head{position:relative;text-align:center;align-self:end;max-width:900px;justify-self:center;}
+.live-flag{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:clamp(.66rem,.84vw,.76rem);font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:#1C2A1E;background:var(--marigold);
+  padding:7px 16px;border-radius:99px;margin-bottom:clamp(8px,1.4vh,16px);
+  box-shadow:0 14px 30px -14px rgba(184,128,31,.9), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.live-flag i{width:7px;height:7px;border-radius:50%;background:#1C2A1E;animation:livePulse 1.9s ease-out infinite;}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(28,42,30,.5);}100%{box-shadow:0 0 0 9px rgba(28,42,30,0);}}
+.live-head h2{
+  font-family:var(--font-display);font-weight:600;color:#1C2A1E;
+  font-size:clamp(2.1rem,min(5.1vw,6.2vh),3.9rem);line-height:1.04;letter-spacing:-.022em;
+}
+.live-head h2 em{font-style:italic;color:var(--rust);}
+.live-head p{margin-top:9px;color:#54624F;font-size:clamp(.92rem,1.1vw,1.14rem);}
+.live-head p b{color:#1C2A1E;font-weight:600;}
+
+/* ---- the framed preview ---- */
+.shot{
+  position:relative;align-self:center;justify-self:center;
+  width:min(1000px,92vw);
+  /* A definite height, not `max-height` + a flexible body. `flex:1` sets
+     flex-basis to 0%, so the body contributed NOTHING to the frame's
+     intrinsic height and the whole thing collapsed to the height of its
+     own title bar. A resolved height gives the body a line to fill.
+     The cap is generous (a laptop row is ~556px) so the frame shows the
+     whole hero of the page inside it, not a letterbox of it. */
+  height:min(100%,560px);
+  border-radius:10px;display:flex;flex-direction:column;
+  /* deliberately not clipped: the wax seal overhangs this frame on purpose */
+  overflow:visible;
+  background:#fff;border:1px solid rgba(28,42,30,.14);
+  box-shadow:0 60px 110px -50px rgba(15,23,18,.6), 0 22px 44px -30px rgba(15,23,18,.4);
+}
+.shot-bar{
+  display:flex;align-items:center;gap:13px;flex-shrink:0;
+  padding:11px 15px;background:#F3F0E7;border-bottom:1px solid rgba(28,42,30,.1);
+  border-radius:9px 9px 0 0;
+}
+.shot-dots{display:flex;gap:7px;flex-shrink:0;}
+.shot-dots i{width:11px;height:11px;border-radius:50%;background:#D8D2C2;}
+.shot-dots i:first-child{background:var(--marigold);}
+.shot-url{
+  flex:1;min-width:0;background:#fff;border:1px solid rgba(28,42,30,.1);border-radius:99px;
+  padding:6px 15px;font-size:.78rem;color:#54624F;
+  display:flex;align-items:center;gap:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.shot-url svg{width:12px;height:12px;flex-shrink:0;stroke:#7FA56A;fill:none;stroke-width:2;}
+.shot-body{flex:1 1 auto;min-height:0;position:relative;
+  background:var(--ink-2);overflow:hidden;border-radius:0 0 9px 9px;}
+/* The site inside is rendered at a true laptop viewport and scaled down into
+   this box by --fx (set in revealLive). Left at its natural size the iframe's
+   viewport would *be* the box — short and very wide — and the site's 100vh
+   hero would arrive cropped. --fh is the logical height: it tracks the box so
+   the viewport has the same shape as the frame, which puts the whole hero on
+   screen rather than the top two thirds of it. transform-origin is the
+   top-left because the box shows the top of the page, not its centre. */
+.shot-body iframe{position:absolute;left:0;top:0;border:0;display:block;
+  width:1440px;height:var(--fh,900px);background:var(--ink-2);
+  transform-origin:0 0;transform:scale(var(--fx,1));}
+
+/* Designed stand-in, until the real site is framed */
+.shot-mock{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(16px,2.6vw,36px);
+  background:
+    radial-gradient(ellipse 80% 60% at 76% 16%, rgba(232,166,60,.42), transparent 58%),
+    linear-gradient(158deg,#101A14 0%,#22392C 44%,#8A5A2B 100%);}
+.shot-mock .bar{height:8px;border-radius:99px;background:rgba(247,244,234,.2);margin-bottom:10px;}
+.shot-mock .bar.t1{width:62%;height:clamp(14px,2vw,22px);background:rgba(247,244,234,.9);}
+.shot-mock .bar.t2{width:42%;height:clamp(14px,2vw,22px);background:rgba(247,244,234,.9);}
+.shot-mock .bar.t3{width:68%;background:rgba(247,244,234,.24);}
+.shot-mock .bar.t4{width:50%;background:rgba(247,244,234,.24);}
+.shot-mock .cta{width:140px;height:32px;border-radius:3px;background:var(--marigold);margin-top:8px;}
+
+.seal{
+  position:absolute;z-index:3;opacity:0;
+  /* The overhang is done with negative offsets rather than a translate:
+     GSAP writes scale/rotate onto this element, and a CSS translate in the
+     same transform would be rewritten out from under it. */
+  right:clamp(-18px,-1.6vw,-8px);bottom:clamp(-22px,-2vw,-10px);
+  width:clamp(84px,9vw,126px);height:clamp(84px,9vw,126px);
+  filter:drop-shadow(0 22px 34px rgba(15,23,18,.5));
+}
+.seal svg{width:100%;height:100%;display:block;}
+
+.live-foot{position:relative;display:flex;align-items:center;gap:clamp(12px,2vw,24px);
+  flex-wrap:wrap;justify-content:center;align-self:start;}
+.enter{
+  display:inline-flex;align-items:center;gap:11px;
+  background:var(--ink-2);color:var(--bone);
+  padding:clamp(12px,1.5vh,16px) clamp(24px,2.6vw,34px);
+  border-radius:3px;font-weight:600;text-decoration:none;
+  box-shadow:0 20px 40px -20px rgba(15,23,18,.75), inset 0 1px 0 rgba(255,255,255,.1);
+  transition:transform .3s var(--ease), box-shadow .3s ease, filter .3s ease;
+}
+.enter:hover{transform:translateY(-2px);filter:brightness(1.08);
+  box-shadow:0 28px 54px -20px rgba(15,23,18,.85), inset 0 1px 0 rgba(255,255,255,.14);}
+.enter svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+/* Same trap as .preview-flag below: the rule above sets display, which beats the
+   browser's own [hidden]{display:none}, so an author rule has to say it again. */
+.enter[hidden]{display:none;}
+.live-note{font-size:clamp(.74rem,.9vw,.84rem);color:#6B7A66;max-width:52ch;}
+/* an empty note must not stay a flex item — it would push the button off centre */
+.live-note:empty{display:none;}
+.live-note b{color:var(--marigold-deep);font-weight:600;}
+
+/* ==========================================================================
+   THE STAGE
+   --------------------------------------------------------------------------
+   A grid, not a centred flex column. `auto 1fr auto` reserves the HUD and the
+   foot their own rows, so the composition simply cannot collide with them —
+   which is exactly what went wrong when this was one tall centred stack.
+   ========================================================================== */
+.stage{
+  position:fixed;inset:0;z-index:2;background:var(--ink);overflow:hidden;
+  display:grid;grid-template-rows:auto 1fr auto;
+  padding:calc(var(--edge) + clamp(18px,2.5vh,28px)) var(--edge) calc(var(--edge) + clamp(13px,1.8vh,21px));
+  will-change:transform;
+}
+.stage-core{
+  grid-row:2;min-height:0;width:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:var(--gap);text-align:center;
+  padding:clamp(1px,.15vh,4px) 0;
+}
+
+/* ---- atmosphere ---- */
+.bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+/* Deep, cool ground with one warm pool. The previous version stacked three
+   heavily-blurred blobs on screen blend and turned the whole frame olive. */
+.bg-base{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 46% at 50% 40%, rgba(232,166,60,.15) 0%, transparent 62%),
+    radial-gradient(ellipse 120% 80% at 50% -14%, #16241B 0%, #0A110D 46%, #060A07 100%);}
+
+.rays{
+  position:absolute;left:50%;top:34%;width:150vmax;height:150vmax;
+  transform:translate(-50%,-50%);opacity:.8;
+  background:conic-gradient(from 0deg,
+    transparent 0deg,  rgba(247,220,158,.17) 2.4deg, transparent 6deg,
+    transparent 40deg, rgba(247,220,158,.10) 43deg, transparent 48deg,
+    transparent 86deg, rgba(247,220,158,.15) 89deg, transparent 94deg,
+    transparent 140deg,rgba(247,220,158,.08) 143deg,transparent 148deg,
+    transparent 186deg,rgba(247,220,158,.14) 189deg,transparent 194deg,
+    transparent 240deg,rgba(247,220,158,.09) 243deg,transparent 248deg,
+    transparent 292deg,rgba(247,220,158,.15) 295deg,transparent 300deg,
+    transparent 340deg,rgba(247,220,158,.08) 343deg,transparent 348deg,
+    transparent 360deg);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.45) 24%, transparent 46%);
+  mask-image:radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,.45) 24%, transparent 46%);
+  animation:turn 160s linear infinite;
+}
+@keyframes turn{to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+/* two warm glows hugging the edges — held away from the centre so the middle
+   of the frame stays dark and the type keeps its contrast */
+.glow{position:absolute;border-radius:50%;filter:blur(80px);}
+.glow.a{width:46vw;height:46vw;left:-18vw;top:-16vh;opacity:.5;
+  background:radial-gradient(circle,rgba(232,166,60,.55),transparent 68%);
+  animation:drift 34s ease-in-out infinite;}
+.glow.b{width:44vw;height:44vw;right:-16vw;bottom:-18vh;opacity:.42;
+  background:radial-gradient(circle,rgba(192,74,46,.6),transparent 68%);
+  animation:drift 44s ease-in-out infinite reverse;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(5vw,4vh) scale(1.14);}}
+
+.beam{position:absolute;top:-30vh;width:min(38vw,520px);height:150vh;
+  background:linear-gradient(to bottom, rgba(247,220,158,.14), rgba(247,220,158,.03) 40%, transparent 70%);
+  filter:blur(26px);transform-origin:50% 0;}
+.beam.l{left:-6vw;animation:swayL 19s ease-in-out infinite;}
+.beam.r{right:-6vw;animation:swayR 23s ease-in-out infinite;}
+@keyframes swayL{0%,100%{transform:rotate(10deg);opacity:.75;}50%{transform:rotate(14deg);opacity:1;}}
+@keyframes swayR{0%,100%{transform:rotate(-10deg);opacity:.75;}50%{transform:rotate(-14deg);opacity:1;}}
+
+.sweep{position:absolute;top:-10%;bottom:-10%;width:40vw;
+  background:radial-gradient(ellipse 46% 54% at 50% 44%, rgba(255,240,212,.08), transparent 72%);
+  filter:blur(24px);animation:cross 26s ease-in-out infinite;}
+@keyframes cross{0%{left:-44vw;}50%{left:94vw;}100%{left:-44vw;}}
+
+.floorline{position:absolute;left:0;right:0;bottom:clamp(84px,14vh,150px);height:1px;
+  background:linear-gradient(to right,transparent,rgba(232,166,60,.22) 22%,rgba(247,220,158,.62) 50%,rgba(232,166,60,.22) 78%,transparent);
+  box-shadow:0 0 30px 3px rgba(232,166,60,.26);}
+
+#dust{position:absolute;inset:0;width:100%;height:100%;}
+.vig{position:absolute;inset:0;
+  background:radial-gradient(ellipse 88% 76% at 50% 46%, transparent 30%, rgba(3,6,4,.84) 100%);}
+.grain{position:absolute;inset:-60%;opacity:.05;animation:grainShift .6s steps(3) infinite;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='24 0 0 0 -12  24 0 0 0 -12  24 0 0 0 -12  0 0 0 0 .7'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size:200px 200px;}
+@keyframes grainShift{0%{transform:translate(0,0);}33%{transform:translate(-3%,2%);}66%{transform:translate(2%,-3%);}100%{transform:translate(0,0);}}
+
+/* ---- the ceremonial frame ---- */
+.frame{position:absolute;inset:var(--edge);border:1px solid rgba(232,166,60,.10);pointer-events:none;z-index:4;}
+.frame i{position:absolute;width:clamp(14px,1.4vw,22px);height:clamp(14px,1.4vw,22px);border:1px solid var(--gold-hair);}
+.frame i:nth-child(1){top:-1px;left:-1px;border-right:0;border-bottom:0;transform-origin:0 0;}
+.frame i:nth-child(2){top:-1px;right:-1px;border-left:0;border-bottom:0;transform-origin:100% 0;}
+.frame i:nth-child(3){bottom:-1px;left:-1px;border-right:0;border-top:0;transform-origin:0 100%;}
+.frame i:nth-child(4){bottom:-1px;right:-1px;border-left:0;border-top:0;transform-origin:100% 100%;}
+
+/* ==========================================================================
+   THE COMPOSITION
+   ========================================================================== */
+.masthead{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+/* The two institutional marks, above the names they belong to. Both source
+   PNGs are round emblems drawn on their own light ground, so a bone disc
+   behind each one crops the square corner away cleanly and reads as a
+   printed badge rather than a pasted rectangle. */
+.seals{display:flex;align-items:center;justify-content:center;
+  gap:clamp(14px,2vw,28px);margin-bottom:clamp(5px,.8vh,10px);}
+.seals img{
+  width:clamp(60px,min(7.4vw,8.7vh),102px);height:clamp(60px,min(7.4vw,8.7vh),102px);
+  display:block;border-radius:50%;object-fit:contain;background:#F7F4EA;
+  box-shadow:0 12px 26px -12px rgba(0,0,0,.85), 0 0 0 1px rgba(232,166,60,.42);
+}
+.org{font-size:clamp(.82rem,1.08vw,1rem);font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);}
+.org-sub{font-size:clamp(.74rem,.97vw,.9rem);font-weight:600;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--marigold);margin-top:4px;}
+
+/* The gap between the masthead and the title is set here rather than left to
+   --gap: the org names and the kicker are two different blocks, and at the
+   tight rhythm the composition runs on, the shared gap made the kicker look
+   like a third line of the masthead. */
+.titleblock{display:flex;flex-direction:column;align-items:center;flex-shrink:0;
+  margin-top:clamp(3px,.5vh,7px);}
+.kicker{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:clamp(.74rem,.97vw,.88rem);font-weight:700;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--bone-faint);margin-bottom:clamp(4px,.7vh,9px);
+}
+.kicker::before,.kicker::after{content:"";width:clamp(20px,3.4vw,54px);height:1px;}
+.kicker::before{background:linear-gradient(to right,transparent,var(--gold-hair));}
+.kicker::after{background:linear-gradient(to left,transparent,var(--gold-hair));}
+
+h1{
+  font-family:var(--font-display);font-weight:600;color:var(--bone);
+  font-size:clamp(2.4rem,min(8.1vw,9.6vh),5.85rem);line-height:1.02;letter-spacing:-.03em;
+}
+/* Two nested spans, because one element cannot do both jobs: the outer one
+   carries the 3D blind flip, the inner one masks the character rise. A
+   rotating parent with overflow:hidden clips its own children mid-turn. */
+.ln3d{display:block;perspective:900px;}
+h1 .ln{display:block;overflow:hidden;padding:.04em 0 .1em;}
+h1 .ln3d:first-child .ln{font-style:italic;font-weight:500;
+  font-size:clamp(1.6rem,min(4.6vw,5.7vh),3.25rem);letter-spacing:-.01em;padding-bottom:.03em;}
+h1 .wd{display:inline-block;white-space:nowrap;}
+h1 .ch{display:inline-block;will-change:transform;}
+
+/* Light travelling through gold leaf: one gradient per letter, each phase
+   offset from the last, so the highlight sweeps across the word. */
+.js h1 .ch{
+  background-image:linear-gradient(100deg,
+    #A9741B 0%, #E8A63C 12%, #FBDC9E 21%, #FFFDF6 28%,
+    #FBDC9E 35%, #E8A63C 48%, #B8801F 60%, #F3C877 74%, #FFFDF6 82%, #A9741B 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:shimmer 7s linear infinite;
+  animation-delay:calc(var(--i,0) * -.1s);
+}
+@keyframes shimmer{0%{background-position:0% 0;}100%{background-position:100% 0;}}
+
+.lede{margin:0 auto;max-width:52ch;color:var(--bone-dim);
+  font-size:clamp(1rem,min(1.3vw,2.15vh),1.28rem);text-wrap:pretty;}
+
+/* ---- the dedication plaque ---- */
+.dedicate{
+  position:relative;flex-shrink:0;
+  padding:clamp(6px,.9vh,11px) clamp(20px,3.6vw,48px);
+  border:1px solid var(--hair);border-radius:2px;
+  background:linear-gradient(180deg,rgba(247,244,234,.045),rgba(247,244,234,0));
+  width:min(660px,100%);
+}
+.dedicate::before,.dedicate::after{content:"";position:absolute;left:16%;right:16%;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold-hair),transparent);}
+.dedicate::before{top:-1px;}
+.dedicate::after{bottom:-1px;}
+.dedicate .lbl{font-size:clamp(.72rem,.92vw,.84rem);font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--bone-faint);}
+.dedicate .who{
+  display:inline-block;margin-top:5px;
+  font-family:var(--font-display);font-style:italic;font-weight:600;
+  font-size:clamp(1.36rem,min(3.1vw,3.75vh),2.2rem);letter-spacing:-.015em;color:var(--bone);
+  text-shadow:0 0 34px rgba(232,166,60,.4);
+}
+.dedicate .who [contenteditable]{outline:none;border-bottom:1px dashed transparent;transition:border-color .25s ease;}
+.dedicate .who [contenteditable]:hover,.dedicate .who [contenteditable]:focus{border-bottom-color:var(--gold-hair);}
+.dedicate .role{margin-top:3px;color:var(--marigold);font-size:clamp(.86rem,1.08vw,1.04rem);
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;}
+
+/* ==========================================================================
+   THE RIBBON — full-bleed by being `align-self:stretch` on a full-width
+   column, NOT by 100vw with a negative margin. That trick measured against
+   the scrollbar and left the bow 124px off centre.
+   ========================================================================== */
+.ribbon{
+  position:relative;align-self:stretch;width:auto;
+  height:clamp(44px,min(6.5vw,7.1vh),68px);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.rib{position:absolute;left:0;right:0;top:50%;
+  height:clamp(34px,min(4.4vw,4.8vh),52px);transform:translateY(-50%);}
+.rib::after{content:"";position:absolute;inset:-30px 0;
+  background:radial-gradient(ellipse 58% 100% at 50% 50%, rgba(192,74,46,.34), transparent 72%);}
+
+.half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;
+  box-shadow:0 18px 44px -20px rgba(0,0,0,.95);will-change:transform;}
+.half-l{left:0;transform-origin:0% 50%;}
+.half-r{right:0;transform-origin:100% 50%;}
+
+/* The instant of the cut — a hairline of light exactly where the blades met.
+   Without it the two halves read as having drifted apart; with it they read as
+   severed. Taller than the ribbon so the flash overshoots the cloth edges. */
+.sever{position:absolute;left:50%;top:-18%;bottom:-18%;width:2px;margin-left:-1px;
+  opacity:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,246,225,.9) 20%,
+    #FFFFFF 50%,rgba(255,246,225,.9) 80%,transparent);
+  box-shadow:0 0 16px 4px rgba(255,236,190,.9);}
+
+/* Fabric, not plastic. One periodic fold pattern reads as corrugation — a
+   tube with ridges. Two overlaid patterns at different periods (264px and
+   366px) beat against each other, so no fold ever repeats on a visible
+   rhythm, and they drift at different rates as the cloth moves. */
+.cloth{position:absolute;inset:0;display:block;
+  background:
+    /* Satin sheen — the layer that actually says "silk". A broad soft highlight
+       riding above centre with a slow falloff either side. It sits first in the
+       stack and deliberately does NOT drift, so the light stays put while the
+       weave moves underneath it. */
+    linear-gradient(180deg,
+      rgba(255,246,230,0) 4%, rgba(255,246,230,.3) 27%,
+      rgba(255,246,230,.09) 47%, rgba(255,246,230,0) 63%),
+    /* The weave, at roughly half its former strength. At full contrast the two
+       periods read as corrugation — a ribbed metal tube — instead of cloth.
+       What sells fabric is low-contrast irregularity, not the stripes. */
+    repeating-linear-gradient(90deg,
+      rgba(255,238,214,.05) 0 2px, rgba(0,0,0,0) 2px 15px,
+      rgba(0,0,0,.055) 15px 29px, rgba(0,0,0,0) 29px 47px),
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0) 0 19px, rgba(255,240,220,.04) 19px 23px,
+      rgba(0,0,0,.045) 23px 37px, rgba(0,0,0,0) 37px 64px),
+    linear-gradient(180deg,
+      #E8764F 0%, #D9563A 12%, var(--rust) 36%,
+      #A63C24 66%, var(--rust-deep) 89%, #5E2011 100%);
+  background-size:100% 100%, 264px 100%, 366px 100%, 100% 100%;
+  animation:clothFlow 13s linear infinite;
+}
+@keyframes clothFlow{to{background-position:0 0, -264px 0, -366px 0, 0 0;}}
+.cloth::before,.cloth::after{content:"";position:absolute;left:0;right:0;}
+.cloth::before{top:0;height:38%;
+  background:linear-gradient(180deg,rgba(255,240,214,.14),rgba(255,240,214,0));}
+.cloth::after{bottom:0;height:44%;
+  background:linear-gradient(0deg,rgba(46,14,6,.42),rgba(46,14,6,0));}
+.braid{position:absolute;left:0;right:0;height:3px;display:block;
+  background:linear-gradient(90deg,
+    rgba(232,166,60,.15), rgba(247,220,158,.85) 12%, rgba(232,166,60,.4) 50%,
+    rgba(247,220,158,.85) 88%, rgba(232,166,60,.15));
+  background-size:240px 100%;animation:braid 5.5s linear infinite;}
+.braid.t{top:2px;}
+.braid.b{bottom:2px;opacity:.75;animation-direction:reverse;}
+@keyframes braid{to{background-position:-240px 0;}}
+
+.gloss{position:absolute;top:0;bottom:0;width:30%;display:block;opacity:0;
+  background:linear-gradient(100deg,transparent,rgba(255,246,228,.42) 44%,rgba(255,255,255,.7) 52%,transparent);
+  filter:blur(4px);animation:gloss 7s ease-in-out infinite;}
+.half-r .gloss{animation-delay:1.3s;}
+@keyframes gloss{
+  0%{opacity:0;transform:translateX(-170%);}
+  14%{opacity:.85;} 44%{opacity:.85;}
+  58%{opacity:0;transform:translateX(380%);}
+  100%{opacity:0;transform:translateX(380%);}
+}
+
+.bow{position:relative;z-index:3;width:clamp(96px,min(12vw,13vh),160px);pointer-events:none;
+  transform-origin:50% 24%;will-change:transform;}
+.bow-in{display:block;animation:bowSway 8s ease-in-out infinite;transform-origin:50% 20%;}
+@keyframes bowSway{0%,100%{transform:rotate(-1.1deg);}50%{transform:rotate(1.1deg);}}
+.bow svg{width:100%;height:auto;display:block;overflow:visible;}
+
+.scissors{position:absolute;left:50%;top:50%;z-index:4;
+  --sw:clamp(110px,min(14vw,15vh),180px);
+  width:var(--sw);height:var(--sw);margin-left:calc(var(--sw) / -2);margin-top:calc(var(--sw) / -2);
+  opacity:0;pointer-events:none;will-change:transform;}
+/* The pivot sits at the centre of the viewBox, and this box is centred on the
+   ribbon — so the blades close exactly where the cut is. A bright rim-glow was
+   tried here and read as a white smudge around a small shape; a tight dark
+   shadow reads as a real object resting on the cloth. */
+.scissors svg{width:100%;height:100%;display:block;overflow:visible;
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,.75));}
+.trail{position:absolute;left:50%;top:50%;z-index:3;
+  --tw:clamp(64px,7.6vw,100px);
+  width:var(--tw);height:var(--tw);margin-left:calc(var(--tw) / -2);margin-top:calc(var(--tw) / -2);
+  border-radius:50%;opacity:0;pointer-events:none;filter:blur(14px);
+  background:radial-gradient(circle,rgba(255,238,200,.6),transparent 66%);}
+
+/* ---- the button ---- */
+.controls{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+/* ---- the button ----
+   Rebuilt as an actual ribbon instead of a rounded rectangle. The shape is a
+   marigold band with a chevron notch cut into each end, the way a presentation
+   ribbon is cut, and the scissor sits in a small maroon medallion on it.
+
+   The band is a child element (.cut-ribbon) rather than the button's own
+   background for one reason: the notches need clip-path, and clip-path clips
+   box-shadow along with everything else, so the glow has to be a
+   filter:drop-shadow() on the clipped element instead. A filter on the button
+   itself was the obvious alternative and is wrong — it would drop a gold shadow
+   off the label's letterforms too.
+
+   Height is unchanged. The medallion is sized to sit inside the label's line
+   box, so nothing new is added to the stage's fixed vertical budget. */
+.cut{
+  position:relative;display:inline-flex;align-items:center;gap:14px;
+  padding:clamp(15px,2.2vh,23px) clamp(46px,5.6vw,78px);
+  border:0;background:none;border-radius:0;cursor:pointer;
+  font-weight:600;font-size:clamp(1.1rem,min(1.45vw,2.4vh),1.36rem);letter-spacing:.02em;
+  color:#2A1B03;
+  transition:transform .3s var(--ease);
+}
+.cut:hover{transform:translateY(-3px);}
+.cut:active{transform:translateY(0) scale(.985);}
+.cut[disabled]{opacity:.5;pointer-events:none;}
+/* This has to come before .cut-ribbon. Both are one-class selectors, so the
+   ribbon's position:absolute only beats this position:relative by appearing
+   later in the sheet — placed after it, the ribbon collapses to a zero-size
+   relative box and the button loses its background entirely. */
+.cut > *{position:relative;z-index:1;}
+
+.cut-ribbon{position:absolute;inset:0;z-index:0;pointer-events:none;
+  --notch:clamp(11px,1.15vw,16px);
+  clip-path:polygon(0 50%, var(--notch) 0, calc(100% - var(--notch)) 0, 100% 50%,
+                    calc(100% - var(--notch)) 100%, var(--notch) 100%);
+  background:linear-gradient(180deg,var(--marigold-lit),var(--marigold) 46%,var(--marigold-deep));
+  animation:cutGlow 4.2s ease-in-out infinite;}
+@keyframes cutGlow{
+  0%,100%{filter:drop-shadow(0 22px 36px rgba(232,166,60,.5));}
+  50%    {filter:drop-shadow(0 32px 54px rgba(232,166,60,.8));}
+}
+/* The keyline is the same notched shape inset a few pixels, so the hairline
+   turns the corners with the ribbon instead of stopping short of the cut ends. */
+.cut-ribbon::before{content:"";position:absolute;inset:3px;
+  clip-path:polygon(0 50%, var(--notch) 0, calc(100% - var(--notch)) 0, 100% 50%,
+                    calc(100% - var(--notch)) 100%, var(--notch) 100%);
+  border:1px solid rgba(255,247,226,.55);}
+/* Specular sweep. The parent's clip-path clips this for free, which is why the
+   button no longer carries overflow:hidden. */
+.cut-ribbon::after{content:"";position:absolute;top:0;bottom:0;width:38%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.72) 50%,transparent);
+  animation:sheen 4.6s ease-in-out infinite;}
+@keyframes sheen{0%{transform:translateX(-260%);}55%{transform:translateX(360%);}100%{transform:translateX(360%);}}
+
+/* Scissor medallion — deep maroon disc with a gold rim and gold blades, so the
+   icon reads as an object resting on the ribbon rather than a glyph printed
+   beside the words. It rotates open on hover. */
+.cut-ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:clamp(26px,2.6vh,30px);height:clamp(26px,2.6vh,30px);border-radius:50%;
+  background:radial-gradient(circle at 38% 30%, #7E2A22, #4E1712 72%);
+  box-shadow:inset 0 0 0 1.5px rgba(255,226,164,.75), 0 3px 8px -2px rgba(60,20,10,.6);}
+.cut-ico svg{display:block;width:56%;height:56%;fill:none;stroke:#FFE6B4;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ease);}
+.cut:hover .cut-ico svg{transform:rotate(-16deg) scale(1.06);}
+
+/* ---- HUD and foot (grid rows, so nothing can overlap them) ---- */
+.hud{grid-row:1;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:6;}
+/* The stage carries no operator chrome except the one line that matters: the
+   chip appears only for a session that can actually commit the cut. Everyone
+   else gets the preview banner at the top of the page instead, which says the
+   same thing in words a projector audience can read. */
+.status{display:none;}
+.status.armed{display:inline-flex;align-items:center;gap:8px;
+  font-size:clamp(.7rem,.88vw,.82rem);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--bone-faint);border:1px solid var(--hair);border-radius:99px;padding:7px 14px;
+  background:rgba(7,12,9,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
+.status i{width:6px;height:6px;border-radius:50%;background:rgba(247,244,234,.32);flex-shrink:0;}
+.status.armed{color:var(--marigold);border-color:var(--gold-hair);}
+.status.armed i{background:var(--marigold);animation:ping 1.9s ease-out infinite;}
+@keyframes ping{0%{box-shadow:0 0 0 0 currentColor;}100%{box-shadow:0 0 0 9px transparent;}}
+
+.tools{display:flex;gap:8px;margin-left:auto;}
+.tool{width:38px;height:38px;border-radius:50%;border:1px solid var(--hair);color:var(--bone-faint);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:color .25s ease,border-color .25s ease,background .25s ease;}
+.tool:hover{color:var(--marigold);border-color:var(--gold-hair);background:rgba(232,166,60,.08);}
+.tool svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.tool.off{color:rgba(247,244,234,.22);}
+.tool.off svg{opacity:.5;}
+
+.foot{grid-row:3;display:flex;align-items:center;justify-content:space-between;gap:clamp(10px,2.6vw,36px);z-index:6;}
+.foot .side{font-size:clamp(.68rem,.86vw,.8rem);font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--bone-faint);white-space:nowrap;}
+
+.railwrap{position:relative;display:flex;justify-content:center;min-width:0;}
+.rail-track,.rail-fill{position:absolute;left:0;top:4px;height:1px;}
+.rail-track{right:0;background:var(--hair);}
+.rail-fill{width:0;background:linear-gradient(to right,var(--marigold),var(--marigold-lit));
+  box-shadow:0 0 10px rgba(232,166,60,.85);transition:width 1s var(--ease);}
+.rail{position:relative;list-style:none;display:flex;gap:clamp(10px,2.2vw,32px);flex-wrap:wrap;justify-content:center;}
+.rail li{position:relative;display:flex;align-items:center;gap:8px;padding-top:13px;
+  font-size:clamp(.66rem,.84vw,.78rem);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--bone-faint);transition:color .6s ease;}
+.rail li::before{content:"";position:absolute;top:1px;left:0;width:7px;height:7px;border-radius:50%;
+  background:var(--ink);border:1px solid rgba(247,244,234,.3);transition:all .6s ease;}
+.rail li.done{color:rgba(166,220,144,.88);}
+.rail li.done::before{background:#A6DC90;border-color:#A6DC90;}
+.rail li.now{color:var(--marigold);}
+.rail li.now::before{background:var(--marigold);border-color:var(--marigold);
+  box-shadow:0 0 0 4px rgba(232,166,60,.16);}
+
+/* ==========================================================================
+   THE REVEAL EFFECTS
+   ========================================================================== */
+#flash{position:fixed;inset:0;z-index:7;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 52%, #FFFBF0 0%, rgba(232,166,60,.9) 26%, rgba(232,166,60,0) 62%);}
+#shock{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 52%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 40%);}
+#ring{position:fixed;z-index:7;width:20px;height:20px;border-radius:50%;opacity:0;pointer-events:none;
+  border:2px solid rgba(255,244,222,.9);
+  box-shadow:0 0 46px rgba(232,166,60,.9), inset 0 0 32px rgba(232,166,60,.6);}
+#burst{position:fixed;z-index:7;width:24px;height:24px;border-radius:50%;opacity:0;pointer-events:none;
+  background:conic-gradient(from 0deg,
+    transparent 0deg,  rgba(255,246,228,.65) 1.6deg, transparent 5deg,
+    transparent 46deg, rgba(255,246,228,.42) 48deg,  transparent 52deg,
+    transparent 94deg, rgba(255,246,228,.58) 96deg, transparent 100deg,
+    transparent 141deg,rgba(255,246,228,.38) 143deg,transparent 147deg,
+    transparent 186deg,rgba(255,246,228,.52) 188deg,transparent 192deg,
+    transparent 232deg,rgba(255,246,228,.4) 234deg,transparent 238deg,
+    transparent 277deg,rgba(255,246,228,.58) 279deg,transparent 283deg,
+    transparent 322deg,rgba(255,246,228,.42) 324deg, transparent 328deg,
+    transparent 360deg);
+  -webkit-mask-image:radial-gradient(circle,transparent 6%,#000 16%,transparent 58%);
+  mask-image:radial-gradient(circle,transparent 6%,#000 16%,transparent 58%);}
+#petals{position:fixed;inset:0;z-index:8;pointer-events:none;}
+
+/* ---- already held ---- */
+.notice{
+  position:fixed;inset:0;z-index:60;display:none;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:clamp(24px,6vw,64px);gap:16px;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(232,166,60,.14), transparent 62%),
+    linear-gradient(180deg,#0C1510,#070C09);
+}
+.notice.on{display:flex;}
+.notice h2{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;
+  font-size:clamp(1.5rem,min(3.4vw,4vh),2.6rem);line-height:1.1;}
+.notice p{color:var(--bone-dim);max-width:48ch;}
+.notice a{display:inline-flex;align-items:center;gap:10px;margin-top:8px;
+  background:linear-gradient(180deg,var(--marigold-lit),var(--marigold) 46%,var(--marigold-deep));
+  color:#2A1B03;text-decoration:none;font-weight:600;padding:14px 30px;border-radius:3px;
+  box-shadow:0 22px 46px -18px rgba(232,166,60,.95), inset 0 1px 0 rgba(255,255,255,.6);}
+
+/* ==========================================================================
+   THE PREVIEW FLAG
+   --------------------------------------------------------------------------
+   Anyone may open this page and play the whole ceremony. Only an admin session
+   can actually commit it, and the page must never let that difference be
+   guessed at — so when the server says this visitor cannot cut, a banner says
+   so, and it stays up.
+
+   It is deliberately outside .stage and outside #live. Both of those are torn
+   down or covered as the ceremony plays, and the one moment the label matters
+   most is the finished animation: a screenshot of the finale must not be
+   mistakable for the record of a real inauguration. It is not dismissable for
+   the same reason — a control that could be clicked away would eventually be
+   clicked away in front of an audience.
+
+   The two full-screen scenes are inset by its height while it is up, so it
+   never sits on top of the cut button, the rail, or the live reveal's own
+   masthead.
+   ========================================================================== */
+:root{--flag-h:0px;}
+.preview-flag{
+  position:fixed;left:0;right:0;top:0;z-index:70;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  height:var(--flag-h);padding:0 clamp(12px,3vw,26px);
+  background:linear-gradient(180deg,#B8801F,#8E5F14);
+  color:#FFF6E4;text-align:center;
+  font-size:clamp(.66rem,.82vw,.78rem);font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 10px 26px -12px rgba(0,0,0,.8);
+}
+.preview-flag[hidden]{display:none;}
+.preview-flag b{color:#FFF;font-weight:700;}
+.preview-flag.done{background:linear-gradient(180deg,#2E5B39,#1E3D26);}
+
+body.previewing{--flag-h:clamp(34px,4.4vh,42px);}
+body.previewing .stage,
+body.previewing #live{top:var(--flag-h);}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width:1100px){
+  .beam,.sweep{display:none;}
+  .shot{height:min(100%,500px);}
+}
+@media (max-width:820px){
+  .foot{justify-content:center;}
+  .foot .side{display:none;}
+  .rail-track,.rail-fill{display:none;}
+  .rail li{padding-top:0;}
+  .rail li::before{position:static;margin-right:6px;}
+  .lede{display:none;}
+}
+@media (max-height:720px){
+  .lede{display:none;}
+  .kicker{display:none;}
+}
+@media (max-height:600px){
+  .org-sub{display:none;}
+  .dedicate{padding:8px 16px;}
+  h1 .ln3d:first-child .ln{font-size:1.2rem;}
+}
+/* On a 720p-ish screen (a 1366x768 laptop, a small projector) the reveal's
+   own heading is what stands between the frame and the height it needs. Give
+   the frame the room: a shorter heading, a tighter flag, less outer padding.
+   The frame then shows the whole hero rather than all but its last lines. */
+@media (max-height:820px){
+  #live{gap:clamp(8px,1.5vh,16px);
+    padding:clamp(10px,2.2vh,26px) clamp(16px,3.4vw,48px);}
+  .live-flag{font-size:clamp(.56rem,.7vw,.62rem);padding:5px 12px;
+    margin-bottom:clamp(6px,1vh,11px);}
+  .live-head h2{font-size:clamp(1.45rem,min(3.8vw,4.6vh),2.7rem);}
+  .live-head p{margin-top:6px;font-size:clamp(.76rem,.94vw,.92rem);}
+}
+
+/* ==========================================================================
+   REDUCED MOTION — the ceremony still happens, it just does not travel
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce){
+  .rays,.glow,.beam,.sweep,.grain,.bow-in,.cloth,.braid,.gloss,
+  .cut-ribbon,.cut-ribbon::after,.live-flag i,.live-grain{animation:none;}
+  /* The ribbon's animation is what applies its glow, so switching it off would
+     leave the button flat — hold the resting shadow explicitly. */
+  .cut-ribbon{filter:drop-shadow(0 22px 36px rgba(232,166,60,.5));}
+  .cut-ico svg{transition:none;}
+  .rays{opacity:.45;}
+  .gloss{opacity:.2;}
+  .js h1 .ch{animation:none;color:var(--marigold);-webkit-text-fill-color:var(--marigold);background:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== PREVIEW FLAG =====================
+     Filled in from the server's answer. Outside #live and .stage on purpose:
+     see the stylesheet note. -->
+<p class="preview-flag" id="previewFlag" role="status" aria-live="polite" hidden></p>
+
+<!-- ===================== THE LIVE SCENE ===================== -->
+<section id="live" aria-hidden="true">
+  <div class="live-halo" id="halo" aria-hidden="true"></div>
+  <div class="live-grain" aria-hidden="true"></div>
+
+  <div class="live-head">
+    <span class="live-flag" id="liveChip"><i></i> Live</span>
+    <h2 id="liveHead">The NSS website<br>is now <em>live</em>.</h2>
+    <p id="liveCred">
+      <span id="liveCredLive">Inaugurated by <b id="liveBy">the Director</b> · <span id="liveDate"></span></span>
+      <span id="liveCredPreview" hidden>Not inaugurated yet · this was a local playback</span>
+    </p>
+  </div>
+
+  <div class="shot" id="shot">
+    <div class="shot-bar">
+      <span class="shot-dots"><i></i><i></i><i></i></span>
+      <span class="shot-url">
+        <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span id="shotUrl">nss · iiit naya raipur</span>
+      </span>
+    </div>
+    <div class="shot-body" id="shotBody">
+      <div class="shot-mock" id="shotMock" aria-hidden="true">
+        <div class="bar t1"></div>
+        <div class="bar t2"></div>
+        <div class="bar t3"></div>
+        <div class="bar t4"></div>
+        <div class="cta"></div>
+      </div>
+    </div>
+
+    <div class="seal" id="seal" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="wax" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FBDC9E"/><stop offset=".5" stop-color="#E8A63C"/><stop offset="1" stop-color="#B8801F"/>
+          </linearGradient>
+          <path id="sealArc" d="M100 100 m -74 0 a 74 74 0 1 1 148 0 a 74 74 0 1 1 -148 0"/>
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="url(#wax)"/>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(11,18,14,.34)" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="52" fill="none" stroke="rgba(11,18,14,.32)" stroke-width="1.5"/>
+        <text font-family="Work Sans, sans-serif" font-size="15.5" font-weight="700" letter-spacing="4.6" fill="#0B120E">
+          <textPath href="#sealArc" startOffset="8%">INAUGURATED ✦ NSS IIIT NAYA RAIPUR ✦</textPath>
+        </text>
+        <g stroke="#0B120E" stroke-width="1.9" fill="none" stroke-linecap="round">
+          <line x1="100" y1="66" x2="100" y2="80"/><line x1="100" y1="120" x2="100" y2="134"/>
+          <line x1="66" y1="100" x2="80" y2="100"/><line x1="120" y1="100" x2="134" y2="100"/>
+          <line x1="76" y1="76" x2="86" y2="86"/><line x1="114" y1="114" x2="124" y2="124"/>
+          <line x1="76" y1="124" x2="86" y2="114"/><line x1="114" y1="86" x2="124" y2="76"/>
+        </g>
+        <circle cx="100" cy="100" r="7" fill="#0B120E"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="live-foot">
+    <a class="enter" id="enter" href="index.html">
+      Enter the website
+      <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="live-note" id="liveNote"></p>
+  </div>
+</section>
+
+<!-- ===================== THE STAGE ===================== -->
+<div class="stage" id="stage">
+
+  <div class="bg" aria-hidden="true">
+    <div class="bg-base"></div>
+    <div class="rays"></div>
+    <div class="glow a"></div>
+    <div class="glow b"></div>
+    <div class="beam l"></div>
+    <div class="beam r"></div>
+    <div class="sweep"></div>
+    <div class="floorline"></div>
+    <canvas id="dust"></canvas>
+    <div class="vig"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="hud">
+    <div class="status" id="status">
+      <i></i><span id="statusText">Checking…</span>
+    </div>
+    <div class="tools">
+      <button class="tool" id="soundBtn" type="button" aria-pressed="true" title="Sound on / off">
+        <svg id="soundIcon" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 8.5a5 5 0 0 1 0 7"/></svg>
+      </button>
+      <button class="tool" id="fsBtn" type="button" title="Full screen (F)">
+        <svg viewBox="0 0 24 24"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="stage-core">
+    <header class="masthead">
+      <div class="seals">
+        <img src="assets/images/iiit.png" width="302" height="302"
+             alt="Dr. SPM IIIT Naya Raipur">
+        <img src="assets/images/nss_logo.png" width="738" height="738"
+             alt="National Service Scheme">
+      </div>
+      <p class="org">Dr. SPM IIIT Naya Raipur</p>
+      <p class="org-sub">National Service Scheme</p>
+    </header>
+
+    <div class="titleblock">
+      <p class="kicker">Website Inauguration</p>
+      <h1 id="title">
+        <span class="ln3d"><span class="ln">The</span></span>
+        <span class="ln3d"><span class="ln">Unveiling</span></span>
+      </h1>
+      <p class="lede" style="margin-top:clamp(6px,1vh,11px)">The official NSS IIIT-NR website goes live in front of you — built by students, for the work they do.</p>
+    </div>
+
+    <div class="dedicate">
+      <p class="lbl">To be inaugurated by</p>
+      <p class="who"><span id="dirName" contenteditable="true" spellcheck="false" role="textbox" aria-label="Name of the inaugurating guest">Prof. (Dr.) Om Prakash Vyas</span></p>
+      <p class="role">Director, IIIT Naya Raipur</p>
+    </div>
+
+    <div class="ribbon" id="ribbon">
+      <div class="rib">
+        <span class="half half-l"><i class="cloth"></i><i class="braid t"></i><i class="braid b"></i><i class="gloss"></i></span>
+        <span class="half half-r"><i class="cloth"></i><i class="braid t"></i><i class="braid b"></i><i class="gloss"></i></span>
+        <i class="sever" id="sever" aria-hidden="true"></i>
+      </div>
+
+      <div class="bow" id="bow">
+        <span class="bow-in" aria-hidden="true">
+          <svg viewBox="0 0 240 200">
+            <defs>
+              <linearGradient id="ribG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F08A62"/><stop offset=".42" stop-color="#C04A2E"/><stop offset="1" stop-color="#7A2A17"/>
+              </linearGradient>
+              <linearGradient id="ribG2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#D9563A"/><stop offset="1" stop-color="#8E3220"/>
+              </linearGradient>
+              <radialGradient id="knotG" cx="0.34" cy="0.28" r="0.9">
+                <stop offset="0" stop-color="#F5926B"/><stop offset=".5" stop-color="#C04A2E"/><stop offset="1" stop-color="#6E2414"/>
+              </radialGradient>
+            </defs>
+
+            <path d="M104 100 L76 180 L96 167 L110 190 L130 102 Z" fill="url(#ribG2)" stroke="rgba(232,166,60,.45)" stroke-width="1"/>
+            <path d="M136 100 L172 178 L152 167 L140 192 L118 102 Z" fill="url(#ribG2)" stroke="rgba(232,166,60,.45)" stroke-width="1"/>
+            <path d="M108 104 L88 170" stroke="rgba(255,240,214,.26)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path d="M132 104 L160 170" stroke="rgba(255,240,214,.2)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+            <path d="M120 96 C 70 26, 8 34, 16 88 C 22 132, 84 134, 120 96 Z" fill="url(#ribG)" stroke="rgba(232,166,60,.45)" stroke-width="1"/>
+            <path d="M120 96 C 170 26, 232 34, 224 88 C 218 132, 156 134, 120 96 Z" fill="url(#ribG)" stroke="rgba(232,166,60,.45)" stroke-width="1"/>
+            <path d="M116 94 C 80 56, 40 56, 34 86 C 30 112, 72 118, 116 94 Z" fill="rgba(52,16,8,.34)"/>
+            <path d="M124 94 C 160 56, 200 56, 206 86 C 210 112, 168 118, 124 94 Z" fill="rgba(52,16,8,.34)"/>
+            <path d="M118 92 C 74 30, 16 38, 20 84" fill="none" stroke="rgba(255,242,220,.46)" stroke-width="2.8" stroke-linecap="round"/>
+            <path d="M122 92 C 166 30, 224 38, 220 84" fill="none" stroke="rgba(255,242,220,.36)" stroke-width="2.8" stroke-linecap="round"/>
+
+            <ellipse cx="120" cy="98" rx="21" ry="23" fill="url(#knotG)" stroke="rgba(232,166,60,.55)" stroke-width="1.3"/>
+            <ellipse cx="120" cy="98" rx="21" ry="23" fill="none" stroke="rgba(255,242,220,.18)" stroke-width="5"/>
+            <ellipse cx="113" cy="89" rx="6" ry="7" fill="rgba(255,242,220,.26)"/>
+            <circle cx="120" cy="98" r="6.5" fill="#E8A63C" stroke="#8B5F15" stroke-width="1.2"/>
+            <circle cx="118" cy="96" r="2" fill="rgba(255,255,255,.8)"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="trail" id="trail" aria-hidden="true"></div>
+
+      <div class="scissors" id="scissors" aria-hidden="true">
+        <!-- A scissors is two rigid pieces, each a blade AND its handle and
+             finger-ring, hinged on the screw. The previous drawing put both
+             the blades and both rings on the same side of the pivot, so it
+             read as a knot. Here the blades reach left and the rings sit on
+             the far side, and the pivot is the centre of the viewBox — which
+             is the centre of the ribbon, so the blades close on the cut. -->
+        <svg viewBox="0 0 240 150">
+          <defs>
+            <!-- Polished steel. Each ramp runs dark-to-bright toward the side
+                 that carries the cutting edge, and the two blades use mirrored
+                 ramps, so they catch the light in opposition the way a real
+                 pair does when it opens. -->
+            <linearGradient id="scSteelTop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8C8676"/><stop offset=".3" stop-color="#CFC9B8"/>
+              <stop offset=".64" stop-color="#F4F1E6"/><stop offset=".88" stop-color="#FFFFFF"/>
+              <stop offset="1" stop-color="#D8D2C1"/>
+            </linearGradient>
+            <linearGradient id="scSteelBot" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#8C8676"/><stop offset=".3" stop-color="#CFC9B8"/>
+              <stop offset=".64" stop-color="#F4F1E6"/><stop offset=".88" stop-color="#FFFFFF"/>
+              <stop offset="1" stop-color="#D8D2C1"/>
+            </linearGradient>
+            <linearGradient id="scGripTop" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#948E7D"/><stop offset="1" stop-color="#EDE9DC"/>
+            </linearGradient>
+            <linearGradient id="scGripBot" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#948E7D"/><stop offset="1" stop-color="#EDE9DC"/>
+            </linearGradient>
+            <radialGradient id="scScrew" cx=".36" cy=".3" r=".85">
+              <stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#DACFA6"/>
+              <stop offset="1" stop-color="#87702A"/>
+            </radialGradient>
+          </defs>
+
+          <g id="bladeTop">
+            <path d="M117 61 Q 58 24, 7 29 L 118 79 Z" fill="url(#scSteelTop)"/>
+            <!-- the ground bevel that runs down to the cutting edge -->
+            <path d="M113 68 Q 60 33, 22 34 L 117 76 Z" fill="rgba(255,255,255,.5)"/>
+            <path d="M7 29 L118 79" stroke="#FFFFFF" stroke-width="1.2" fill="none" opacity=".85"/>
+            <path d="M117 61 Q 58 24, 7 29" stroke="rgba(58,54,42,.5)" stroke-width="1.4" fill="none"/>
+            <path d="M120 57 C 152 46, 174 39, 188 33 L 194 47 C 178 54, 154 63, 122 76 Z"
+                  fill="url(#scGripTop)" stroke="rgba(58,54,42,.45)" stroke-width="1.2" stroke-linejoin="round"/>
+            <!-- finger ring: a true hole, cut with evenodd so the ribbon shows through -->
+            <path fill-rule="evenodd" fill="url(#scGripTop)" stroke="rgba(58,54,42,.45)" stroke-width="1.2"
+              d="M204 13 A 17 17 0 1 0 204 47 A 17 17 0 1 0 204 13 Z
+                 M204 22 A 8 8 0 1 0 204 38 A 8 8 0 1 0 204 22 Z"/>
+            <path d="M193 21 A 14 14 0 0 1 200 16" stroke="rgba(255,255,255,.8)" stroke-width="2.4"
+                  fill="none" stroke-linecap="round"/>
+          </g>
+
+          <g id="bladeBot">
+            <path d="M117 89 Q 58 126, 7 121 L 118 71 Z" fill="url(#scSteelBot)"/>
+            <path d="M113 82 Q 60 117, 22 116 L 117 74 Z" fill="rgba(255,255,255,.42)"/>
+            <path d="M7 121 L118 71" stroke="#FFFFFF" stroke-width="1.2" fill="none" opacity=".8"/>
+            <path d="M117 89 Q 58 126, 7 121" stroke="rgba(58,54,42,.5)" stroke-width="1.4" fill="none"/>
+            <path d="M120 93 C 152 104, 174 111, 188 117 L 194 103 C 178 96, 154 87, 122 74 Z"
+                  fill="url(#scGripBot)" stroke="rgba(58,54,42,.45)" stroke-width="1.2" stroke-linejoin="round"/>
+            <path fill-rule="evenodd" fill="url(#scGripBot)" stroke="rgba(58,54,42,.45)" stroke-width="1.2"
+              d="M204 103 A 17 17 0 1 0 204 137 A 17 17 0 1 0 204 103 Z
+                 M204 112 A 8 8 0 1 0 204 128 A 8 8 0 1 0 204 112 Z"/>
+            <path d="M193 129 A 14 14 0 0 0 200 134" stroke="rgba(255,255,255,.6)" stroke-width="2.4"
+                  fill="none" stroke-linecap="round"/>
+          </g>
+
+          <!-- The screw sits on top of both blades and marks the pivot the
+               rotation uses — svgOrigin pins the hinge to (120,75), so it has
+               to stay exactly here. -->
+          <circle cx="120" cy="75" r="8.5" fill="url(#scScrew)" stroke="rgba(58,48,20,.6)" stroke-width="1"/>
+          <path d="M114.5 75 L125.5 75" stroke="rgba(70,58,22,.7)" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="117.5" cy="72.4" r="1.8" fill="rgba(255,255,255,.9)"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="controls" id="controls">
+      <button class="cut" id="cutBtn" type="button">
+        <i class="cut-ribbon" aria-hidden="true"></i>
+        <span class="cut-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88"/><path d="M14.47 14.48L20 20"/><path d="M8.12 8.12L12 12"/></svg>
+        </span>
+        <span>Cut the ribbon</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p class="side" id="footDate"></p>
+    <div class="railwrap">
+      <i class="rail-track" aria-hidden="true"></i>
+      <i class="rail-fill" id="railFill" aria-hidden="true"></i>
+      <ul class="rail" id="rail">
+        <li class="done"><i></i><span>Lighting of the lamp</span></li>
+        <li class="done"><i></i><span>Welcome address</span></li>
+        <li class="now" id="railCut"><i></i><span>Ribbon cutting</span></li>
+        <li id="railLive"><i></i><span>Website goes live</span></li>
+      </ul>
+    </div>
+    <p class="side">IIIT Naya Raipur</p>
+  </div>
+</div>
+
+<div id="shock"></div>
+<div id="flash"></div>
+<div id="burst"></div>
+<div id="ring"></div>
+<canvas id="petals"></canvas>
+
+<p class="sr" id="announce" role="status" aria-live="polite"></p>
+
+<!-- ===================== ALREADY HELD ===================== -->
+<div class="notice" id="notice">
+  <h2 id="noticeTitle">This ceremony has already been held.</h2>
+  <p id="noticeText">The website itself is live below.</p>
+  <a href="index.html">Go to the website
+    <svg viewBox="0 0 24 24" width="17" height="17" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+  </a>
+</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = !!window.gsap;
+
+  var stage   = $('#stage');
+  var live    = $('#live');
+  var liveFrame = null;   // the reveal's iframe, created by revealLive()
+  var cutBtn  = $('#cutBtn');
+  var ribbon  = $('#ribbon');
+  var dirName = $('#dirName');
+  var announce = $('#announce');
+
+  var ceremony = { cut: false, done: false };
+  var today = new Date();
+
+  /* What the address bar in the reveal's browser frame reads. It is purely
+     cosmetic: the frame loads index.html by relative path, so it works on any
+     machine, any port, and from a file:// double-click. Put the deployed
+     address here when the site has one. */
+  var SITE_ADDRESS = 'index.html';
+
+  /* ======================================================================
+     THE DIRECTOR'S NAME — click it, type, and it is remembered
+     ====================================================================== */
+  var NAME_KEY = 'nss.ceremony.director';
+  try {
+    var saved = window.localStorage.getItem(NAME_KEY);
+    if (saved) dirName.textContent = saved;
+  } catch (e) { /* private mode — the default name is fine */ }
+
+  function commitName() {
+    var v = dirName.textContent.replace(/\s+/g, ' ').trim();
+    if (!v) v = 'the Director';
+    dirName.textContent = v;
+    try { window.localStorage.setItem(NAME_KEY, v); } catch (e) {}
+    $('#liveBy').textContent = v;
+  }
+  dirName.addEventListener('blur', commitName);
+  dirName.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); dirName.blur(); }
+  });
+
+  var stamp = today.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  $('#liveDate').textContent = stamp;
+  $('#footDate').textContent = stamp;
+
+  /* ======================================================================
+     SOUND — synthesised on the spot, so the page ships with no audio files
+     ====================================================================== */
+  var Sound = (function () {
+    var ctx = null, master = null, enabled = true;
+
+    function ac() {
+      if (!enabled) return null;
+      try {
+        if (!ctx) {
+          var C = window.AudioContext || window.webkitAudioContext;
+          if (!C) return null;
+          ctx = new C();
+          master = ctx.createGain();
+          master.gain.value = 0.5;
+          master.connect(ctx.destination);
+        }
+        if (ctx.state === 'suspended') ctx.resume();
+        return ctx;
+      } catch (e) { return null; }
+    }
+
+    function noiseBuffer(c, seconds) {
+      var len = Math.floor(c.sampleRate * seconds);
+      var buf = c.createBuffer(1, len, c.sampleRate);
+      var d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      return buf;
+    }
+
+    function bite(c, at, gain) {
+      var src = c.createBufferSource();
+      src.buffer = noiseBuffer(c, 0.09);
+      var bp = c.createBiquadFilter();
+      bp.type = 'bandpass'; bp.frequency.value = 5200; bp.Q.value = 1.4;
+      var hp = c.createBiquadFilter();
+      hp.type = 'highpass'; hp.frequency.value = 1800;
+      var g = c.createGain();
+      g.gain.setValueAtTime(0, at);
+      g.gain.linearRampToValueAtTime(gain, at + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
+      src.connect(bp); bp.connect(hp); hp.connect(g); g.connect(master);
+      src.start(at); src.stop(at + 0.1);
+    }
+
+    function sweepNoise(c, at, dur, from, to, peak) {
+      var src = c.createBufferSource();
+      src.buffer = noiseBuffer(c, dur + 0.2);
+      var f = c.createBiquadFilter();
+      f.type = 'bandpass'; f.Q.value = 2.6;
+      f.frequency.setValueAtTime(from, at);
+      f.frequency.exponentialRampToValueAtTime(to, at + dur);
+      var g = c.createGain();
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.exponentialRampToValueAtTime(peak, at + dur * 0.85);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + dur + 0.15);
+      src.connect(f); f.connect(g); g.connect(master);
+      src.start(at); src.stop(at + dur + 0.2);
+    }
+
+    return {
+      snip: function () {
+        var c = ac(); if (!c) return;
+        var t = c.currentTime;
+        bite(c, t, 0.5);
+        bite(c, t + 0.075, 0.34);
+      },
+      riser: function (dur) {
+        var c = ac(); if (!c) return;
+        sweepNoise(c, c.currentTime, dur, 320, 2600, 0.07);
+      },
+      hush: function () {
+        var c = ac(); if (!c) return;
+        sweepNoise(c, c.currentTime, 1.4, 900, 180, 0.05);
+      },
+      chime: function () {
+        var c = ac(); if (!c) return;
+        var t = c.currentTime;
+        [261.63, 523.25, 659.25, 783.99, 1046.5].forEach(function (f, i) {
+          var o = c.createOscillator();
+          o.type = i === 0 ? 'sine' : 'triangle';
+          o.frequency.value = f;
+          var g = c.createGain();
+          var peak = i === 0 ? 0.16 : 0.075 / (i * 0.55);
+          var at = t + i * 0.055;
+          g.gain.setValueAtTime(0, at);
+          g.gain.linearRampToValueAtTime(peak, at + 0.012);
+          g.gain.exponentialRampToValueAtTime(0.0001, at + 4.2 - i * 0.35);
+          o.connect(g); g.connect(master);
+          o.start(at); o.stop(at + 4.4);
+        });
+      },
+      whoosh: function () {
+        var c = ac(); if (!c) return;
+        var t = c.currentTime;
+        var src = c.createBufferSource();
+        src.buffer = noiseBuffer(c, 1.6);
+        var lp = c.createBiquadFilter();
+        lp.type = 'lowpass'; lp.Q.value = 0.8;
+        lp.frequency.setValueAtTime(220, t);
+        lp.frequency.exponentialRampToValueAtTime(2400, t + 0.5);
+        lp.frequency.exponentialRampToValueAtTime(180, t + 1.5);
+        var g = c.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.14, t + 0.35);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 1.4);
+        src.connect(lp); lp.connect(g); g.connect(master);
+        src.start(t); src.stop(t + 1.6);
+      },
+      setEnabled: function (v) {
+        enabled = v;
+        if (ctx) { try { if (v) ctx.resume(); else ctx.suspend(); } catch (e) {} }
+      },
+      isEnabled: function () { return enabled; }
+    };
+  })();
+
+  var soundBtn = $('#soundBtn');
+  soundBtn.addEventListener('click', function () {
+    var on = !Sound.isEnabled();
+    Sound.setEnabled(on);
+    soundBtn.classList.toggle('off', !on);
+    soundBtn.setAttribute('aria-pressed', String(on));
+    soundBtn.title = on ? 'Sound on' : 'Sound off';
+    $('#soundIcon').innerHTML = on
+      ? '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 8.5a5 5 0 0 1 0 7"/>'
+      : '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l4 6"/><path d="M21 9l-4 6"/>';
+  });
+
+  /* ======================================================================
+     FULL SCREEN
+     ====================================================================== */
+  $('#fsBtn').addEventListener('click', function () {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) {}
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'f' && e.key !== 'F') return;
+    if (document.activeElement === dirName) return;
+    $('#fsBtn').click();
+  });
+
+  /* ======================================================================
+     TITLE — split into letters, so each rises and shimmers on its own
+     ====================================================================== */
+  var titleChars = [];
+  (function splitTitle() {
+    var n = 0;
+    $$('#title .ln').forEach(function (ln) {
+      var words = ln.textContent.trim().split(/\s+/);
+      ln.textContent = '';
+      words.forEach(function (word, wi) {
+        var w = document.createElement('span');
+        w.className = 'wd';
+        Array.prototype.forEach.call(word, function (c) {
+          var s = document.createElement('span');
+          s.className = 'ch';
+          s.style.setProperty('--i', n++);
+          s.textContent = c;
+          w.appendChild(s);
+        });
+        ln.appendChild(w);
+        if (wi < words.length - 1) ln.appendChild(document.createTextNode(' '));
+      });
+    });
+    titleChars = $$('#title .ch');
+  })();
+
+  /* ======================================================================
+     DUST — slow motes drifting through the light
+     ====================================================================== */
+  (function dust() {
+    var cv = $('#dust');
+    if (!cv || reduce) return;
+    var ctx = cv.getContext('2d');
+    var w = 0, h = 0, ps = [], running = true, last = 0;
+
+    var sprite = document.createElement('canvas');
+    sprite.width = sprite.height = 32;
+    var sc = sprite.getContext('2d');
+    var g = sc.createRadialGradient(16, 16, 0, 16, 16, 16);
+    g.addColorStop(0, 'rgba(255,242,214,1)');
+    g.addColorStop(0.35, 'rgba(232,166,60,0.5)');
+    g.addColorStop(1, 'rgba(232,166,60,0)');
+    sc.fillStyle = g; sc.fillRect(0, 0, 32, 32);
+
+    function resize() {
+      var k = 0.5;
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = Math.max(1, Math.round(w * k));
+      cv.height = Math.max(1, Math.round(h * k));
+      ctx.setTransform(k, 0, 0, k, 0, 0);
+    }
+    function spawn(initial) {
+      return {
+        x: Math.random() * w,
+        y: initial ? Math.random() * h : h + 10,
+        s: 2 + Math.random() * 5,
+        vy: 0.06 + Math.random() * 0.22,
+        sway: 0.3 + Math.random() * 0.9,
+        ph: Math.random() * 6.28,
+        a: 0.25 + Math.random() * 0.6
+      };
+    }
+    resize();
+    var N = window.innerWidth < 760 ? 26 : 54;
+    for (var i = 0; i < N; i++) ps.push(spawn(true));
+    window.addEventListener('resize', resize);
+
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      if (!running || ts - last < 33) return;
+      var dt = Math.min((ts - last) / 16.67, 4); last = ts;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i];
+        p.y -= p.vy * dt; p.ph += 0.012 * dt;
+        p.x += Math.sin(p.ph) * p.sway * 0.4 * dt;
+        if (p.y < -12) { ps[i] = spawn(false); continue; }
+        ctx.globalAlpha = p.a * (0.55 + 0.45 * Math.sin(p.ph * 1.7));
+        ctx.drawImage(sprite, p.x - p.s, p.y - p.s, p.s * 2, p.s * 2);
+      }
+    }
+    requestAnimationFrame(frame);
+    document.addEventListener('visibilitychange', function () { running = !document.hidden; });
+  })();
+
+  /* ======================================================================
+     PETALS — marigold and gold foil, thrown from the cut
+     ====================================================================== */
+  var Petals = (function () {
+    var cv = $('#petals');
+    var ctx = cv.getContext('2d');
+    var w = 0, h = 0, ps = [], running = false;
+    var COLORS = ['#E8A63C', '#FBDC9E', '#E8764F', '#C04A2E', '#F7F4EA', '#C98A2C', '#D9563A'];
+
+    function resize() {
+      w = cv.clientWidth; h = cv.clientHeight;
+      cv.width = Math.max(1, w);
+      cv.height = Math.max(1, h);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function petalPath(c, r) {
+      c.beginPath();
+      c.moveTo(0, -r);
+      c.bezierCurveTo(r * 0.78, -r * 0.55, r * 0.62, r * 0.66, 0, r);
+      c.bezierCurveTo(-r * 0.62, r * 0.66, -r * 0.78, -r * 0.55, 0, -r);
+      c.fill();
+    }
+
+    function burst(x, y) {
+      var small = window.innerWidth < 760;
+      var petals = small ? 110 : 220;
+      var streamers = small ? 26 : 60;
+      var i, a, v, z;
+
+      for (i = 0; i < petals; i++) {
+        a = Math.random() * Math.PI * 2;
+        v = 5 + Math.random() * 21;
+        z = 0.45 + Math.random() * 0.55;
+        ps.push({
+          kind: 'petal', x: x, y: y, z: z,
+          vx: Math.cos(a) * v * (0.6 + Math.random() * 0.9),
+          vy: Math.sin(a) * v * (0.6 + Math.random() * 0.9) - (6 + Math.random() * 10),
+          r: (3 + Math.random() * 8) * z,
+          spin: Math.random() * 6.28, spinV: (Math.random() - 0.5) * 0.36,
+          rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.3,
+          c: COLORS[(Math.random() * COLORS.length) | 0],
+          life: 1, drag: 0.977 + Math.random() * 0.014
+        });
+      }
+      for (i = 0; i < streamers; i++) {
+        a = Math.random() * Math.PI * 2;
+        v = 7 + Math.random() * 24;
+        ps.push({
+          kind: 'streamer', x: x, y: y, z: 0.6 + Math.random() * 0.4,
+          vx: Math.cos(a) * v, vy: Math.sin(a) * v - 9,
+          r: 4 + Math.random() * 7,
+          rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.5,
+          c: COLORS[(Math.random() * COLORS.length) | 0],
+          life: 1, drag: 0.972 + Math.random() * 0.012
+        });
+      }
+
+      if (!running) { running = true; requestAnimationFrame(frame); }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, w, h);
+      for (var i = ps.length - 1; i >= 0; i--) {
+        var p = ps[i];
+        p.vy += 0.36 * p.z;
+        p.vx *= p.drag; p.vy *= p.drag;
+        p.x += p.vx; p.y += p.vy;
+        p.rot += p.vr;
+        p.life -= 0.0052;
+        if (p.life <= 0 || p.y > h + 90) { ps.splice(i, 1); continue; }
+
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, p.life * 1.9) * (0.5 + p.z * 0.5);
+        ctx.translate(p.x, p.y);
+
+        if (p.kind === 'streamer') {
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.r * 0.16, -p.r * 1.7, p.r * 0.32, p.r * 3.4);
+        } else {
+          p.spin += p.spinV;
+          ctx.rotate(p.rot);
+          // Faking the flip: squash on one axis as the petal turns edge-on.
+          ctx.scale(Math.max(0.1, Math.abs(Math.cos(p.spin))), 1);
+          ctx.fillStyle = p.c;
+          petalPath(ctx, p.r);
+        }
+        ctx.restore();
+      }
+      if (ps.length) requestAnimationFrame(frame);
+      else { running = false; ctx.clearRect(0, 0, w, h); }
+    }
+
+    return { burst: burst };
+  })();
+
+  /* ======================================================================
+     TALKING TO THE SERVER
+     ----------------------------------------------------------------------
+     The page asks two questions and makes one request. It reads the state to
+     find out what it is allowed to say about itself, and it posts the cut.
+
+     Nothing here decides anything. `can_cut` comes from the server, and the
+     server checks it again on the cut route — this file could be edited in a
+     browser console and it would change nothing but the wording on screen.
+     ====================================================================== */
+  function readCookie(name) {
+    var parts = ('; ' + document.cookie).split('; ' + name + '=');
+    return parts.length === 2 ? parts.pop().split(';').shift() : '';
+  }
+
+  function api(path, opts) {
+    var o = opts || {};
+    // A page opened from disk has no server to talk to. Say so rather than
+    // letting fetch throw a less legible error.
+    if (!/^https?:$/.test(location.protocol)) return Promise.reject(new Error('not served'));
+
+    var headers = { 'Accept': 'application/json' };
+    Object.keys(o.headers || {}).forEach(function (k) { headers[k] = o.headers[k]; });
+    if (o.body !== undefined) {
+      headers['Content-Type'] = 'application/json';
+      // Double-submit: the server compares this against the signed session and
+      // against the cookie. It is unreadable from another origin, which is what
+      // makes it worth anything.
+      headers['X-CSRF-Token'] = readCookie('nss_admin_csrf');
+    }
+
+    return fetch(path, {
+      method: o.method || 'GET',
+      headers: headers,
+      credentials: 'same-origin',
+      body: o.body === undefined ? undefined : JSON.stringify(o.body)
+    }).then(function (r) {
+      return r.text().then(function (text) {
+        var data = null;
+        try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
+        if (!r.ok) {
+          var err = new Error((data && (data.error || data.detail)) || ('request failed (' + r.status + ')'));
+          err.status = r.status;
+          throw err;
+        }
+        return data;
+      });
+    });
+  }
+
+  var statusEl = $('#status'), statusText = $('#statusText');
+  function setStatus(text, cls) {
+    statusText.textContent = text;
+    statusEl.className = 'status' + (cls ? ' ' + cls : '');
+  }
+
+  var flagEl = $('#previewFlag');
+
+  /* The one line that must never be wrong.
+     `official` is only ever true after the server has confirmed the cut; every
+     other path leaves the page labelled a preview. */
+  function setFlag(html, done) {
+    flagEl.innerHTML = html;
+    flagEl.hidden = false;
+    flagEl.className = 'preview-flag' + (done ? ' done' : '');
+    document.body.classList.add('previewing');
+  }
+
+  var PREVIEW_TEXT =
+    '<b>Preview</b> — this ceremony is not official. Only the NSS admin can perform the inauguration.';
+
+  commitName();
+
+  // What the server says about this visitor. Held so persist() can label the
+  // outcome without asking twice.
+  var server = { can_cut: false, preview: true, answered: false };
+
+  api('/api/ceremony/state').then(function (s) {
+    server.answered = true;
+    server.can_cut = !!(s && s.can_cut);
+    server.preview = !(s && s.can_cut);
+
+    if (s && s.completed) { showNotice(s); return; }
+
+    if (server.can_cut) {
+      // The admin, on the projector laptop. No banner: this is the real one.
+      setStatus('Ready · this session will inaugurate the site', 'armed');
+    } else {
+      setFlag(PREVIEW_TEXT, false);
+      setStatus('Preview · you can watch, only the admin can inaugurate');
+    }
+  }).catch(function () {
+    // The server did not answer. That is not permission — it is the absence of
+    // an answer, so the page stays labelled a preview and the cut will fail
+    // closed when it is attempted.
+    setFlag(PREVIEW_TEXT, false);
+    setStatus('Preview · the ceremony server is not reachable');
+  });
+
+  function showNotice(s) {
+    var by = (s && (s.completed_by || s.by)) || 'the Director';
+    var at = s && (s.completed_at || s.at);
+
+    $('#noticeTitle').textContent = 'Inaugurated by ' + by + '.';
+    $('#noticeText').textContent =
+      'This ceremony has already been held' +
+      (at ? ' on ' + new Date(at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '') +
+      '. The website itself is live below.';
+
+    setFlag('Inauguration completed — by <b>' + esc(by) + '</b>' +
+            (at ? ' at ' + esc(new Date(at).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })) : ''), true);
+
+    $('#notice').classList.add('on');
+    stage.style.display = 'none';
+    live.style.opacity = '0';
+    live.style.visibility = 'hidden';
+  }
+
+  /* Text going into innerHTML, escaped. The director's name is typed by hand on
+     a projector laptop, and an ampersand in it must not break the banner. */
+  function esc(v) {
+    return String(v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ======================================================================
+     THE CEREMONY
+     ====================================================================== */
+  function advanceRail(toLive) {
+    var fill = $('#railFill');
+    if (toLive) {
+      $('#railCut').className = 'done';
+      $('#railLive').className = 'now';
+      if (fill) fill.style.width = '100%';
+    } else {
+      if (fill) fill.style.width = '66%';
+    }
+  }
+
+  function revealLive() {
+    live.classList.add('on');
+    live.setAttribute('aria-hidden', 'false');
+    advanceRail(true);
+    announce.textContent = 'The ceremony has been played. Checking the record.';
+
+    // The frame is created empty and pointed at the homepage only once the
+    // server has confirmed the cut. It must not be loaded up front: during the
+    // ceremony the site is still in inauguration mode, where /index.html is
+    // redirected back to *this* page — so loading it early frames the ceremony
+    // inside itself, and an admin's cut races that redirect against the nginx
+    // reload that ends it. The stand-in below stays until a real page arrives.
+    var body = $('#shotBody');
+    var f = document.createElement('iframe');
+    f.title = 'The live NSS website';
+
+    // The frame renders index.html at a real laptop width and scales the
+    // result down to its own. Without this the iframe's viewport *was* the
+    // frame — about 1100x390 — so the site laid itself out for a short, very
+    // wide window and its hero arrived squashed. Scaling a true viewport down
+    // shows the page as it really looks.
+    //
+    // The logical HEIGHT is set to exactly what the frame can show, so the
+    // homepage's 100vh hero lands inside the frame instead of running past its
+    // bottom edge with the headline sliced off. Two numbers, then: --fx scales,
+    // --fh keeps the viewport the same shape as the reveal. Both are
+    // recalculated on resize.
+    function fit() {
+      var w = body.clientWidth, h = body.clientHeight;
+      if (!w || !h) return;
+      var fx = w / 1440;
+      f.style.setProperty('--fx', fx.toFixed(4));
+      // Never ask the site for a viewport shorter than the 600px minimum its
+      // hero declares — below that its own layout starts fighting back.
+      f.style.setProperty('--fh', Math.max(600, Math.round(h / fx)) + 'px');
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    // Held out of the document on purpose. An iframe with no src still paints an
+    // opaque box over the stand-in underneath, so a frame that is never loaded
+    // would sit there as a black rectangle — which is exactly how a preview
+    // looked before this. loadLiveFrame() puts it in when there is a page for it.
+    liveFrame = f;
+
+    // The bar's text is cosmetic — the frame loads index.html by relative
+    // path, so it works on any machine, any port, and from a file://
+    // double-click. It is set from one constant so the deployed address can
+    // be dropped in without hunting through the file.
+    $('#shotUrl').textContent = SITE_ADDRESS;
+  }
+
+  // Point the reveal frame at the real homepage. Called only from the branch of
+  // persist() where the server has already answered 200: by then the mode has
+  // moved to permanent and /index.html is the homepage again, so there is no
+  // redirect left to race. The stand-in is dropped on the frame's load event and
+  // not before, so the box is never empty and never shows a page mid-load.
+  function loadLiveFrame() {
+    if (!liveFrame) return;
+    liveFrame.addEventListener('load', function () {
+      var mock = $('#shotMock');
+      if (mock) mock.remove();
+    });
+    $('#shotBody').appendChild(liveFrame);
+    liveFrame.src = 'index.html';
+  }
+
+  // The reveal plays for everyone, but only a committed cut may claim the site
+  // is live. On a preview the same scene would otherwise read — in a photograph
+  // of the projector, especially — as the record of a real inauguration, with
+  // the banner the only thing contradicting it. So the hero is relabelled too.
+  function markPreviewReveal() {
+    $('#liveChip').innerHTML = '<i></i> Preview';
+    $('#liveHead').innerHTML = 'The NSS website<br>is still <em>held</em>.';
+    // Swap the credit line by toggling two siblings rather than rewriting the
+    // paragraph: #liveBy and #liveDate have to stay in the document, because
+    // the committed path fills them in and a reviewer reads them back.
+    $('#liveCredLive').hidden = true;
+    $('#liveCredPreview').hidden = false;
+    // "Enter the website" points at index.html, which during the ceremony is
+    // redirected straight back to this page — so on a preview it leads nowhere
+    // but here. There is nothing to enter yet.
+    $('#enter').hidden = true;
+    announce.textContent = 'Preview only. The website is not live yet.';
+  }
+
+  /* ======================================================================
+     COMMITTING THE CUT
+     ----------------------------------------------------------------------
+     Reached only after the animation has finished playing, by everyone. What
+     differs is what happens next: an admin session gets a committed
+     inauguration back, and anyone else gets a 401 or a 403.
+
+     That refusal is a correct outcome, not an error to paper over. The visitor
+     watched exactly the same ceremony the admin did — the animation is public
+     either way, and hiding the button would only have made the page look
+     broken. So the page says plainly that it was a local playback and that
+     nothing on the server changed.
+     ====================================================================== */
+  function persist() {
+    $('#liveNote').textContent = 'Recording the inauguration…';
+
+    api('/api/ceremony/cut', {
+      method: 'POST',
+      body: { by: dirName.textContent.trim() }
+    }).then(function (s) {
+      // The server has committed it. Only now is the word 'official' allowed
+      // anywhere near this page.
+      var by = (s && s.completed_by) || dirName.textContent.trim();
+      var at = s && s.completed_at;
+
+      $('#liveBy').textContent = by;
+      if (at) {
+        $('#liveDate').textContent = new Date(at).toLocaleDateString('en-IN',
+          { day: 'numeric', month: 'long', year: 'numeric' });
+        $('#footDate').textContent = $('#liveDate').textContent;
+      }
+
+      var when = at ? new Date(at) : new Date();
+      announce.textContent = 'The website is live. It was inaugurated by ' + by + '.';
+      setFlag('Inauguration completed at <b>' +
+              esc(when.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })) +
+              '</b>, by <b>' + esc(by) + '</b>', true);
+      $('#liveNote').textContent = 'The inauguration is recorded. The website is live.';
+      setStatus('Inauguration complete');
+      loadLiveFrame();
+    }).catch(function (err) {
+      var denied = err && (err.status === 401 || err.status === 403);
+
+      if (denied) {
+        // Expected for every visitor who is not the admin.
+        setFlag(PREVIEW_TEXT, false);
+        markPreviewReveal();
+        $('#liveNote').textContent =
+          'This was a preview playback. No state was changed — the inauguration is still to be held by the NSS admin.';
+        setStatus('Preview · nothing was changed');
+        return;
+      }
+
+      // A real failure: the server answered and refused for some other reason.
+      setFlag(PREVIEW_TEXT, false);
+      markPreviewReveal();
+      $('#liveNote').textContent = err && err.message
+        ? 'Not recorded — ' + err.message + '. The ceremony has not been held.'
+        : 'Not recorded. The ceremony has not been held.';
+      setStatus('Not recorded');
+    });
+  }
+
+  function runCeremony() {
+    if (ceremony.cut || ceremony.done) return;
+    ceremony.cut = true;
+    cutBtn.disabled = true;
+    announce.textContent = 'Cutting the ribbon.';
+
+    var sc = $('#scissors');
+    var bladeTop = $('#bladeTop'), bladeBot = $('#bladeBot');
+    var trail = $('#trail');
+    var sever = $('#sever');
+    var box = ribbon.getBoundingClientRect();
+    var cx = box.left + box.width / 2;
+    var cy = box.top + box.height / 2;
+
+    if (reduce || !hasGsap) {
+      Sound.snip();
+      setTimeout(function () { ribbon.style.opacity = '0'; afterCut(cx, cy); }, 220);
+      return;
+    }
+
+    Sound.hush();
+    setTimeout(function () { Sound.riser(1.15); }, 200);
+
+    // The blades hinge on the screw — (120,75) in the scissors' own viewBox,
+    // which is also the centre of the box and so the centre of the ribbon.
+    // svgOrigin pins the pivot there; a plain transform-origin would use the
+    // element's bounding box and the blades would swing from the wrong point.
+    // The blades are drawn already open at 23°; negative rotation swings the
+    // upper blade up (opening), positive swings it down (closing).
+    gsap.set(sc, { opacity: 0 });
+    gsap.set([bladeTop, bladeBot], { rotation: 0, svgOrigin: '120 75' });
+
+    gsap.timeline()
+
+    /* 1 · the hush — everything but the ribbon steps back */
+      .to('.bg', { opacity: .5, duration: 1.1, ease: 'power2.inOut' }, 0)
+      .to(['.masthead', '.titleblock', '.dedicate'], { opacity: .2, filter: 'blur(3px)', duration: .9, ease: 'power2.inOut' }, 0)
+      .to('.foot, .hud', { opacity: .32, duration: .8 }, 0)
+      .to('.controls', { opacity: 0, y: 18, filter: 'blur(6px)', duration: .7, ease: 'power2.in' }, 0.05)
+      .to('.stage-core', { scale: 1.03, duration: 3, ease: 'power2.inOut' }, 0)
+      .to('.rib', { scaleY: 1.14, duration: .8, ease: 'power2.inOut' }, 0.2)
+      .to('.bow', { scale: 1.06, duration: .8, ease: 'power2.inOut' }, 0.3)
+
+    /* 2 · the blades arrive */
+      .fromTo(trail, { xPercent: 420, opacity: 0, scale: .7 },
+                     { xPercent: 0, opacity: .9, scale: 1, duration: 1.05, ease: 'power3.inOut' }, 0.35)
+      .to(trail, { opacity: 0, duration: .35 }, 1.3)
+      .fromTo(sc, { xPercent: 420, opacity: 0, rotation: -62, scale: .85 },
+                  { xPercent: 0, opacity: 1, rotation: -42, scale: 1, duration: 1.05, ease: 'power3.inOut' }, 0.35)
+
+    /* 3 · blades open … */
+      .to(bladeTop, { rotation: -8, duration: .3, ease: 'power2.out', svgOrigin: '120 75' }, 1.2)
+      .to(bladeBot, { rotation: 8, duration: .3, ease: 'power2.out', svgOrigin: '120 75' }, 1.2)
+
+    /* 4 · … and close */
+      .add(function () { Sound.snip(); impact(cx, cy); }, 1.52)
+      .to(bladeTop, { rotation: 24, duration: .07, ease: 'power4.in', svgOrigin: '120 75' }, 1.52)
+      .to(bladeBot, { rotation: -24, duration: .07, ease: 'power4.in', svgOrigin: '120 75' }, 1.52)
+
+    /* 5 · the ribbon gives way. The halves hinge on their OUTER edges
+       (transform-origin 0% / 100%), so a positive rotation on the left half and
+       a negative one on the right drops both CUT ends while the pinned ends
+       stay up — which is how cloth actually hangs once it is severed. The signs
+       used to be the other way round, so the old fall lifted both cut ends into
+       a shallow tent. A short slack beat comes first: the cloth gives a little
+       before gravity takes it, and that beat is what stops the fall reading as
+       a slide. */
+      .add(function () { Petals.burst(cx, cy); }, 1.57)
+      .fromTo(sever, { opacity: 0, scaleY: .16 },
+                     { opacity: 1, scaleY: 1, duration: .07, ease: 'power2.out' }, 1.57)
+      .to(sever, { opacity: 0, scaleY: 1.4, duration: .34, ease: 'power2.in' }, 1.65)
+      .to('.half-l', { rotation: 7, yPercent: 9, duration: .26, ease: 'power1.out' }, 1.6)
+      .to('.half-r', { rotation: -7, yPercent: 9, duration: .26, ease: 'power1.out' }, 1.6)
+      .to('.half-l', { rotation: 45, x: -48, yPercent: 110, duration: 1.25, ease: 'power2.in' }, 1.86)
+      .to('.half-r', { rotation: -45, x: 48, yPercent: 110, duration: 1.25, ease: 'power2.in' }, 1.86)
+      .to('.half-l, .half-r', { opacity: 0, duration: .55, ease: 'power2.in' }, 2.55)
+      .to('.bow', { yPercent: 155, rotation: 26, opacity: 0, duration: 1.1, ease: 'power2.in' }, 1.62)
+      .to(sc, { yPercent: 45, rotation: -22, opacity: 0, duration: .8, ease: 'power2.in' }, 1.8)
+
+    /* 6 · everything else clears the stage. Held back to 2.45 so the cut ends
+       have room to swing out of frame before the stage starts leaving — the
+       fall is the payoff, and at 2.2 it was being cut off just as it read. */
+      .to(['.masthead', '.titleblock', '.dedicate', '.foot', '.hud'],
+          { opacity: 0, duration: .6, ease: 'power2.in' }, 2.45)
+      .add(function () { afterCut(cx, cy); }, 2.65);
+  }
+
+  /* The moment of the cut: flash, shockwave, rays, and a shake. */
+  function impact(cx, cy) {
+    var flash = $('#flash'), shock = $('#shock'), ring = $('#ring'), burst = $('#burst');
+
+    gsap.fromTo(flash, { opacity: 0 }, { opacity: 1, duration: .06, ease: 'power2.out',
+      onComplete: function () { gsap.to(flash, { opacity: 0, duration: .55, ease: 'power2.out' }); } });
+
+    gsap.fromTo(shock, { opacity: 0 }, { opacity: .85, duration: .05,
+      onComplete: function () { gsap.to(shock, { opacity: 0, duration: .45, ease: 'power2.out' }); } });
+
+    gsap.set(ring, { left: cx, top: cy, xPercent: -50, yPercent: -50, scale: 0, opacity: .95 });
+    gsap.to(ring, { scale: 78, opacity: 0, duration: 1.1, ease: 'power3.out' });
+
+    gsap.set(burst, { left: cx, top: cy, xPercent: -50, yPercent: -50, scale: .3, opacity: 1, rotation: 0 });
+    gsap.to(burst, { scale: 26, rotation: 34, opacity: 0, duration: .95, ease: 'power3.out' });
+
+    gsap.to(stage, {
+      keyframes: [
+        { x: -14, y: 7, duration: .055 },
+        { x: 12, y: -6, duration: .055 },
+        { x: -8, y: 4, duration: .055 },
+        { x: 5, y: -2, duration: .055 },
+        { x: -2, y: 1, duration: .06 },
+        { x: 0, y: 0, duration: .12 }
+      ],
+      ease: 'power2.out'
+    });
+  }
+
+  /* The stage leaves, and the live scene opens out of the cut point.
+     The iris is a clip-path circle — the reference reveals all use some form
+     of mask like this — rather than the old curved edge, which against the
+     light just read as a dark smudge across the top of the screen. */
+  function afterCut(cx, cy) {
+    if (ceremony.done) return;
+    ceremony.done = true;
+
+    function finish() { Sound.chime(); revealLive(); persist(); }
+
+    if (reduce || !hasGsap) {
+      stage.style.display = 'none';
+      finish();
+      return;
+    }
+
+    // The live scene comes up underneath now, so that what the stage uncovers
+    // is already there rather than popping in behind it.
+    live.classList.add('on');
+    live.setAttribute('aria-hidden', 'false');
+
+    // The iris opens from where the ribbon was cut — but the clip path is
+    // measured in #live's own box, and #live is pushed down by the preview
+    // banner's height, so the viewport point has to be translated into it.
+    // Without this the reveal opens from a point one banner-height too high,
+    // which is invisible on a tall screen and obvious on a projector.
+    var lr = live.getBoundingClientRect();
+    var ix = cx - lr.left, iy = cy - lr.top;
+
+    gsap.fromTo(live,
+      { clipPath: 'circle(0% at ' + ix + 'px ' + iy + 'px)' },
+      { clipPath: 'circle(150% at ' + ix + 'px ' + iy + 'px)', duration: 1.15, ease: 'power2.inOut' });
+
+    gsap.fromTo('#halo', { opacity: 0, scale: .2 }, { opacity: 1, scale: 1, duration: 1.4, ease: 'power2.out' });
+    gsap.to('#halo', { opacity: 0, duration: 1.2, delay: 1.2, ease: 'power2.in' });
+
+    gsap.timeline()
+      .add(function () { Sound.whoosh(); })
+      .to('.stage-core, .foot, .hud, .frame', { opacity: 0, duration: .45, ease: 'power2.in' }, .05)
+      .to(stage, { yPercent: -100, duration: 1.15, ease: 'power4.inOut',
+        onComplete: function () { stage.style.display = 'none'; } }, .3)
+      .add(finish, 1.05)
+      .fromTo('.live-head', { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: .9, ease: 'power3.out' }, 1.05)
+      .fromTo('.shot', { y: 54, opacity: 0, scale: .95, filter: 'blur(16px)' },
+                       { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out' }, 1.15)
+      .fromTo('.live-foot', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: .8, ease: 'power3.out' }, 1.6)
+      // The seal lands last, once the frame has settled — it is the full stop.
+      .fromTo('#seal', { scale: 2.6, rotate: -24, opacity: 0, transformOrigin: '50% 50%' },
+                       { scale: 1, rotate: 0, opacity: 1, duration: .5, ease: 'power4.in' }, 2.2);
+  }
+
+  cutBtn.addEventListener('click', runCeremony);
+
+  /* ======================================================================
+     THE OPENING — masked line rise, then a 3D blind flip on the wrapper
+     ====================================================================== */
+  (function open() {
+    advanceRail(false);
+    if (reduce || !hasGsap) return;
+
+    gsap.set(titleChars, { yPercent: 118 });
+
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .from('.frame', { opacity: 0, duration: 1 }, 0)
+      .from('.frame i', { scale: 0, opacity: 0, duration: .7, stagger: .08 }, .2)
+      .from('.masthead', { y: 18, opacity: 0, duration: 1 }, .25)
+      .from('.kicker', { opacity: 0, y: 12, duration: .8 }, .5)
+      .from('.ln3d', { rotationX: -78, yPercent: 34, opacity: 0, transformOrigin: '50% 0%',
+                       transformPerspective: 900, duration: 1.25, stagger: .13, ease: 'power4.out' }, .55)
+      .to(titleChars, { yPercent: 0, duration: 1.2, stagger: .04, ease: 'power4.out' }, .7)
+      .from('.lede', { opacity: 0, y: 14, duration: .9 }, 1.15)
+      .from('.dedicate', { opacity: 0, y: 20, duration: .9 }, 1.3)
+      .from('.rib', { scaleX: 0, opacity: 0, duration: 1.2, ease: 'power4.out' }, 1.45)
+      .from('.bow', { opacity: 0, scale: .55, duration: .85, ease: 'back.out(1.7)' }, 1.95)
+      .from('.controls', { opacity: 0, y: 18, duration: .9 }, 2.05)
+      .from('.hud > *, .foot > *', { opacity: 0, y: 10, duration: .8, stagger: .07 }, 2.15);
+
+    // A gentle camera: the composition leans with the hand on the mouse.
+    if (!window.matchMedia('(hover: none)').matches) {
+      var leanX = gsap.quickTo('.stage-core', 'x', { duration: .8, ease: 'power2.out' });
+      var leanY = gsap.quickTo('.stage-core', 'y', { duration: .8, ease: 'power2.out' });
+      var bgX = gsap.quickTo('.bg', 'x', { duration: 1.4, ease: 'power2.out' });
+      window.addEventListener('mousemove', function (e) {
+        if (ceremony.cut) return;
+        var nx = (e.clientX / window.innerWidth - .5);
+        var ny = (e.clientY / window.innerHeight - .5);
+        leanX(nx * 12); leanY(ny * 8);
+        bgX(nx * -20);
+      });
+    }
+  })();
+})();
+</script>
+</body>
+</html>
