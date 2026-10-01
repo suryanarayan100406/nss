@@ -20,16 +20,27 @@
 
   function api(path, options) {
     var opts = options || {};
+    var method = (opts.method || 'GET').toUpperCase();
     var headers = { 'Accept': 'application/json' };
 
     if (opts.body !== undefined) {
       headers['Content-Type'] = 'application/json';
+    }
+
+    // The token goes on every state-changing request, body or no body. Tying it
+    // to `body !== undefined` meant the body-less POSTs — logout, and the
+    // ceremony enable/disable pair — went out with no X-CSRF-Token at all, and
+    // the server answered 403 "missing X-CSRF-Token header". A logout that
+    // cannot be performed is the worst of them: the console looks signed in
+    // and cannot be got out of.
+    if (method !== 'GET' && method !== 'HEAD') {
       headers['X-CSRF-Token'] = csrf();
     }
+
     Object.keys(opts.headers || {}).forEach(function (k) { headers[k] = opts.headers[k]; });
 
     return fetch(path, {
-      method: opts.method || 'GET',
+      method: method,
       headers: headers,
       credentials: 'same-origin',
       body: opts.body === undefined ? undefined : JSON.stringify(opts.body)

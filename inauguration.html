@@ -1595,11 +1595,19 @@ body.previewing #live{top:var(--flag-h);}
     function fit() {
       var w = body.clientWidth, h = body.clientHeight;
       if (!w || !h) return;
-      var fx = w / 1440;
-      f.style.setProperty('--fx', fx.toFixed(4));
       // Never ask the site for a viewport shorter than the 600px minimum its
       // hero declares — below that its own layout starts fighting back.
-      f.style.setProperty('--fh', Math.max(600, Math.round(h / fx)) + 'px');
+      var fh = Math.max(600, Math.round(h / (w / 1440)));
+      // Scale by whichever axis is the tighter fit, not by width alone. On a
+      // tall box that is still the width, as before. On a short one — a laptop
+      // window, a projector — honouring the 600px floor by itself would make
+      // the viewport taller than the box and push the headline off the bottom
+      // edge, which is the fault this sizing exists to prevent. Fitting both
+      // axes keeps the whole hero inside the frame; at worst the page is a
+      // little narrower than the box.
+      var fx = Math.min(w / 1440, h / fh);
+      f.style.setProperty('--fx', fx.toFixed(4));
+      f.style.setProperty('--fh', fh + 'px');
     }
     fit();
     window.addEventListener('resize', fit);
@@ -1626,9 +1634,83 @@ body.previewing #live{top:var(--flag-h);}
     liveFrame.addEventListener('load', function () {
       var mock = $('#shotMock');
       if (mock) mock.remove();
+      walkFrame();
     });
     $('#shotBody').appendChild(liveFrame);
     liveFrame.src = 'index.html';
+  }
+
+  /* ---- the frame's walk -------------------------------------------------
+     A browser mockup only ever shows the top of a page, and this one frames a
+     true laptop viewport — the homepage runs to eight-odd thousand pixels and
+     the frame is seven hundred tall, so on its own it would show the hero and
+     stop. Shrinking the whole site to fit the frame instead is not a fix: at
+     that scale it is a ribbon of unreadable type, which is why it is not what
+     this does.
+
+     So the frame walks the page itself — the site as it really looks, a
+     section at a time, every scroll reveal playing as it comes into view, then
+     back to the top. A hand on the frame is obeyed: the walk compares the
+     position it left with the position it finds, and anything else moving the
+     page makes it stand aside rather than fight for the scrollbar. */
+  var walk = 0;
+
+  function stopWalk() {
+    if (walk) { cancelAnimationFrame(walk); walk = 0; }
+  }
+
+  function walkFrame() {
+    var win;
+    // Same origin, so this is normally fine — but the reveal must never throw
+    // on the way to the one screen the whole ceremony has been building to.
+    try { win = liveFrame.contentWindow; } catch (e) { return; }
+    if (!win || reduce) return;
+
+    var SPEED = 170;   // page pixels per second
+    var DWELL = 2600;  // ms resting at the bottom, and again at the top
+    var YIELD = 5000;  // ms of standing aside once a hand has taken over
+
+    var dir = 1, mine = 0, last = 0, until = 0, land = false;
+
+    function reach() {
+      var doc = win.document;
+      var whole = (doc && doc.documentElement) ? doc.documentElement.scrollHeight : 0;
+      return Math.max(0, whole - win.innerHeight);
+    }
+
+    stopWalk();
+    walk = requestAnimationFrame(function step(now) {
+      walk = requestAnimationFrame(step);
+      if (!last) { last = now; return; }
+      var dt = Math.min(80, now - last) / 1000;
+      last = now;
+
+      var span = reach();
+      if (span < 60) return;          // short page, or not laid out yet
+
+      var y = win.pageYOffset || 0;
+      // Anywhere but where we left it means something else moved the page — a
+      // wheel, a key, a link — and a hand gets the frame for a while. The
+      // framed page is still behind its own loader at first, though, and while
+      // that holds the scrollbar every move looks refused exactly the same way,
+      // so only an armed walk — one whose own moves have been landing — reads
+      // the difference as a hand. Otherwise the reveal would begin by yielding
+      // to itself and sit on the hero.
+      if (Math.abs(y - mine) > 6) {
+        if (land) until = now + YIELD;
+        mine = y;
+        land = false;
+        if (now < until) return;
+      }
+
+      var next = y + dir * SPEED * dt;
+      if (next >= span) { next = span; dir = -1; until = now + DWELL; }
+      else if (next <= 0) { next = 0; dir = 1; until = now + DWELL; }
+
+      win.scrollTo(0, next);
+      land = Math.abs((win.pageYOffset || 0) - next) < 4;
+      mine = next;
+    });
   }
 
   // The reveal plays for everyone, but only a committed cut may claim the site
