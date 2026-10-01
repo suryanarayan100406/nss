@@ -581,6 +581,31 @@ def test_install_succeeds_and_wires_the_whole_system_up(sandbox: Sandbox):
     assert any("curl" in p and "/api/health" in p for p in probes), "the health check never ran"
 
 
+def test_install_ships_the_ceremony_page(sandbox: Sandbox):
+    """The ceremony page is deployed, from the one copy that is its source.
+
+    It used to be left alone here, on the reasoning that a deploy should never
+    change what the ceremony looks like. The effect was the opposite: a fix to
+    the page could not be deployed at all. The web root kept whatever it happened
+    to be holding and the ceremony ran that, while the preflight insisted on a
+    file — ``$REPO_DIR/inauguration.html`` — that nothing ever copied. That file
+    is now what the web root gets, and the page it replaces stays in the snapshot.
+    """
+    result = sandbox.run()
+    assert result.returncode == 0, result.stderr
+
+    assert (sandbox.web / "inauguration.html").read_bytes() == (
+        sandbox.root / "inauguration.html"
+    ).read_bytes(), "the ceremony page at the web root is not the one in the repo"
+
+    snapshots = sorted(p for p in sandbox.backups.iterdir() if p.name.startswith("deploy-"))
+    replaced = snapshots[0] / "site" / "inauguration.html"
+    assert replaced.is_file(), "the ceremony page the install replaced was not kept"
+    assert "ceremony</html>" in replaced.read_text(encoding="utf-8"), (
+        "the snapshot does not hold the page that was actually there"
+    )
+
+
 def test_install_snapshots_the_site_before_replacing_anything(sandbox: Sandbox):
     result = sandbox.run()
     assert result.returncode == 0, result.stderr

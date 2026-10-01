@@ -132,7 +132,10 @@ What it does, in this order — the order is the point:
 2. Creates the `nss-inaug` account and the directories.
 3. Copies the application in and builds the venv. `config/` is never overwritten, so a
    re-run cannot clobber a live ceremony.
-4. Publishes `coming-soon.html` and `admin/`.
+4. Publishes `coming-soon.html`, `admin/` and the ceremony page. The ceremony page is
+   copied from `inauguration.html` at the repository root on every run — that file is its
+   only source, and the preflight refuses to install without it. The page it displaces is
+   in the snapshot from step 1.
 5. Installs the cleanup script at `0750`, root-owned.
 6. Writes the server block to `sites-available/nss.new`, **runs `nginx -t`**, and only
    swaps it in and reloads if the test passed. A failed test restores the previous file

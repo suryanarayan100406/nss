@@ -241,10 +241,18 @@ phase_5_web_files() {
     chown -R root:root "$WEB_ROOT/admin"
     chmod -R a+rX "$WEB_ROOT/admin"
 
-    # The ceremony page is already at the web root and is not rewritten here: it is a
-    # permanent-looking file that belongs to the site until the cleanup removes it,
-    # and a deploy must never silently change what the ceremony looks like.
-    note "ceremony page $WEB_ROOT/inauguration.html (left as it is)"
+    # The ceremony page is deployed like everything else, from the only copy that is
+    # its source — $REPO_DIR/inauguration.html, which the preflight above already
+    # requires to exist. It used to be left alone here, on the reasoning that a deploy
+    # should never change what the ceremony looks like. The effect was the opposite:
+    # the page could not be deployed at all, so the ceremony ran whatever the web root
+    # happened to be holding and a fix to it went nowhere. Nothing is lost by writing
+    # it now — phase 1 snapshots the whole web root before this phase runs, and the
+    # note below names the file it left behind.
+    install -o root -g root -m 0644 "$REPO_DIR/inauguration.html" \
+        "$WEB_ROOT/inauguration.html"
+    note "ceremony page $WEB_ROOT/inauguration.html"
+    note "  the copy it replaced is in $BACKUP_DIR/site/inauguration.html"
 }
 
 # --- phase 6: the cleanup script ---------------------------------------------
