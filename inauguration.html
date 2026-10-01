@@ -574,14 +574,7 @@ h1 .ch{display:inline-block;will-change:transform;}
    chip appears only for a session that can actually commit the cut. Everyone
    else gets the preview banner at the top of the page instead, which says the
    same thing in words a projector audience can read. */
-.status{display:none;}
-.status.armed{display:inline-flex;align-items:center;gap:8px;
-  font-size:clamp(.7rem,.88vw,.82rem);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--bone-faint);border:1px solid var(--hair);border-radius:99px;padding:7px 14px;
-  background:rgba(7,12,9,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
-.status i{width:6px;height:6px;border-radius:50%;background:rgba(247,244,234,.32);flex-shrink:0;}
-.status.armed{color:var(--marigold);border-color:var(--gold-hair);}
-.status.armed i{background:var(--marigold);animation:ping 1.9s ease-out infinite;}
+.status, .status.armed{display:none !important;}
 @keyframes ping{0%{box-shadow:0 0 0 0 currentColor;}100%{box-shadow:0 0 0 9px transparent;}}
 
 .tools{display:flex;gap:8px;margin-left:auto;}
@@ -1510,8 +1503,7 @@ body.previewing #live{top:var(--flag-h);}
     if (s && s.completed) { showNotice(s); return; }
 
     if (server.can_cut) {
-      // The admin, on the projector laptop. No banner: this is the real one.
-      setStatus('Ready · this session will inaugurate the site', 'armed');
+      // The admin, on the projector laptop. Clean presentation: no status chip.
     } else {
       setFlag(PREVIEW_TEXT, false);
       setStatus('Preview · you can watch, only the admin can inaugurate');

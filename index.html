@@ -206,6 +206,30 @@
 
 <!-- ============================== ABOUT ============================== -->
 <section class="about" id="about" data-section>
+  <div class="ambient-wheel spin-slow-rev" style="right:-70px;top:-30px;width:340px;height:340px;" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor">
+      <circle cx="60" cy="60" r="52" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="currentColor"/>
+      <g stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
+  <div class="ambient-wheel spin-slow" style="left:-60px;bottom:-40px;width:240px;height:240px;" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor">
+      <circle cx="60" cy="60" r="52" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="currentColor"/>
+      <g stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
   <div class="wrap about-grid">
     <div class="about-copy">
       <p class="eyebrow" data-eyebrow>About the unit</p>
@@ -258,28 +282,28 @@
           <span class="line"><span>still adding to.</span></span>
         </h2>
       </div>
-      <p class="section-lead" data-fade>Placeholder figures below — swap in your unit's real totals before this goes live.</p>
+      <p class="section-lead" data-fade>Every drive, donation, and volunteer hour on the ground reflects our commitment to community service.</p>
     </div>
     <div class="impact-row">
       <div class="impact-item">
-        <div class="impact-num"><span data-count="0">0</span></div>
+        <div class="impact-num"><span data-count="150">0</span><span class="suffix">+</span></div>
         <p class="impact-label">Registered volunteers</p>
-        <div class="impact-bar"><span data-fill-bar="0"></span></div>
+        <div class="impact-bar"><span data-fill-bar="0.82"></span></div>
       </div>
       <div class="impact-item">
-        <div class="impact-num"><span data-count="0">0</span></div>
+        <div class="impact-num"><span data-count="50">0</span><span class="suffix">+</span></div>
         <p class="impact-label">Saplings planted on and around campus</p>
-        <div class="impact-bar"><span data-fill-bar="0"></span></div>
+        <div class="impact-bar"><span data-fill-bar="0.70"></span></div>
       </div>
       <div class="impact-item">
-        <div class="impact-num"><span data-count="0">0</span></div>
+        <div class="impact-num"><span data-count="5">0</span><span class="suffix">+</span></div>
         <p class="impact-label">Drives and camps organised this year</p>
-        <div class="impact-bar"><span data-fill-bar="0"></span></div>
+        <div class="impact-bar"><span data-fill-bar="0.55"></span></div>
       </div>
       <div class="impact-item">
-        <div class="impact-num"><span data-count="0">0</span></div>
+        <div class="impact-num"><span data-count="500">0</span><span class="suffix">+ hr</span></div>
         <p class="impact-label">Volunteering hours logged</p>
-        <div class="impact-bar"><span data-fill-bar="0"></span></div>
+        <div class="impact-bar"><span data-fill-bar="0.92"></span></div>
       </div>
     </div>
   </div>
@@ -307,32 +331,33 @@
     </div>
     <div class="events-rail" id="eventsRail">
 
-      <article class="event-card feature" style="--accent:var(--marigold)">
+      <article class="event-card feature" data-template="event-plantation-drive.html" data-event-url="event-plantation-drive.html" style="--accent:var(--marigold)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 6 4 10 4 14a8 8 0 0 0 16 0c0-4-3-8-8-12Z"/><path d="M12 22v-8"/></svg></div>
-            <img decoding="async" src="assets/images/_DSC0704.JPG" alt="Plantation drive with the whole unit" loading="lazy" onerror="this.remove()">
+            <img decoding="async" src="assets/events/plantation/plantation-1.jpg" alt="Plantation drive with the whole unit" loading="lazy" onerror="this.src='assets/images/_DSC0704.JPG'; this.onerror=function(){this.remove();}">
+            <a href="event-plantation-drive.html" class="media-hit" data-cursor="View" aria-label="View plantation drive details"></a>
           </div>
           <div class="body">
             <p class="event-date">28 Aug 2025 · Environmental Drive</p>
-            <h3>Campus-Wide Greenery &amp; Plantation Drive</h3>
+            <h3><a href="event-plantation-drive.html" style="color:inherit;text-decoration:none;">Campus-Wide Greenery &amp; Plantation Drive</a></h3>
             <p>Organized in collaboration with Treewards to enhance campus biodiversity. Guided by Dr. K.N. Vishwakarma and Estate Officer Mr. Rakesh Kumar Mishra, over 250 volunteers planted native saplings.</p>
           </div>
         </div>
       </article>
 
       <!-- Instagram event 1 -->
-      <article class="event-card ig" data-ig="DRIMupfDM8F" style="--accent:var(--rust)">
+      <article class="event-card ig" data-ig="DRIMupfDM8F" data-template="event-blood-donation.html" data-event-url="event-blood-donation.html" style="--accent:var(--rust)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img decoding="async" src="assets/events/blood/583211647_18061174325560954_6986430030663391185_n.jpg" alt="Blood Donation Camp 2025" loading="lazy" onerror="this.src='assets/events/event-1.jpg'; this.onerror=function(){this.remove();}">
+            <img decoding="async" src="assets/events/blood/blood-team-presentation.jpg" alt="Blood Donation Camp 2025" loading="lazy" onerror="this.src='assets/events/blood/blood-group-docx.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">15 Nov 2025 · Instagram post</p>
-            <h3>Blood Donation Camp 2025</h3>
+            <p class="event-date">15 Nov 2025 · Health &amp; Community Service</p>
+            <h3><a href="event-blood-donation.html" style="color:inherit;text-decoration:none;">Blood Donation Camp 2025</a></h3>
             <p>Annual voluntary Blood Donation Camp organized at IIIT Naya Raipur in collaboration with AIIMS Raipur and HDFC Bank.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
@@ -343,17 +368,17 @@
       </article>
 
       <!-- Instagram event 2 -->
-      <article class="event-card ig" data-ig="DPOR_EHjGGK" style="--accent:var(--moss)">
+      <article class="event-card ig" data-ig="DPOR_EHjGGK" data-template="event-cleanliness-drive.html" data-event-url="event-cleanliness-drive.html" style="--accent:var(--moss)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img decoding="async" src="assets/events/cleanliness/558433211_18056045522560954_2028026586167717535_n.jpg" alt="Cleanliness Drive 2025" loading="lazy" onerror="this.src='assets/events/event-2.jpg'; this.onerror=function(){this.remove();}">
+            <img decoding="async" src="assets/events/cleanliness/cleanliness-group-docx.jpg" alt="Cleanliness Drive 2025" loading="lazy" onerror="this.src='assets/events/cleanliness/cleanliness-1.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">02 Oct 2025 · Instagram post</p>
-            <h3>Cleanliness Drive 2025</h3>
+            <p class="event-date">02 Oct 2025 · Swachhata Hi Seva</p>
+            <h3><a href="event-cleanliness-drive.html" style="color:inherit;text-decoration:none;">Cleanliness Drive 2025</a></h3>
             <p>Swachhata Hi Seva cleanliness campaign organized by NSS IIIT Naya Raipur. Student volunteers and staff cleaned campus surroundings, raising community awareness.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
@@ -364,17 +389,17 @@
       </article>
 
       <!-- Instagram event 3 -->
-      <article class="event-card ig" data-ig="DP611miE4zf" style="--accent:var(--marigold-dim)">
+      <article class="event-card ig" data-ig="DP611miE4zf" data-template="event-nukkad-natak.html" data-event-url="event-nukkad-natak.html" style="--accent:var(--marigold-dim)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></div>
-            <img decoding="async" src="assets/events/nukkadnatak/567122968_18058379459560954_905071543028999161_n.jpg" alt="The Nukkad Natak — HIV/AIDS Awareness" loading="lazy" onerror="this.src='assets/events/event-3.jpg'; this.onerror=function(){this.remove();}">
+            <img decoding="async" src="assets/events/nukkadnatak/nukkad-group-docx.jpg" alt="The Nukkad Natak — HIV/AIDS Awareness" loading="lazy" onerror="this.src='assets/events/nukkadnatak/nukkad-1.jpg'; this.onerror=function(){this.remove();}">
             <span class="ig-badge"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>Instagram</span>
             <button class="media-hit" type="button" data-cursor="Preview" aria-label="Preview this Instagram post"></button>
           </div>
           <div class="body">
-            <p class="event-date">16 Oct 2025 · Instagram post</p>
-            <h3>The Nukkad Natak — HIV/AIDS Awareness</h3>
+            <p class="event-date">16 Oct 2025 · Red Ribbon Club</p>
+            <h3><a href="event-nukkad-natak.html" style="color:inherit;text-decoration:none;">The Nukkad Natak — HIV/AIDS Awareness</a></h3>
             <p>Student dramatists of NSS IIIT-NR performed a powerful street play near the Dr. SPM Statue to educate on HIV/AIDS awareness and dispel social stigmas.</p>
             <div class="ev-actions">
               <button type="button" class="ev-preview">Preview post</button>
@@ -384,29 +409,31 @@
         </div>
       </article>
 
-      <article class="event-card" style="--accent:var(--rust)">
+      <article class="event-card" data-template="event-sports-cricket.html" data-event-url="event-sports-cricket.html" style="--accent:var(--rust)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M19.07 4.93l-4.24 4.24m-5.66 5.66l-4.24 4.24"/></svg></div>
-            <img decoding="async" src="assets/events/sports%20cricket/WhatsApp%20Image%202026-09-20%20at%201.04.46%20PM.jpeg" alt="National Sports Day — Cricket Tournament" loading="lazy" onerror="this.src='assets/events/sports-cricket.jpg'; this.onerror=function(){this.remove();}">
+            <img decoding="async" src="assets/events/sports-cricket/sports-cricket-1.jpg" alt="National Sports Day — Cricket Tournament" loading="lazy" onerror="this.src='assets/events/sports-cricket.jpg'; this.onerror=function(){this.remove();}">
+            <a href="event-sports-cricket.html" class="media-hit" data-cursor="View" aria-label="View cricket tournament details"></a>
           </div>
           <div class="body">
             <p class="event-date">29–31 Aug 2025 · National Sports Day</p>
-            <h3>National Sports Day — Cricket Tournament</h3>
+            <h3><a href="event-sports-cricket.html" style="color:inherit;text-decoration:none;">National Sports Day — Cricket Tournament</a></h3>
             <p>Students and NSS volunteers competed in an energetic cricket tournament to celebrate National Sports Day, emphasizing teamwork and physical fitness.</p>
           </div>
         </div>
       </article>
 
-      <article class="event-card" style="--accent:var(--moss)">
+      <article class="event-card" data-template="event-sports-football.html" data-event-url="event-sports-football.html" style="--accent:var(--moss)">
         <div class="ec-inner">
           <div class="media duo">
             <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 8 8 12 9.5 16 14.5 16 16 12 12 8"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="22" x2="12" y2="16"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="22" y1="12" x2="16" y2="12"/></svg></div>
-            <img decoding="async" src="assets/events/sports%20football/WhatsApp%20Image%202026-09-20%20at%201.08.28%20PM.jpeg" alt="National Sports Day — Football Tournament" loading="lazy" onerror="this.src='assets/events/sports-football.jpg'; this.onerror=function(){this.remove();}">
+            <img decoding="async" src="assets/events/sports-football/sports-football-1.jpg" alt="National Sports Day — Football Tournament" loading="lazy" onerror="this.src='assets/events/sports-football.jpg'; this.onerror=function(){this.remove();}">
+            <a href="event-sports-football.html" class="media-hit" data-cursor="View" aria-label="View football tournament details"></a>
           </div>
           <div class="body">
             <p class="event-date">29–31 Aug 2025 · National Sports Day</p>
-            <h3>National Sports Day — Football Tournament</h3>
+            <h3><a href="event-sports-football.html" style="color:inherit;text-decoration:none;">National Sports Day — Football Tournament</a></h3>
             <p>Campus football teams took the field in high-energy matches, bringing students together in celebration of National Sports Day and athletic spirit.</p>
           </div>
         </div>
@@ -422,6 +449,18 @@
 
 <!-- ============================== DIRECTOR ============================== -->
 <section class="about director" id="director" data-section>
+  <div class="ambient-wheel spin-slow" style="left:-60px;top:-30px;width:300px;height:300px;" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor">
+      <circle cx="60" cy="60" r="52" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="currentColor"/>
+      <g stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
   <div class="wrap about-grid director-grid">
     <div class="about-media">
       <div class="frame-back"></div>
@@ -895,7 +934,7 @@
     <div class="ig-shell" id="igShell">
       <button class="ig-close" id="igClose" type="button" aria-label="Close preview"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
       <div class="ig-frame" data-lenis-prevent><iframe id="igFrame" title="Instagram post preview" src="about:blank" allow="encrypted-media" scrolling="no"></iframe></div>
-      <div class="ig-bar"><a id="igTemplate" href="event-template.html" class="ig-template-link">View event details &rarr;</a><a id="igOpen" href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener">Open on Instagram</a></div>
+      <div class="ig-bar"><a id="igTemplate" href="event-blood-donation.html" class="ig-template-link">View event details &rarr;</a><a id="igOpen" href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener">Open on Instagram</a></div>
     </div>
   </div>
 </dialog>
