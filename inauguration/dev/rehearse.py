@@ -6,6 +6,11 @@ can be walked end to end: sign in at /admin/, open the ceremony, cut the ribbon,
 the site move to its permanent routing. Everything it writes goes into
 ``.rehearsal/`` beside this repository.
 
+Every run starts clean, discarding the previous one: the usual reason to run this is to
+watch the ceremony from the beginning, and a site left in its inaugurated state shows
+"this ceremony has already been held" on the very page the harness exists to show.
+Pass ``--resume`` to keep the previous run's state instead.
+
 Three things it deliberately cannot do:
 
 * change production configuration — the Nginx controller is stubbed out and never
@@ -21,11 +26,13 @@ allowlist in ``usr/local/sbin/nss-decommission`` does not mention it, and neithe
 
     python inauguration/dev/rehearse.py
     python inauguration/dev/rehearse.py --port 9000
+    python inauguration/dev/rehearse.py --resume     # keep the previous run's state
 """
 
 from __future__ import annotations
 
 import argparse
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -180,15 +187,22 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--port", type=int, default=8787)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument(
+        "--resume", action="store_true",
+        help="continue the previous rehearsal instead of starting clean",
+    )
+    parser.add_argument(
         "--reset", action="store_true",
-        help="start from a clean coming-soon state instead of resuming",
+        help="start from a clean coming-soon state (this is the default)",
     )
     args = parser.parse_args(argv)
 
+    # Every run starts clean unless asked otherwise. A rehearsal is a rehearsal: the
+    # common case is running it again to watch the ceremony from the beginning, and
+    # resuming a site that was already inaugurated shows "this ceremony has already
+    # been held" on the page you opened the harness to see. Opting in to continuity
+    # is the rarer intent, so it is the one that costs a flag.
     root = REPO / ".rehearsal"
-    if args.reset:
-        import shutil
-
+    if not args.resume:
         shutil.rmtree(root, ignore_errors=True)
     root.mkdir(parents=True, exist_ok=True)
 
@@ -203,7 +217,11 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  Ceremony       {base}/inauguration.html")
     print(f"  Sign in as     {REHEARSAL_USER} / {REHEARSAL_PASSWORD}")
     print()
-    print(f"  State and logs live in {root}")
+    if args.resume:
+        print(f"  Resumed the previous rehearsal from {root}")
+    else:
+        print("  Started clean — the site is back at its coming-soon state.")
+        print(f"  Use --resume to keep {root} from the last run instead.")
     print("  Nothing outside that directory is modified; the cleanup is disabled.")
     print()
 

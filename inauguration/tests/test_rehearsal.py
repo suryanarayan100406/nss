@@ -87,3 +87,88 @@ def test_the_rehearsal_never_runs_the_cleanup(tmp_path: Path):
     ok, message = rehearse.refuse_cleanup(None)
     assert ok is False
     assert "disabled" in message.lower()
+
+
+# ---------------------------------------------------------------------------
+# Starting clean
+# ---------------------------------------------------------------------------
+
+
+def _seed_an_inaugurated_rehearsal(state_dir: Path) -> None:
+    """Leave the state directory as a finished rehearsal leaves it.
+
+    ``state_dir`` is the directory main() uses — ``<repo>/.rehearsal`` — not the
+    repository itself. Seeding the wrong directory makes these tests pass without
+    exercising anything, because main() resets a location the assertion never reads.
+    """
+    from app.state import default_state, write_state
+
+    state_dir.mkdir(parents=True, exist_ok=True)
+    settings = rehearse.build_settings(state_dir, "127.0.0.1", 8787)
+    state = default_state()
+    state.update(
+        {
+            "site_mode": "permanent",
+            "countdown_enabled": False,
+            # The cut disables the ceremony in the same step — a completed
+            # inauguration that is still enabled is rejected by validate().
+            "inauguration_enabled": False,
+            "inauguration_completed": True,
+            "completed_at": "2026-10-01T08:09:00+05:30",
+            "completed_by": "Prof. (Dr.) Om Prakash Vyas",
+        }
+    )
+    write_state(settings, state)
+
+
+def _run_main(monkeypatch, repo: Path, argv: list[str]) -> None:
+    """Run main() for real, with the server and the repository redirected."""
+    import uvicorn
+
+    monkeypatch.setattr(rehearse, "REPO", repo)
+    monkeypatch.setattr(uvicorn, "run", lambda *a, **k: None)
+    assert rehearse.main(argv) == 0
+
+
+def _state_after_run(tmp_path: Path, monkeypatch, argv: list[str]):
+    from app.state import read_state
+
+    repo = tmp_path / "repo"
+    state_dir = repo / ".rehearsal"
+    _seed_an_inaugurated_rehearsal(state_dir)
+    _run_main(monkeypatch, repo, argv)
+    return read_state(rehearse.build_settings(state_dir, "127.0.0.1", 8787))
+
+
+def test_a_plain_run_discards_the_previous_rehearsal(tmp_path: Path, monkeypatch):
+    """Running it again is the common case, and the point is to watch the ceremony
+    from the beginning.
+
+    Resuming is what surprises: a site left in its inaugurated state answers the
+    ceremony page with "this ceremony has already been held", which is exactly the
+    page the harness exists to demonstrate, and it reads as a broken rehearsal rather
+    than a stale one. So a plain run starts clean and --resume is the opt-in.
+    """
+    state = _state_after_run(tmp_path, monkeypatch, [])
+
+    assert state["site_mode"] == "coming_soon"
+    assert state["inauguration_completed"] is False
+    assert state["completed_by"] is None
+    assert state["inauguration_enabled"] is False
+
+
+def test_resume_keeps_the_previous_rehearsal(tmp_path: Path, monkeypatch):
+    """The other half: --resume is how you inspect what a cut left behind."""
+    state = _state_after_run(tmp_path, monkeypatch, ["--resume"])
+
+    assert state["site_mode"] == "permanent"
+    assert state["inauguration_completed"] is True
+    assert state["completed_by"] == "Prof. (Dr.) Om Prakash Vyas"
+
+
+def test_reset_is_still_accepted(tmp_path: Path, monkeypatch):
+    """--reset used to be how you asked for this. It now names the default, but a
+    command written from the older README must not start failing with a usage error."""
+    state = _state_after_run(tmp_path, monkeypatch, ["--reset"])
+
+    assert state["site_mode"] == "coming_soon"

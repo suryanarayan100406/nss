@@ -168,14 +168,22 @@ virtualenv and is relocatable if the prefix is identical.
 ### Locally, on any machine
 
 ```bash
-python inauguration/dev/rehearse.py          # http://127.0.0.1:8787
-python inauguration/dev/rehearse.py --reset  # start from a clean coming-soon state
+python inauguration/dev/rehearse.py           # http://127.0.0.1:8787
+python inauguration/dev/rehearse.py --port 9000
+python inauguration/dev/rehearse.py --resume  # keep the previous run's state
 ```
 
 Sign in with `rehearsal` / `rehearsal`. This serves the real site with the real backend
 in front of it, so the ceremony can be walked end to end: sign in at `/admin/`, enable
 the ceremony, open the preview, cut the ribbon, watch the site move to its permanent
 routing.
+
+**Every run starts clean** and discards the previous one. The usual reason to run this
+is to watch the ceremony from the beginning, and a run left in its inaugurated state
+answers the ceremony page with *"this ceremony has already been held"* — the very page
+the harness exists to demonstrate, reading as a broken rehearsal rather than a stale
+one. `--resume` is how you go back and inspect what a cut left behind. `--reset` still
+works; it now names the default.
 
 Three things it deliberately **cannot** do, and will refuse if asked:
 
