@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
 <title>Walkathon ’26 — NSS IIIT Naya Raipur</title>
-<meta name="description" content="NSS IIIT Naya Raipur is pleased to inform you that the Walkathon ’26, organized by Narayana MMI Hospital, Raipur, was held on Sunday, 27 September 2026.">
+<meta name="description" content="Walkathon ’26 organized by Narayana MMI Hospital, Raipur in collaboration with NSS IIIT Naya Raipur on Sunday, 27 September 2026 to promote health and fitness.">
 <meta name="theme-color" content="#0F1712">
 <script>
   /* Marks the page as JS-enabled and adds a failsafe so the loader can never get stuck. */
@@ -18,6 +18,7 @@
 </script>
 <link rel="stylesheet" href="css/style.css">
 <style id="fx-css">
+  /* ===== 3D depth layer + mobile tuning — safe to delete; nothing here changes layout ===== */
   .fx-paused, .fx-paused * { animation-play-state: paused !important; }
   .fx-3d .event-card,
   .fx-3d .quote-card,
@@ -30,6 +31,7 @@
   a, button { -webkit-tap-highlight-color: transparent; }
 </style>
 <style id="mobile-css">
+  /* ===== Mobile tuning — defensive defaults; none of this changes the desktop layout ===== */
   html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   a, button, [role="button"], .magnetic { touch-action: manipulation; }
   body { overflow-x: clip; }
@@ -48,7 +50,7 @@
   .emblem-iiit{ width:32px; height:32px; flex:none; display:flex; align-items:center; justify-content:center;
     margin-left:10px; padding-left:10px; border-left:1px solid rgba(245,241,228,.18); }
   .emblem-iiit img{ width:100%; height:100%; object-fit:contain; }
-  @media (max-width:480px){ .emblem-iiit{ display:none; } }
+  @media (max-width:480px){ .emblem-iiit{ display:none; } }   /* keep the phone header from feeling crowded */
 
   .evp-links{ margin-top:24px; display:flex; gap:12px; flex-wrap:wrap; }
   .evp-ig-link{ display:inline-flex; align-items:center; gap:8px; }
@@ -97,50 +99,87 @@
     background: #142019;
     box-shadow: 0 16px 40px -12px rgba(0,0,0,.5);
   }
-  .evp-table{ width: 100%; border-collapse: collapse; font-size: .9rem; text-align: left; }
-  .evp-table thead{ background: rgba(245,241,228,.06); border-bottom: 1px solid rgba(245,241,228,.16); }
-  .evp-table th{
-    padding: 14px 16px; font-weight: 600; color: var(--bone,#F5F1E4); letter-spacing: .02em;
-    user-select: none; cursor: pointer; white-space: nowrap; transition: color .2s ease;
+  table.evp-table{
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    font-size: .92rem;
+    color: var(--bone, #F5F1E4);
   }
-  .evp-table th:hover{ color: var(--marigold,#E8A63C); }
-  .evp-table th.evp-num{ cursor: default; width: 44px; text-align: center; }
-  .evp-table th .evp-sort{ display: inline-block; width: 8px; height: 8px; margin-left: 6px; opacity: .4; }
-  .evp-table th[data-sort-dir="asc"] .evp-sort::after{ content: "▲"; font-size: .7rem; opacity: 1; color: var(--marigold,#E8A63C); }
-  .evp-table th[data-sort-dir="desc"] .evp-sort::after{ content: "▼"; font-size: .7rem; opacity: 1; color: var(--marigold,#E8A63C); }
-
-  .evp-table tbody tr{ border-bottom: 1px solid rgba(245,241,228,.07); transition: background .18s ease; }
-  .evp-table tbody tr:hover{ background: rgba(232,166,60,.06); }
-  .evp-table td{ padding: 13px 16px; color: rgba(245,241,228,.88); vertical-align: middle; }
-  .evp-table td.evp-num{ text-align: center; color: rgba(245,241,228,.4); font-variant-numeric: tabular-nums; }
-  .evp-badge{
-    display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px;
-    font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  table.evp-table thead th{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: left;
+    background: #0E1712;
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--marigold, #E8A63C);
+    border-bottom: 1px solid rgba(245,241,228,.16);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
   }
-  .evp-badge.present{ background: rgba(46,125,50,.24); color: #81c784; border: 1px solid rgba(129,199,132,.35); }
-  .evp-badge.support{ background: rgba(232,166,60,.18); color: var(--marigold,#E8A63C); border: 1px solid rgba(232,166,60,.35); }
-  .evp-badge.faculty{ background: rgba(142,40,0,.22); color: #ffab91; border: 1px solid rgba(255,171,145,.35); }
+  table.evp-table thead th:hover{ color: var(--bone, #F5F1E4); }
+  table.evp-table thead th.evp-num, table.evp-table tbody td.evp-num{
+    cursor: default;
+    width: 1%;
+    text-align: center;
+    color: var(--marigold, #E8A63C);
+    font-weight: 600;
+  }
+  table.evp-table thead th.evp-num:hover{ color: var(--marigold, #E8A63C); }
+  .evp-sort{ display: inline-block; margin-left: 5px; opacity: .5; font-size: .75em; }
+  th[data-sort-dir="asc"] .evp-sort::after{ content: "▲"; opacity: 1; }
+  th[data-sort-dir="desc"] .evp-sort::after{ content: "▼"; opacity: 1; }
+  table.evp-table tbody td{
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(245,241,228,.08);
+    vertical-align: middle;
+    color: var(--bone, #F5F1E4);
+  }
+  table.evp-table tbody tr:nth-child(even){ background: rgba(245,241,228,.035); }
+  table.evp-table tbody tr:hover{ background: rgba(232,166,60,.1); }
+  table.evp-table tbody tr:last-child td{ border-bottom: none; }
+  tbody{ counter-reset: evprow; }
+  tbody tr{ counter-increment: evprow; }
+  td.evp-num::before{ content: counter(evprow); opacity: .85; font-variant-numeric: tabular-nums; }
 
-  @media (max-width: 768px){
-    .evp-scroll-hint{ display: block; }
-    .evp-table th, .evp-table td{ padding: 10px 12px; font-size: .84rem; }
+  .evp-pill{ display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600; letter-spacing: .01em; }
+  .evp-pill.present{ background: rgba(75, 107, 78, 0.45); color: #B9F6CA; border: 1px solid rgba(185, 246, 202, 0.35); }
+  .evp-pill.absent{ background: rgba(181, 83, 60, 0.38); color: #FFAB91; border: 1px solid rgba(255, 171, 145, 0.35); }
+
+  .evp-table-note{ margin-top: 14px; font-size: .82rem; color: rgba(245,241,228,.65); max-width: 70ch; }
+
+  @media (max-width:640px){
+    .evp-scroll-hint{ display:block; }
+    table.evp-table{ min-width:640px; }
   }
 
   @media print{
-    body * { visibility: hidden !important; }
-    .evp-table-section, .evp-table-section * { visibility: visible !important; }
-    .evp-table-section{ position: absolute; left: 0; top: 0; width: 100%; background: #fff !important; color: #000 !important; padding: 0 !important; }
-    .evp-table{ color: #000 !important; border: 1px solid #ccc; }
-    .evp-table th{ background: #eee !important; color: #000 !important; }
-    .evp-table td{ color: #000 !important; border-bottom: 1px solid #ddd; }
-    .evp-table-tools, .evp-scroll-hint, .eyebrow{ display: none !important; }
+    .site-nav, .hero, .marquee, #footer, #preloader, #grain, #spotlight, #cursorDot, #cursorRing,
+    .evp-table-tools, .evp-gallery, #scrollProgress, .grow{ display:none !important; }
+    body{ background:#fff; color:#000; }
+    .evp-table-section{ background:#fff !important; color:#000 !important; }
+    .evp-table-wrap{ border-color:#000; background:#fff !important; }
+    table.evp-table{ color:#000 !important; }
+    table.evp-table tbody td{ color:#000 !important; border-bottom-color:#ccc !important; }
+    table.evp-table thead th{ background:#fff !important; color:#000 !important; border-bottom:2px solid #000 !important; }
+    table.evp-table tbody tr:nth-child(even){ background:#f2f2f2 !important; }
+    .evp-pill{ border:1px solid #000; background:none !important; color:#000 !important; }
   }
 </style>
 </head>
-<body class="is-loading">
+<body>
 
-<!-- PRELOADER -->
-<div class="preloader" id="preloader" aria-hidden="true">
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="scrollProgress" aria-hidden="true"></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader" aria-hidden="true">
   <div class="pl-flood"></div>
   <div class="pl-stage">
     <svg class="pl-wheel" viewBox="0 0 240 240" fill="none">
@@ -165,6 +204,9 @@
 <div id="cursorDot"></div>
 <div id="cursorRing"><span class="cl"></span></div>
 
+<div class="grow" id="grow" aria-hidden="true"></div>
+
+<!-- ============================== NAVIGATION ============================== -->
 <header class="site-nav" id="siteNav">
   <a href="index.html#top" class="brand">
     <span class="brand-logos">
@@ -179,9 +221,10 @@
             <line x1="25" y1="95" x2="39" y2="81"/><line x1="81" y1="39" x2="95" y2="25"/>
           </g>
         </svg>
+        <img decoding="async" class="spin" src="assets/images/nss_logo.png" alt="NSS emblem" onerror="this.src='assets/images/nss_logo.jpg'; this.onerror=function(){this.remove();}">
       </span>
-      <span class="emblem-iiit" title="IIIT Naya Raipur">
-        <img src="assets/images/iiit.png" alt="IIIT Naya Raipur logo" width="32" height="32">
+      <span class="emblem emblem-iiit" title="IIIT Naya Raipur">
+        <img decoding="async" src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" onerror="this.remove()">
       </span>
     </span>
     <span class="name">NSS<small>IIIT Naya Raipur</small></span>
@@ -206,7 +249,7 @@
       <svg class="hero-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <defs>
           <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0F1712"/><stop offset=".5" stop-color="#20342A"/><stop offset="1" stop-color="#2e5d32"/>
+            <stop offset="0" stop-color="#0F1712"/><stop offset=".5" stop-color="#20342A"/><stop offset="1" stop-color="#8a5a2b"/>
           </linearGradient>
           <radialGradient id="sunG" cx=".5" cy=".5" r=".5">
             <stop offset="0" stop-color="#E8A63C" stop-opacity=".95"/><stop offset=".55" stop-color="#E8A63C" stop-opacity=".25"/><stop offset="1" stop-color="#E8A63C" stop-opacity="0"/>
@@ -219,7 +262,7 @@
         <path d="M0 720 C 300 650 560 700 860 680 S 1360 640 1600 700 V900 H0Z" fill="#20342A"/>
         <path d="M0 800 C 280 760 620 790 900 780 S 1380 760 1600 790 V900 H0Z" fill="#182620"/>
       </svg>
-      <img id="heroImg" fetchpriority="high" decoding="async" src="assets/events/walkathon/walkathon-1.jpg" alt="Walkathon ’26 — NSS IIIT Naya Raipur & Narayana MMI Hospital" onerror="this.remove()">
+      <img id="heroImg" fetchpriority="high" decoding="async" src="assets/events/walkathon/walkathon-1.jpg" alt="Walkathon ’26 organized by Narayana MMI Hospital and NSS IIIT Naya Raipur" onerror="this.src='assets/events/walkathon/walkathon-2.jpg'; this.onerror=function(){this.remove();}">
     </div>
   </div>
   <div class="hero-scrim"></div>
@@ -238,17 +281,17 @@
   </svg>
   <div class="hero-content" id="heroContent">
     <div class="hero-inner">
-      <p class="motto" id="heroMotto">27 Sep 2026 · Community Health &amp; Wellness</p>
+      <p class="motto" id="heroMotto">27 Sep 2026 · Health &amp; Community Wellness</p>
       <h1 class="hero-title" id="heroTitle">
         <span class="line"><span><span class="hl" data-hl>Walkathon</span></span></span>
         <span class="line"><span><span class="hl" data-hl>’26.</span></span></span>
       </h1>
-      <p class="hero-sub" id="heroSub">NSS IIIT Naya Raipur participated in Walkathon ’26 organized by Narayana MMI Hospital, Raipur on Sunday, 27 September 2026, championing cardiovascular health and active living.</p>
+      <p class="hero-sub" id="heroSub">NSS IIIT Naya Raipur is pleased to share that Walkathon ’26, organized by Narayana MMI Hospital, Raipur, was successfully held on Sunday, 27 September 2026.</p>
       <ul class="evp-meta" aria-label="Event details">
         <li><span class="k">Location</span><span class="v">Narayana MMI Route, Raipur</span></li>
-        <li><span class="k">Date & Time</span><span class="v">Sunday, 27 Sep 2026 · 06:00 AM</span></li>
+        <li><span class="k">Date &amp; Time</span><span class="v">27 Sep 2026 · Morning</span></li>
         <li><span class="k">Participants</span><span class="v">200+ Walkers &amp; Volunteers</span></li>
-        <li><span class="k">Organized By</span><span class="v">Narayana MMI Hospital &amp; NSS</span></li>
+        <li><span class="k">Organizers</span><span class="v">Narayana MMI Hospital &amp; NSS</span></li>
       </ul>
       <div class="hero-actions" id="heroActions">
         <a href="#gallery" class="btn-primary magnetic" data-scroll>View photos</a>
@@ -270,7 +313,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
       Narayana MMI Hospital
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-      Heart Health & Fitness
+      Heart Health &amp; Fitness
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
       Community Wellness
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
@@ -278,7 +321,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
       Active Living
       <svg viewBox="0 0 24 24" fill="none" stroke="#E8A63C" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-      Together We Walk
     </span>
   </div>
 </div>
@@ -297,15 +339,27 @@
       </g>
     </svg>
   </div>
+  <div class="ambient-wheel spin-slow" style="left:-60px;bottom:-40px;width:240px;height:240px;" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none" stroke="currentColor">
+      <circle cx="60" cy="60" r="52" stroke-width="2"/>
+      <circle cx="60" cy="60" r="8" fill="currentColor"/>
+      <g stroke-width="2">
+        <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+        <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+        <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+        <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+      </g>
+    </svg>
+  </div>
   <div class="wrap about-grid">
     <div class="about-copy">
-      <p class="eyebrow" data-eyebrow><span class="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--marigold);box-shadow:0 0 10px var(--marigold);margin-right:8px;"></span>27 Sep 2026 · Community Wellness</p>
+      <p class="eyebrow" data-eyebrow><span class="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--marigold);box-shadow:0 0 10px var(--marigold);margin-right:8px;"></span>27 Sep 2026 · Health &amp; Community Wellness</p>
       <h2 class="section-title">
-        <span class="line"><span><span class="hl" data-hl>Every step matters,</span></span></span>
-        <span class="line"><span>every heart beats stronger.</span></span>
+        <span class="line"><span><span class="hl" data-hl>Every step counts,</span></span></span>
+        <span class="line"><span>every stride for health.</span></span>
       </h2>
-      <p class="lead fill-words" data-fill>NSS IIIT Naya Raipur is pleased to share that Walkathon ’26, organized by Narayana MMI Hospital, Raipur, was enthusiastically held on Sunday, 27 September 2026 to promote heart health and active lifestyles.</p>
-      <p data-fade>Guided by NSS Program Officer Dr. Krishnanand Vishwakarma, students, faculty, healthcare experts, and city residents gathered in high spirits at the morning flag-off. Carrying motivational banners and awareness placards, the contingent covered a vibrant route across Raipur, inspiring bystanders to incorporate walking into their everyday routines. The initiative highlighted preventive healthcare and celebrated the power of community walking in maintaining cardiovascular vitality.</p>
+      <p class="lead fill-words" data-fill>NSS IIIT Naya Raipur is pleased to share that Walkathon ’26, organized by Narayana MMI Hospital, Raipur, was enthusiastically held on Sunday, 27 September 2026 to promote cardiovascular health, active living, and community wellness.</p>
+      <p data-fade>Led by the NSS Unit and volunteer contingent, participants gathered early morning for the flag-off alongside medical professionals and citizens from across Raipur. Taking strides through the city with awareness banners and energetic slogans, the walkathon inspired people to embrace walking as a daily healthy habit. The event witnessed spirited participation, fostering community camaraderie and emphasizing preventive healthcare.</p>
       <div class="evp-links">
         <a href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener" class="evp-ig-btn evp-ig-link">
           <svg class="evp-ig-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="3"/></svg>
@@ -318,14 +372,14 @@
       <div class="frame" id="tiltFrame">
         <div class="duo" id="aboutDuo">
           <div class="icon-tile"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:84px;height:84px"><circle cx="12" cy="5" r="3"/><path d="M10 22l2-7 3 3 2 4"/><path d="M14 15l-3-3 1-4 4 3"/></svg></div>
-          <img src="assets/events/walkathon/walkathon-2.jpg" loading="lazy" decoding="async" alt="Walkathon ’26 Participants" onerror="this.remove()">
+          <img src="assets/events/walkathon/walkathon-2.jpg" loading="lazy" decoding="async" alt="Walkathon ’26 participants marching together" onerror="this.remove()">
         </div>
       </div>
       <div class="tag" id="aboutTag">27 Sep 2026, Narayana MMI Route</div>
       <div class="float-chip" id="aboutChip">
         <div class="float-in">
           <svg class="chip-icon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <div class="float-text"><strong>500+</strong><span class="cap">kilometers walked</span></div>
+          <div class="float-text"><strong>200+</strong><span class="cap">walkers &amp; volunteers</span></div>
         </div>
       </div>
     </div>
@@ -342,12 +396,12 @@
     </h2>
     <div class="evp-grid" data-fade>
       <figure>
-        <img src="assets/events/walkathon/walkathon-1.jpg" loading="lazy" decoding="async" alt="NSS IIIT-NR unit and participants holding Walkathon banner" onerror="this.closest('figure').remove()">
-        <figcaption>NSS IIIT-NR volunteers and participants holding the Walkathon ’26 banner</figcaption>
+        <img src="assets/events/walkathon/walkathon-1.jpg" loading="lazy" decoding="async" alt="NSS IIIT Naya Raipur unit and participants holding Walkathon banner" onerror="this.closest('figure').remove()">
+        <figcaption>NSS IIIT-NR volunteers and participants holding the Walkathon ’26 banner at flag-off</figcaption>
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-2.jpg" loading="lazy" decoding="async" alt="Enthusiastic walkers along the morning route" onerror="this.closest('figure').remove()">
-        <figcaption>Enthusiastic student walkers taking strides for heart wellness</figcaption>
+        <figcaption>Enthusiastic student walkers taking strides for cardiovascular wellness</figcaption>
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-3.jpg" loading="lazy" decoding="async" alt="Flag-off ceremony and organizers" onerror="this.closest('figure').remove()">
@@ -355,19 +409,19 @@
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-4.jpg" loading="lazy" decoding="async" alt="Volunteers gathering at the start venue" onerror="this.closest('figure').remove()">
-        <figcaption>Volunteers and participants assembling before the commencement</figcaption>
+        <figcaption>Volunteers and participants assembling before the commencement of the walk</figcaption>
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-5.jpg" loading="lazy" decoding="async" alt="Community members walking in solidarity" onerror="this.closest('figure').remove()">
-        <figcaption>Community members and students walking in solidarity for health</figcaption>
+        <figcaption>Community members and students walking in solidarity for health and fitness</figcaption>
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-6.jpg" loading="lazy" decoding="async" alt="Walkathon route progress across Raipur" onerror="this.closest('figure').remove()">
-        <figcaption>Spreading awareness on healthy lifestyle and cardiovascular fitness</figcaption>
+        <figcaption>Spreading awareness on active living and preventive cardiovascular health</figcaption>
       </figure>
       <figure>
         <img src="assets/events/walkathon/walkathon-7.jpg" loading="lazy" decoding="async" alt="Celebration at the finish line" onerror="this.closest('figure').remove()">
-        <figcaption>NSS volunteers celebrating the triumphant completion of Walkathon ’26</figcaption>
+        <figcaption>NSS volunteers and participants celebrating the triumphant completion of Walkathon ’26</figcaption>
       </figure>
     </div>
   </div>
@@ -378,8 +432,8 @@
   <div class="wrap">
     <div class="evp-table-head">
       <div>
-        <p class="eyebrow" data-eyebrow>Coordinators & Volunteers</p>
-        <h2 class="section-title"><span class="line"><span>Faculty & Student Team.</span></span></h2>
+        <p class="eyebrow" data-eyebrow>Organizers &amp; Volunteers</p>
+        <h2 class="section-title"><span class="line"><span>Core Team &amp; Volunteers.</span></span></h2>
       </div>
       <div class="evp-table-tools">
         <input type="search" id="evpSearch" placeholder="Search by name, department or role…" aria-label="Search participants">
@@ -396,7 +450,7 @@
             <th scope="col" data-sort="text">Name<span class="evp-sort"></span></th>
             <th scope="col" data-sort="text">Role / Category<span class="evp-sort"></span></th>
             <th scope="col" data-sort="text">Department<span class="evp-sort"></span></th>
-            <th scope="col" data-sort="text">Batch<span class="evp-sort"></span></th>
+            <th scope="col" data-sort="text">Year / Batch<span class="evp-sort"></span></th>
             <th scope="col" data-sort="text">Contribution<span class="evp-sort"></span></th>
             <th scope="col" data-sort="text">Status<span class="evp-sort"></span></th>
           </tr>
@@ -407,9 +461,18 @@
             <td>Dr. Krishnanand Vishwakarma</td>
             <td>Program Officer</td>
             <td>Faculty / Physics</td>
-            <td>Faculty Mentor</td>
-            <td>Delegation Lead &amp; Faculty In-Charge</td>
-            <td><span class="evp-badge faculty">Faculty</span></td>
+            <td>Faculty</td>
+            <td>Coordination &amp; Delegation Lead</td>
+            <td><span class="evp-pill present">Present</span></td>
+          </tr>
+          <tr data-attendance="present">
+            <td class="evp-num"></td>
+            <td>Dr. Lakhindar Murmu</td>
+            <td>Program Officer / SAC</td>
+            <td>Faculty / HSS</td>
+            <td>Faculty</td>
+            <td>Mentorship &amp; Guidance</td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -418,7 +481,7 @@
             <td>CSE</td>
             <td>Batch 2023</td>
             <td>Overall Walkathon Coordination &amp; Logistics</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -427,7 +490,7 @@
             <td>DSAI</td>
             <td>Batch 2023</td>
             <td>Volunteer Management &amp; Hospitality</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -436,7 +499,7 @@
             <td>ECE</td>
             <td>Batch 2023</td>
             <td>Event Media &amp; Route Coordination</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -445,7 +508,7 @@
             <td>CSE</td>
             <td>Batch 2023</td>
             <td>Route Marshal &amp; Safety Support</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -454,7 +517,7 @@
             <td>DSAI</td>
             <td>Batch 2023</td>
             <td>Participant Registration &amp; Hydration</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -463,7 +526,7 @@
             <td>CSE</td>
             <td>Batch 2023</td>
             <td>Crowd Management &amp; Banner Support</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -472,7 +535,7 @@
             <td>ECE</td>
             <td>Batch 2023</td>
             <td>Health Awareness Campaign Lead</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -481,7 +544,7 @@
             <td>DSAI</td>
             <td>Batch 2023</td>
             <td>Event Documentation &amp; Photography</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -490,7 +553,7 @@
             <td>CSE</td>
             <td>Batch 2023</td>
             <td>Volunteer Marshalling &amp; Refreshments</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
           <tr data-attendance="present">
             <td class="evp-num"></td>
@@ -499,60 +562,228 @@
             <td>ECE</td>
             <td>Batch 2023</td>
             <td>First-Aid Coordination &amp; Route Logistics</td>
-            <td><span class="evp-badge present">Present</span></td>
+            <td><span class="evp-pill present">Present</span></td>
           </tr>
         </tbody>
       </table>
     </div>
+    <p class="evp-table-note">Faculty coordinators, student leads, and NSS volunteers participating in Walkathon ’26.</p>
   </div>
 </section>
 
 </main>
 
+<div id="footerReveal" aria-hidden="true"></div>
+
+<!-- ============================== FOOTER ============================== -->
 <footer id="footer">
-  <div class="wrap footer-top">
-    <div class="f-brand">
-      <div class="f-logo">
-        <span class="emblem" style="width:48px;height:48px;"><svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="52" stroke="#F5F1E4" stroke-width="4"/><circle cx="60" cy="60" r="8" fill="#E8A63C"/><g stroke="#F5F1E4" stroke-width="4"><line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/><line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/><line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/><line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/></g></svg></span>
-        <div><span class="f-title">National Service Scheme</span><span class="f-sub">IIIT Naya Raipur · Unit 01</span></div>
-      </div>
-      <p class="f-desc">Education through community service. An institutional program empowering engineering students to address societal challenges through voluntary action, health initiatives, and sustainability.</p>
+  <svg class="footer-wheel" id="footerWheel" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" stroke="currentColor" stroke-width="2"/>
+    <circle cx="60" cy="60" r="8" fill="currentColor"/>
+    <g stroke="currentColor" stroke-width="2">
+      <line x1="60" y1="8" x2="60" y2="26"/><line x1="60" y1="94" x2="60" y2="112"/>
+      <line x1="8" y1="60" x2="26" y2="60"/><line x1="94" y1="60" x2="112" y2="60"/>
+      <line x1="23" y1="23" x2="35" y2="35"/><line x1="85" y1="85" x2="97" y2="97"/>
+      <line x1="23" y1="97" x2="35" y2="85"/><line x1="85" y1="35" x2="97" y2="23"/>
+    </g>
+  </svg>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="https://www.iiitnr.ac.in/" target="_blank" rel="noopener" class="footer-logo-link" title="Dr. SPM IIIT Naya Raipur">
+        <img decoding="async" src="assets/images/iiit.png" alt="IIIT Naya Raipur Logo" class="footer-logo" width="56" height="56">
+      </a>
+      <p class="footer-note">NSS unit of Dr. SPM IIIT Naya Raipur — students serving the communities around campus.</p>
     </div>
-    <div class="f-col">
-      <h4>Navigation</h4>
+    <nav class="footer-links" aria-label="Footer">
       <a href="index.html#about">About</a>
       <a href="index.html#events">Events</a>
       <a href="team.html">Team</a>
       <a href="index.html#impact">Impact</a>
-      <a href="index.html#director">Director's Message</a>
-      <a href="index.html#join">Join the unit</a>
-    </div>
-    <div class="f-col">
-      <h4>More Events</h4>
-      <a href="event-blood-donation.html">Blood Donation Camp</a>
-      <a href="event-cleanliness-drive.html">Cleanliness Drive</a>
-      <a href="event-nukkad-natak.html">HIV/AIDS Nukkad Natak</a>
-      <a href="event-plantation-drive.html">Plantation Drive</a>
-      <a href="event-sports-cricket.html">Cricket Tournament</a>
-      <a href="event-sports-football.html">Football Tournament</a>
-    </div>
-    <div class="f-col">
-      <h4>Connect</h4>
-      <a href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.linkedin.com/company/nss-iiitnr/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.iiitnr.ac.in/" target="_blank" rel="noopener">IIIT Naya Raipur</a>
-    </div>
+      <a href="index.html#join">Join</a>
+    </nav>
   </div>
-  <div class="wrap footer-bottom">
+  <p class="footer-big" id="footerBig" aria-label="Not me, but you.">
+    <span class="fl" aria-hidden="true">Not me,</span>
+    <span class="fl" aria-hidden="true">but you.</span>
+  </p>
+  <div class="footer-bar">
     <span>© 2026 NSS, IIIT Naya Raipur. Not Me, But You.</span>
-    <span>Site handcrafted with pride by student volunteers.</span>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/nss_iiitnr/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      </a>
+      <a href="https://x.com/NSS_IIITNR" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M20 4L4 20"/></svg>
+      </a>
+      <a href="mailto:nss@iiitnr.edu.in" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </a>
+    </div>
+    <a href="#top" class="to-top" data-scroll>Back to top ↑</a>
   </div>
 </footer>
 
-<script src="vendor/lenis.min.js"></script>
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/DrawSVGPlugin.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var html = document.documentElement;
+  var qp = '';
+  try { qp = new URLSearchParams(location.search).get('fx') || ''; } catch (e) {}
+  if (qp === 'off' || html.getAttribute('data-fx') === 'off' || window.NSS_FX === false) return;
+
+  var qs = function (s, r) { return (r || document).querySelector(s); };
+  var qsa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var clamp = function (v, a, b) { return v < a ? a : (v > b ? b : v); };
+  var hasIO = 'IntersectionObserver' in window;
+
+  if (hasIO) {
+    var spinners = qsa('.ambient-wheel, .join-wheel, .footer-wheel, .marquee, .team-marquee');
+    if (spinners.length) {
+      var spio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.target.classList.toggle('fx-paused', !e.isIntersecting); });
+      }, { rootMargin: '150px 0px' });
+      spinners.forEach(function (s) { spio.observe(s); });
+    }
+  }
+
+  function tuneScrollTrigger() {
+    try { if (window.ScrollTrigger && ScrollTrigger.config) ScrollTrigger.config({ ignoreMobileResize: true }); } catch (e) {}
+  }
+  tuneScrollTrigger();
+
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!(window.CSS && CSS.supports && CSS.supports('rotate', '1 0 0 10deg') && CSS.supports('translate', '0 0 10px'))) return;
+
+  var nav = navigator, conn = nav.connection || {};
+  var coarse = matchMedia('(pointer: coarse)').matches || matchMedia('(hover: none)').matches;
+  var lite = !!conn.saveData || (nav.deviceMemory && nav.deviceMemory <= 2) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 3);
+  var tier = qp === 'lite' ? 1 : qp === 'mobile' ? 2 : qp === 'full' ? 3 : lite ? 1 : (coarse || innerWidth < 820) ? 2 : 3;
+  var K = tier === 3 ? 1 : (tier === 2 ? 0.62 : 0.5);
+
+  var vw = innerWidth, vh = innerHeight;
+  var scenes = [], queued = false;
+
+  function put(el, rx, ry, x, y, z) {
+    if (!el.__g) {
+      el.__g = 1;
+      if (getComputedStyle(el).transitionProperty === 'all') {
+        el.style.transitionProperty = 'transform, opacity, box-shadow, background-color, border-color, color, filter';
+      }
+    }
+    var m = Math.sqrt(rx * rx + ry * ry);
+    var r = m < 0.02 ? 'none' : (rx / m).toFixed(3) + ' ' + (ry / m).toFixed(3) + ' 0 ' + m.toFixed(2) + 'deg';
+    var t = (Math.abs(x || 0) + Math.abs(y || 0) + Math.abs(z || 0)) < 0.05 ? 'none'
+          : (x || 0).toFixed(1) + 'px ' + (y || 0).toFixed(1) + 'px ' + (z || 0).toFixed(1) + 'px';
+    if (el.__r !== r || !el.style.rotate) { el.style.rotate = r; el.__r = r; }
+    if (el.__t !== t || !el.style.translate) { el.style.translate = t; el.__t = t; }
+  }
+
+  function heroScene() {
+    var hero = qs('#top'); if (!hero) return null;
+    var content = qs('#heroContent'), inner = qs('.hero-inner', hero), wheel = qs('#heroWheel');
+    if (content && inner) content.style.perspective = '1000px';
+    if (wheel && tier >= 2) hero.style.perspective = '1400px';
+    var p = 0, last = -1;
+    return {
+      root: hero, live: false, visible: true,
+      read: function () { p = clamp((window.pageYOffset || 0) / ((hero.offsetHeight || vh) * 0.9), 0, 1); },
+      write: function () {
+        if (Math.abs(p - last) < 0.002) return;
+        last = p;
+        var e = p * p * (3 - 2 * p);
+        if (inner) put(inner, e * 26 * K, 0, 0, -e * 30, -e * 240 * K);
+        if (wheel && tier >= 2) put(wheel, e * 20 * K, e * 150 * K, 0, 0, 0);
+      }
+    };
+  }
+
+  function aboutScene() {
+    var grid = qs('#about .about-grid'), media = qs('#about .about-media');
+    if (!grid || !media || tier < 2) return null;
+    var frame = qs('#tiltFrame', media), tag = qs('#aboutTag', media), chip = qs('#aboutChip', media);
+    media.style.perspective = '1200px';
+    var p = 0;
+    return {
+      root: grid, live: false, visible: true,
+      read: function () {
+        var r = grid.getBoundingClientRect();
+        p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+      },
+      write: function () {
+        var a = (p - 0.5) * 2;
+        if (frame) put(frame, -a * 10 * K, a * 12 * K, 0, 0, 0);
+        if (tag) put(tag, 0, 0, a * 8 * K, -a * 6 * K, 18 * K);
+        if (chip) put(chip, 0, 0, -a * 10 * K, a * 8 * K, 28 * K);
+      }
+    };
+  }
+
+  function request() { if (!queued) { queued = true; requestAnimationFrame(renderFrame); } }
+
+  function renderFrame() {
+    queued = false;
+    if (document.hidden) return;
+    var act = [], again = false, i, s;
+    for (i = 0; i < scenes.length; i++) {
+      s = scenes[i];
+      if (!s.visible) continue;
+      act.push(s);
+      if (s.live) again = true;
+    }
+    for (i = 0; i < act.length; i++) act[i].read();
+    for (i = 0; i < act.length; i++) act[i].write();
+    if (again) request();
+  }
+
+  var rt;
+  function remeasure() { scenes.forEach(function (s) { if (s.measure) s.measure(); }); request(); }
+
+  window.addEventListener('scroll', request, { passive: true });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) request(); });
+  window.addEventListener('resize', function () {
+    var w = innerWidth; vh = innerHeight;
+    if (w === vw) { request(); return; }
+    vw = w; clearTimeout(rt); rt = setTimeout(remeasure, 150);
+  });
+
+  function whenReady(fn) {
+    if (document.documentElement.classList.contains('is-loading')) {
+      var obs = new MutationObserver(function () {
+        if (!document.documentElement.classList.contains('is-loading')) {
+          obs.disconnect();
+          setTimeout(fn, 120);
+        }
+      });
+      obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    } else {
+      setTimeout(fn, 60);
+    }
+  }
+
+  whenReady(function () {
+    [heroScene(), aboutScene()].forEach(function (s) { if (s) scenes.push(s); });
+    if (!scenes.length) return;
+    if (hasIO) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var targetScene = scenes.find(function (sc) { return sc.root === e.target; });
+          if (targetScene) targetScene.visible = e.isIntersecting;
+        });
+        request();
+      }, { rootMargin: '160px 0px' });
+      scenes.forEach(function (s) { io.observe(s.root); });
+    }
+    html.classList.add('fx-3d');
+    request();
+  });
+})();
+</script>
 
 <!-- ==================== PARTICIPANTS TABLE: search + sort + print ==================== -->
 <script>
